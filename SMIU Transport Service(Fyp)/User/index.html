@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STS|SMIU transport Service</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../Signup/signup.css">
+<link rel="stylesheet" href="userstyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../font/fontawesome-free-5.15.1-web/css/all.css">
+</head>
+<link rel="icon" href="../logo/Title-logo.png" type="image/gif">
+</head>
+<body>
+    <nav class=" navbar usernavbar-color">
+      <a class="navbar-brand " href="index.html">
+        <img src="../logo/LOGO-YELLOW.png" height="70px" class="d-inline-block align-top main-logo " alt="SMIU TRANSPORT" loading="lazy">
+      </a>
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item lg">
+                  <button type="submit" class="btn signuplgnbtn navbar-btn nav-link lgoutbtn pr-2" onclick="window.location.href='../index.html'"><i class="fas fa-sign-out-alt m-2" aria-hidden="true"></i>Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+  <div class="container-fluid">
+    <div class="row">
+        <div >
+            <div class="d-flex justify-content-between align-items-center breaking-news newsbg">
+                <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Announcement <i class="fas fa-bullhorn m-1"></i></span></div>
+                <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> The Vice Chancellor of Sindh Madressatul Islam University, Dr. Mujeeb Uddin Sahrai Memon said, “We will update the curriculum as per the contemporary requirements and also try to add some more subjects related to Islamic Banking as a part of our curriculum. He passed these remarks while speaking to a seminar organized by the Department of Accounting, Banking and Finance on “Overview of Islamic Finance and its Curriculum Development; National Financial Inclusion Strategy 2023” at Senate Hall on Monday. Admiring the effort of the department he furthered whenever any topic connected to religion it become a sensitive issue and while taking about it, a person has to understand it in-depth. Director of Centre for Excellence in Islamic Finance, IBA, Ahmed Ali Siddiqui said in his online addressed the most frequently asked question is, can banking be Islamic or not. While it is a comprehensive economic system and it is strengthening around the world. trading and partnership is Islamic Banking but lending is not, he said. While talking about the statistics he said there are more than 1300 Islamic Financial Institutions around the globe having size of 2.80 trillion. “Worldwide more than 150 million customers are using Islamic Financial services.” said Mr. Siddiqui. Assistant Professor of Centre for Excellence in Islamic Finance, Institute of Business Administration, Irum Saba said that the purpose of holding this seminar is to promote Islamic Banking because the next era is about Islamic Banking, so we need to prepare students as per the need of the practical life. It is important to introduce at least one course of Islamic Banking at undergraduate level and announce a specialized course in the last year, she said, adding that there are thousands of Islamic banking jobs in the field but no appropriate candidates are available. Chairperson and Dean of the Department Dr. Jamshed Adil also addressed on the occasion. At the end of the ceremony, the Vice Chancellor also presented shields to the guests. Students and teachers also attended in the seminar</marquee>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="container" class="container">
+ 
+  <div class="accountcontainer">
+    <div class="top-headings"><h3 id="userpgName"><i class="fas fa-user-circle mr-2"></i>Talha Siddiqui</h3> </div>
+    <div class="grid-container">
+      <div class="sts-hd-logo"><h4>STS Credit</h4><span id="stscrdtamnt" >10000<i class="fas fa-coins m-2"></i></span></div>
+      <div class="id-hd lefttext">ID:</div>
+      <div class="id-val righttext"><span id="userpgId">16FBSCSM013</span></div>
+      <!-- <div class="name-hd lefttext">Name:</div>
+      <div class="name-val righttext"><span id="userpgName">Talha Siddiqui</span></div> -->
+      <div class="email-hd lefttext">Email:</div>
+      <div class="email-val righttext"><span id="userpgEmail">talhasiddiqui975@gmail.com</span></div>
+      <div class="gender-hd lefttext">Gender:</div>
+      <div class="gender-val righttext"><span id="userpgGender">Male</span></div>
+      <div class="phn-hd lefttext">Phone Number:</div>
+      <div class="phn-val righttext"><span id="userpgPhone">3009222867</span></div>
+      <div class="Address-hd lefttext">Address:</div>
+      <div class="address-val righttext"><span id="userpgAddress">SR-670 PIB COLONY, KARACHI, SINDH, PAKISTAN</span></div>
+      <div class="subs-bus-hd"><h6>Subscribed Bus</h6><a href="#" id="user-bus-val">BUS # 1</a></div>
+      <div class="passchng-hd"><h5>Change password</h5></div>
+      <div class="old-pass-hd lefttext"><label for="useroldpass">Old password</label></div>
+      <div class="old-pass-val"><input type="password" id="useroldpass" class="bordergreen"></div>
+      <div class="newpass-hd lefttext"><label for="usernewpass">New password</label></div>
+      <div class="newpass-val"><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
+      <div class="confirm-new-pass-hd lefttext"><label for="userconfnewpass"   >Confirm new password</label></div>
+      <div class="confirm-new-pass-val"><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
+      <div class="save-pass-btn"><button type="submit" id="userpasssavebtn" class="signuplgnbtn savebtn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div>
+    </div>  
+  </div>
+  <div class="buscontainer">
+
+   <div class="top-headings"><h2><i class="fas fa-bus mr-3"></i>Buses</h2> </div>
+   
+   <div id="Scrollparent">
+     
+    <div id="scrolldiv" style="overflow: auto;">
+      <div class="accordion" id="Buses">
+      <div class="card card-custom">
+        <div class="card-header" id="BusOne">
+          <h2 class="mb-0">
+            <button class="btn btn-link bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusOne" aria-expanded="true" aria-controls="collapseBusOne">
+              BUS # 1
+            </button>
+          </h2>
+        </div>
+    
+        <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <span class="mor-eve-hd">Morning</span>
+                </div>
+                <div class="col">
+                  <span class="mor-eve-hd">Evening</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                </div>
+                <div class="col">
+                  <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                </div>
+                <div class="col">
+                  <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                </div>
+                <div class="col">
+                  <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span>Point 1</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+                <div class="col">
+                  <span>Point 1</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span>Point 2</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+                <div class="col">
+                  <span>Point 2</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span>Point 3</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+                <div class="col">
+                  <span>Point 3</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span>Point 4</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+                <div class="col">
+                  <span>Point 4</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <span>Point 5</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+                <div class="col">
+                  <span>Point 5</span>
+                </div>
+                <div class="col">
+                  <span>00:00</span>
+                </div>
+              </div>
+            </div>
+              <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion" id="Buses">
+        <div class="card card-custom">
+          <div class="card-header" id="BusTwo">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusTwo" aria-expanded="false" aria-controls="collapseBusTwo">
+                BUS # 2
+              </button>
+            </h2>
+          </div>
+      
+          <div id="collapseBusTwo" class="collapse" aria-labelledby="BusTwo" data-parent="#Buses">
+            <div class="card-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <span class="mor-eve-hd">Morning</span>
+                  </div>
+                  <div class="col">
+                    <span class="mor-eve-hd">Evening</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Points</b></span>
+                  </div>
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Time</b></span>
+                  </div>
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Points</b></span>
+                  </div>
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Time</b></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 1</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 1</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 2</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 2</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 3</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 3</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 4</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 4</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 5</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 5</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
+            </div>
+            </div>
+          </div>
+      </div>  
+      <div class="accordion" id="Buses">
+          <div class="card card-custom">
+            <div class="card-header" id="BusThree">
+              <h2 class="mb-0">
+                <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusThree" aria-expanded="false" aria-controls="collapseBusThree">
+                  BUS # 3
+                </button>
+              </h2>
+            </div>
+        
+            <div id="collapseBusThree" class="collapse" aria-labelledby="BusThree" data-parent="#Buses">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <span class="mor-eve-hd">Morning</span>
+                    </div>
+                    <div class="col">
+                      <span class="mor-eve-hd">Evening</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span class="pnts-time-hd"><b>Points</b></span>
+                    </div>
+                    <div class="col">
+                      <span class="pnts-time-hd"><b>Time</b></span>
+                    </div>
+                    <div class="col">
+                      <span class="pnts-time-hd"><b>Points</b></span>
+                    </div>
+                    <div class="col">
+                      <span class="pnts-time-hd"><b>Time</b></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span>Point 1</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                    <div class="col">
+                      <span>Point 1</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span>Point 2</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                    <div class="col">
+                      <span>Point 2</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span>Point 3</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                    <div class="col">
+                      <span>Point 3</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span>Point 4</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                    <div class="col">
+                      <span>Point 4</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <span>Point 5</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                    <div class="col">
+                      <span>Point 5</span>
+                    </div>
+                    <div class="col">
+                      <span>00:00</span>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
+              </div>
+              </div>
+            </div>
+      </div> 
+      <div class="accordion" id="Buses">
+            <div class="card card-custom">
+              <div class="card-header" id="BusFour">
+                <h2 class="mb-0">
+                  <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusFour" aria-expanded="false" aria-controls="collapseBusFour">
+                    BUS # 4
+                  </button>
+                </h2>
+              </div>
+          
+              <div id="collapseBusFour" class="collapse" aria-labelledby="BusFour" data-parent="#Buses">
+                <div class="card-body">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col">
+                        <span class="mor-eve-hd">Morning</span>
+                      </div>
+                      <div class="col">
+                        <span class="mor-eve-hd">Evening</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <span class="pnts-time-hd"><b>Points</b></span>
+                      </div>
+                      <div class="col">
+                        <span class="pnts-time-hd"><b>Time</b></span>
+                      </div>
+                      <div class="col">
+                        <span class="pnts-time-hd"><b>Points</b></span>
+                      </div>
+                      <div class="col">
+                        <span class="pnts-time-hd"><b>Time</b></span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <span>Point 1</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                      <div class="col">
+                        <span>Point 1</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <span>Point 2</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                      <div class="col">
+                        <span>Point 2</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <span>Point 3</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                      <div class="col">
+                        <span>Point 3</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <span>Point 4</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                      <div class="col">
+                        <span>Point 4</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <span>Point 5</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                      <div class="col">
+                        <span>Point 5</span>
+                      </div>
+                      <div class="col">
+                        <span>00:00</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
+                </div>
+                </div>
+              </div>
+      </div> 
+      <div class="accordion" id="Buses">
+              <div class="card card-custom">
+                <div class="card-header" id="BusFive">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusFive" aria-expanded="false" aria-controls="collapseBusFive">
+                      BUS # 5
+                    </button>
+                  </h2>
+                </div>
+            
+                <div id="collapseBusFive" class="collapse" aria-labelledby="BusFive" data-parent="#Buses">
+                  <div class="card-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col">
+                          <span class="mor-eve-hd">Morning</span>
+                        </div>
+                        <div class="col">
+                          <span class="mor-eve-hd">Evening</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <span class="pnts-time-hd"><b>Points</b></span>
+                        </div>
+                        <div class="col">
+                          <span class="pnts-time-hd"><b>Time</b></span>
+                        </div>
+                        <div class="col">
+                          <span class="pnts-time-hd"><b>Points</b></span>
+                        </div>
+                        <div class="col">
+                          <span class="pnts-time-hd"><b>Time</b></span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <span>Point 1</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                        <div class="col">
+                          <span>Point 1</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <span>Point 2</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                        <div class="col">
+                          <span>Point 2</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <span>Point 3</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                        <div class="col">
+                          <span>Point 3</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <span>Point 4</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                        <div class="col">
+                          <span>Point 4</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <span>Point 5</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                        <div class="col">
+                          <span>Point 5</span>
+                        </div>
+                        <div class="col">
+                          <span>00:00</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
+                  </div>
+                  </div>
+                </div>
+      </div> 
+      <div class="accordion" id="Buses">
+                <div class="card card-custom">
+                  <div class="card-header" id="BusSix">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusSix" aria-expanded="false" aria-controls="collapseBusSix">
+                        BUS # 6
+                      </button>
+                    </h2>
+                  </div>
+              
+                  <div id="collapseBusSix" class="collapse" aria-labelledby="BusSix" data-parent="#Buses">
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            <span class="mor-eve-hd">Morning</span>
+                          </div>
+                          <div class="col">
+                            <span class="mor-eve-hd">Evening</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span class="pnts-time-hd"><b>Points</b></span>
+                          </div>
+                          <div class="col">
+                            <span class="pnts-time-hd"><b>Time</b></span>
+                          </div>
+                          <div class="col">
+                            <span class="pnts-time-hd"><b>Points</b></span>
+                          </div>
+                          <div class="col">
+                            <span class="pnts-time-hd"><b>Time</b></span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span>Point 1</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                          <div class="col">
+                            <span>Point 1</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span>Point 2</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                          <div class="col">
+                            <span>Point 2</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span>Point 3</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                          <div class="col">
+                            <span>Point 3</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span>Point 4</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                          <div class="col">
+                            <span>Point 4</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <span>Point 5</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                          <div class="col">
+                            <span>Point 5</span>
+                          </div>
+                          <div class="col">
+                            <span>00:00</span>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
+                    </div>
+                    </div>
+                  </div>
+      </div> 
+      <div class="accordion" id="Buses">
+                  <div class="card card-custom">
+                    <div class="card-header" id="BusSeven">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusSeven" aria-expanded="false" aria-controls="collapseBusSeven">
+                          BUS # 7
+                        </button>
+                      </h2>
+                    </div>
+                
+                    <div id="collapseBusSeven" class="collapse" aria-labelledby="BusSeven" data-parent="#Buses">
+                      <div class="card-body">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col">
+                              <span class="mor-eve-hd">Morning</span>
+                            </div>
+                            <div class="col">
+                              <span class="mor-eve-hd">Evening</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <span class="pnts-time-hd"><b>Points</b></span>
+                            </div>
+                            <div class="col">
+                              <span class="pnts-time-hd"><b>Time</b></span>
+                            </div>
+                            <div class="col">
+                              <span class="pnts-time-hd"><b>Points</b></span>
+                            </div>
+                            <div class="col">
+                              <span class="pnts-time-hd"><b>Time</b></span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <span>Point 1</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                            <div class="col">
+                              <span>Point 1</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <span>Point 2</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                            <div class="col">
+                              <span>Point 2</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <span>Point 3</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                            <div class="col">
+                              <span>Point 3</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <span>Point 4</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                            <div class="col">
+                              <span>Point 4</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <span>Point 5</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                            <div class="col">
+                              <span>Point 5</span>
+                            </div>
+                            <div class="col">
+                              <span>00:00</span>
+                            </div>
+                          </div>
+                        </div>
+                          <button type="submit" name="subscribe" id="subscribe" class="btn-subs">Subscribe</button>
+                        </div>
+                      </div>
+                    </div>
+      </div>           
+    <div>
+</div>
+</div>
+   </div>
+  </div>
+</div>
+<footer class="page-footer" >
+  <div class="footer-copyright text-center py-3 footer-copyright-custom ">
+      <div class="footer-container-custom">© 2020 Copyright:
+          <a href="https://smiu.edu.pk/" target="_blank"> SMIU</a> <span>Created by</span>  <a href="https://talha-siddiqui-portfolio.web.app/" target="_blank"><span><i>Talha Siddiqui</i></span></a>
+      </div>
+  </div>
+</footer>
+<script src="userapp.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="../app.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+</body>
+</html>
+
