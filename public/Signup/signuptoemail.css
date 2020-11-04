@@ -18,7 +18,7 @@ body{
     margin-right: auto;
     padding-top: 40px;
     text-align: center;
-    animation: 1.25s ease-out 0s 1 slideInFromLeft;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
 
 }
 .signuptoemail-cntnt img{

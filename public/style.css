@@ -84,7 +84,7 @@ body {
     top:90px;
     width: 100%;
     min-height: 94%;
-    animation: fadeInAnimationImg ease 3s; 
+    animation: fadeInAnimationImg ease 2s; 
             animation-iteration-count: 1; 
             animation-fill-mode: forwards;
 }
@@ -93,18 +93,18 @@ body {
     background: linear-gradient(45deg,#047062,#0c646d);
     height: 90px;
 }
-.main-logo{
+/* .main-logo{
     animation: 1s ease-out 0s 1 slideInFromLeft;
 
-}
+} */
 .logodiv{
     position: absolute;
     left: 48%;
     margin-left: -123px !important;
     display: block;
-    animation: fadeInAnimation ease 3s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+    /* animation: fadeInAnimation ease 3s; */
+    /* animation-iteration-count: 1; */
+    /* animation-fill-mode: forwards; */
 }
 .logincontn-custom {
     display: flex;
@@ -117,7 +117,7 @@ body {
     max-width: 540px;
     min-height: 50vh;
     background: linear-gradient(375deg, #c96b1bc9, #dbb696ab);
-    box-shadow: 0 0 5px #c68c5b;
+    box-shadow: 0 0 6px #242221;
     z-index: 500;
 }
 .login-custom{
@@ -127,7 +127,7 @@ body {
     width: 100%;
     min-height: 69vh;
     background-size: cover;
-    animation: 1.25s ease-out 0s 1 slideInFromLeft;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
 }
 .col-md-8-custom{
     max-width: none !important;
@@ -181,9 +181,9 @@ body {
     position: relative;
     bottom: 0;
 }
-.footer-container-custom{
+/* .footer-container-custom{
     animation: 2s ease-out 0s 1 slideInFromLeft;
-}
+} */
 .footer-container-custom a{
     color: #b1f1ee;
     font-weight: bold;
@@ -193,3 +193,15 @@ body {
     bottom: 0;
     width: 100%;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(4, 94, 114); 
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ec7916; 
+  }

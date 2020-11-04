@@ -1,3 +1,4 @@
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,7 @@
         <div >
             <div class="d-flex justify-content-between align-items-center breaking-news newsbg">
                 <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Announcement <i class="fas fa-bullhorn m-1"></i></span></div>
-                <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> The Vice Chancellor of Sindh Madressatul Islam University, Dr. Mujeeb Uddin Sahrai Memon said, “We will update the curriculum as per the contemporary requirements and also try to add some more subjects related to Islamic Banking as a part of our curriculum. He passed these remarks while speaking to a seminar organized by the Department of Accounting, Banking and Finance on “Overview of Islamic Finance and its Curriculum Development; National Financial Inclusion Strategy 2023” at Senate Hall on Monday. Admiring the effort of the department he furthered whenever any topic connected to religion it become a sensitive issue and while taking about it, a person has to understand it in-depth. Director of Centre for Excellence in Islamic Finance, IBA, Ahmed Ali Siddiqui said in his online addressed the most frequently asked question is, can banking be Islamic or not. While it is a comprehensive economic system and it is strengthening around the world. trading and partnership is Islamic Banking but lending is not, he said. While talking about the statistics he said there are more than 1300 Islamic Financial Institutions around the globe having size of 2.80 trillion. “Worldwide more than 150 million customers are using Islamic Financial services.” said Mr. Siddiqui. Assistant Professor of Centre for Excellence in Islamic Finance, Institute of Business Administration, Irum Saba said that the purpose of holding this seminar is to promote Islamic Banking because the next era is about Islamic Banking, so we need to prepare students as per the need of the practical life. It is important to introduce at least one course of Islamic Banking at undergraduate level and announce a specialized course in the last year, she said, adding that there are thousands of Islamic banking jobs in the field but no appropriate candidates are available. Chairperson and Dean of the Department Dr. Jamshed Adil also addressed on the occasion. At the end of the ceremony, the Vice Chancellor also presented shields to the guests. Students and teachers also attended in the seminar</marquee>
+                <marquee id="announcement" class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" > The Vice Chancellor of Sindh Madressatul Islam University, Dr. Mujeeb Uddin Sahrai Memon said, “We will update the curriculum as per the contemporary requirements and also try to add some more subjects related to Islamic Banking as a part of our curriculum. He passed these remarks while speaking to a seminar organized by the Department of Accounting, Banking and Finance on “Overview of Islamic Finance and its Curriculum Development; National Financial Inclusion Strategy 2023” at Senate Hall on Monday. Admiring the effort of the department he furthered whenever any topic connected to religion it become a sensitive issue and while taking about it, a person has to understand it in-depth. Director of Centre for Excellence in Islamic Finance, IBA, Ahmed Ali Siddiqui said in his online addressed the most frequently asked question is, can banking be Islamic or not. While it is a comprehensive economic system and it is strengthening around the world. trading and partnership is Islamic Banking but lending is not, he said. While talking about the statistics he said there are more than 1300 Islamic Financial Institutions around the globe having size of 2.80 trillion. “Worldwide more than 150 million customers are using Islamic Financial services.” said Mr. Siddiqui. Assistant Professor of Centre for Excellence in Islamic Finance, Institute of Business Administration, Irum Saba said that the purpose of holding this seminar is to promote Islamic Banking because the next era is about Islamic Banking, so we need to prepare students as per the need of the practical life. It is important to introduce at least one course of Islamic Banking at undergraduate level and announce a specialized course in the last year, she said, adding that there are thousands of Islamic banking jobs in the field but no appropriate candidates are available. Chairperson and Dean of the Department Dr. Jamshed Adil also addressed on the occasion. At the end of the ceremony, the Vice Chancellor also presented shields to the guests. Students and teachers also attended in the seminar</marquee>
             </div>
         </div>
     </div>
@@ -39,13 +40,11 @@
 <div id="container" class="container">
  
   <div class="accountcontainer">
-    <div class="top-headings"><h3 id="userpgName"><i class="fas fa-user-circle mr-2"></i>Talha Siddiqui</h3> </div>
+    <div class="top-headings"><h4 id="userpgName"><i class="fas fa-user-circle mr-2"></i>Talha Siddiqui</h4> </div>
     <div class="grid-container">
       <div class="sts-hd-logo"><h4>STS Credit</h4><span id="stscrdtamnt" >10000<i class="fas fa-coins m-2"></i></span></div>
       <div class="id-hd lefttext">ID:</div>
       <div class="id-val righttext"><span id="userpgId">16FBSCSM013</span></div>
-      <!-- <div class="name-hd lefttext">Name:</div>
-      <div class="name-val righttext"><span id="userpgName">Talha Siddiqui</span></div> -->
       <div class="email-hd lefttext">Email:</div>
       <div class="email-val righttext"><span id="userpgEmail">talhasiddiqui975@gmail.com</span></div>
       <div class="gender-hd lefttext">Gender:</div>
@@ -54,7 +53,7 @@
       <div class="phn-val righttext"><span id="userpgPhone">3009222867</span></div>
       <div class="Address-hd lefttext">Address:</div>
       <div class="address-val righttext"><span id="userpgAddress">SR-670 PIB COLONY, KARACHI, SINDH, PAKISTAN</span></div>
-      <div class="subs-bus-hd"><h6>Subscribed Bus</h6><a href="#" id="user-bus-val">BUS # 1</a></div>
+      <div class="subs-bus-hd"><h6>Subscribed Bus</h6><span id="user-bus-val">BUS # 1</span></div>
       <div class="passchng-hd"><h5>Change password</h5></div>
       <div class="old-pass-hd lefttext"><label for="useroldpass">Old password</label></div>
       <div class="old-pass-val"><input type="password" id="useroldpass" class="bordergreen"></div>
@@ -67,7 +66,7 @@
   </div>
   <div class="buscontainer">
 
-   <div class="top-headings"><h2><i class="fas fa-bus mr-3"></i>Buses</h2> </div>
+   <div class="top-headings"><h4><i class="fas fa-bus mr-3"></i>Buses</h4> </div>
    
    <div id="Scrollparent">
      
@@ -77,9 +76,10 @@
         <div class="card-header" id="BusOne">
           <h2 class="mb-0">
             <button class="btn btn-link bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusOne" aria-expanded="true" aria-controls="collapseBusOne">
-              BUS # 1
+              BUS # 1 
             </button>
           </h2>
+          Available Seats (<span id="seats-av">23</span>)
         </div>
     
         <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
@@ -191,6 +191,7 @@
                 BUS # 2
               </button>
             </h2>
+          Available Seats (<span id="seats-av">23</span>)
           </div>
       
           <div id="collapseBusTwo" class="collapse" aria-labelledby="BusTwo" data-parent="#Buses">
@@ -302,6 +303,7 @@
                   BUS # 3
                 </button>
               </h2>
+              Available Seats (<span id="seats-av">23</span>)
             </div>
         
             <div id="collapseBusThree" class="collapse" aria-labelledby="BusThree" data-parent="#Buses">
@@ -413,6 +415,7 @@
                     BUS # 4
                   </button>
                 </h2>
+          Available Seats (<span id="seats-av">23</span>)
               </div>
           
               <div id="collapseBusFour" class="collapse" aria-labelledby="BusFour" data-parent="#Buses">
@@ -524,6 +527,7 @@
                       BUS # 5
                     </button>
                   </h2>
+          Available Seats (<span id="seats-av">23</span>)
                 </div>
             
                 <div id="collapseBusFive" class="collapse" aria-labelledby="BusFive" data-parent="#Buses">
@@ -635,6 +639,7 @@
                         BUS # 6
                       </button>
                     </h2>
+          Available Seats (<span id="seats-av">23</span>)
                   </div>
               
                   <div id="collapseBusSix" class="collapse" aria-labelledby="BusSix" data-parent="#Buses">
@@ -746,6 +751,7 @@
                           BUS # 7
                         </button>
                       </h2>
+          Available Seats (<span id="seats-av">23</span>)
                     </div>
                 
                     <div id="collapseBusSeven" class="collapse" aria-labelledby="BusSeven" data-parent="#Buses">

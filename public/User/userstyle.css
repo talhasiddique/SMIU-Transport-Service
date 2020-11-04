@@ -28,10 +28,11 @@ body{
 .lgoutbtn{
     background: linear-gradient(234deg,#ec7916,#d19664);
     color: white !important;
+    font-size: 90%;
 
 }
 .lgoutbtn:active{
-    font-size: 90%;
+    font-size: 80%;
 }
 .lgoutbtn:focus{
     box-shadow: none;
@@ -58,8 +59,10 @@ body{
     "phn-hd phn-val"
     "Address-hd address-val"
     "Address-hd address-val"
-    "Address-hd address-val"
+    /* "Address-hd address-val" */
+    "blank blank"
     "subs-bus-hd subs-bus-hd"
+    "blanktwo blanktwo"
     "passchng-hd passchng-hd"
     "old-pass-hd old-pass-val"
     "newpass-hd newpass-val"
@@ -118,25 +121,26 @@ body{
   grid-area: id-val;
 }
 
-.name-hd {
+.blank {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-template-areas:
     ".";
-  grid-area: name-hd;
+  grid-area: blank;
+}
+.blanktwo {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ".";
+  grid-area: blanktwo;
 }
 
-.name-val {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    ".";
-  grid-area: name-val;
-}
+
 
 .email-hd {
   display: grid;
@@ -299,7 +303,7 @@ body{
   text-align: center;
   background: linear-gradient(234deg,#ec7916,#d19664);
   box-shadow: 0 0 10px black;
-  margin: auto 57px;
+  margin: auto 37px;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
@@ -310,6 +314,7 @@ body{
 
 .save-pass-btn {
   display: grid;
+  margin-left: auto;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
@@ -332,7 +337,7 @@ body{
     
 }
 .accountcontainer {
-  width: 25%;
+  width: 23%;
   float: left;
   text-align: center;
 }
@@ -350,7 +355,7 @@ div.top-headings {
   margin-left: 10px;
   margin-top: 3px;
   /* margin-right: 15px; */
-  min-height: 90vh;
+  min-height: 100vh;
   background-color: #ffffff;
   border: 1px solid #c3c3c3;
   height: 280px;
@@ -390,17 +395,24 @@ div.top-headings {
 }
 .bus-btn-custom{
   color: #971414;
+  border-radius: 2px;
 }
 .bus-btn-custom:hover{
-  color: #7e0f0f;
+  color: #ec7916;
+  text-decoration: none;
+  border-left: 3px solid #ec7916;
+  border-right: 3px solid #ec7916;
 
 }
 .bus-btn-custom:focus{
-  box-shadow: 0 0 0 0.2rem #7e0f0f7c;
+  color: #da6b0a;
+  box-shadow: 0 0 0 0.2rem #ec7916;
+  text-decoration: none;
+  border: none;
 }
 .btn-subs{
   color: white;
-  background: linear-gradient(2deg, #af0b0b, #ff6666 );
+  background: linear-gradient(2deg, #881010, #e66060 );
   margin-top: 16px;
   padding: 7px;
   border: 0px;
@@ -413,6 +425,18 @@ div.top-headings {
   outline: none;
 
 }
+#seats-av{
+  color:#ec7916 ;
+  font-weight: bold;
+}
+#user-bus-val{
+  font-size: large;
+  font-weight: bold;
+  background: #f7eeee;
+  border-radius: 0px 0px 13px 13px;
+  color: rgb(151 20 20);
+}
+
 @media screen and (max-width: 768px){
   .collapse{
     font-size: 60%;
@@ -435,13 +459,33 @@ div.top-headings {
   .accountcontainer {
     width: 100%;
     text-align: center;
+    /* padding-left: 183px;
+    padding-right: 183px; */
 }
-
 }
+/* @media screen and (max-width: 728px){
+  .accountcontainer {
+    padding: 0;
+}
+} */
 @media screen and (max-width: 728px){
   .grid-container{    
-    width: 90%;
+    width: 95%;
     text-align:center;
 
 }
+}
+@media screen and (max-width: 768px){
+  .lgoutbtn{
+    background: linear-gradient(234deg,#ec7916,#d19664);
+    color: white !important;
+    font-size: 64%;
+    margin: 0;
+  
+  }
+}
+@media screen and (max-width: 768px){
+  .lgoutbtn:active{
+    font-size: 55%; 
+  }
 }
