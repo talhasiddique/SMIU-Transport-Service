@@ -189,7 +189,7 @@ body {
     font-weight: bold;
 }
 .footer-custom{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
 }

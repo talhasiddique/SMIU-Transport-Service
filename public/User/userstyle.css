@@ -43,7 +43,6 @@ body{
   display: grid;
   text-align: initial;
   height: 100%;
-  margin: 0px 10px;
   max-height: 695px;
   font-size: 70%;
   grid-template-columns: 0.6fr 1.4fr;
@@ -337,6 +336,10 @@ body{
     
 }
 .accountcontainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 38px;
+  margin: 0px 20px 0px 0px;
   width: 23%;
   float: left;
   text-align: center;
@@ -455,7 +458,7 @@ div.top-headings {
     top: 100px;
 }
 }
-@media screen and (max-width: 1080px){
+@media screen and (max-width: 900px){
   .accountcontainer {
     width: 100%;
     text-align: center;
