@@ -26,19 +26,20 @@
         <div class="row">
             <div class="col-md-8 col-md-8-custom col-md-offset-2">
                     <div class="formsix-pos">
-                    <form method="post">
+                    <form method="post" onsubmit="return loginbtn()">
                         <div class="form-group i-email"> <input type="text" class="form-control form-control-custom"  id="lgn-email-id" placeholder="Email Address or Passenger ID *"> </div>
                         </div>
                         <div class="formsix-e">
                         <div class="form-group i-password"> <input type="password" class="form-control form-control-custom"  id="lgn-password" placeholder="Password *"> </div>
                         </div>
-                        <div class="login_remember_box"> <label class="control control--checkbox">Remember me <input type="checkbox"> <span class="control__indicator"></span> </label> <a href="./Forget password/forgetpassindex.html" class="forget_password forget_password-custom"> Forgot Password </a> </div>
-                        <div class="login_btn_wrapper"> <button type="button" onclick='return loginbtn()' class="btn login_btn signuplgnbtn-main" ><i class="fas fa-sign-in-alt mr-1"></i> Login </button> </div>
+                        <div class="login_btn_wrapper"> <button type="submit" 
+                            class="btn login_btn signuplgnbtn-main" ><i class="fas fa-sign-in-alt mr-1"></i> Login </button> </div>
                     </form>
-                        <div class="login_message">
+                    <div class="login_message">
+                        <a href="./Forget password/forgetpassindex.html" class="forget_password forget_password-custom"> Forgot Password </a> </div>
                         <p>Don’t have a passenger account ? </p>
                         <a href="./Signup/index.html" class="signuplgnbtn-main" > <i class="fas fa-user-plus mr-1"></i>Sign up</a>
-                        
+    
                     </div>
                 </div>
             </div>

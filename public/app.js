@@ -9,7 +9,7 @@ console.log('Auth function');
             .then(res=>{
                 userData = {...res.val()}
                 if(userData.role === 'admin'){
-                    location="/G:/FYP/SMIU-Transport-Service/public/Admin/index.html"
+                    location="./Admin/index.html"
                 }
                 else if(userData.role === 'user'){
                     location="./User/index.html"
@@ -33,6 +33,7 @@ function signOut(){
 }
 
 function loginbtn(){
+    event.preventDefault();
     var lgnemailid=document.getElementById("lgn-email-id").value;
     var lgnpassword=document.getElementById("lgn-password").value;
     // console.log(lgnemailid,lgnpassword);
@@ -81,72 +82,152 @@ function loginbtn(){
   });
 }
 
-function signUp(){
-    if(document.getElementById('student').checked){
-    var userCategory=document.getElementById('student').value
-    }
-    if(document.getElementById('faculty').checked){
-    var userCategory=document.getElementById('faculty').value
-    }
-var userId=document.getElementById('userId').value
-var userName=document.getElementById('userName').value
-var userFatherName=document.getElementById('userFatherName').value
-if(document.getElementById('female').checked){
-    var userGender=document.getElementById('female').value
-    }
-if(document.getElementById('male').checked){
-    var userGender=document.getElementById('male').value
-    }
-var userAddress=document.getElementById('userAddress').value
-var userEmail=document.getElementById('userEmail').value
-var userNumber=document.getElementById('userNumber').value
-var userPassword=document.getElementById('userPassword').value
-var userConfpassword=document.getElementById('userConfpassword').value
-var userTerms=document.getElementById('userTerms').checked;
+function getRadioValues(names){
+    // let names = document.getElementsByName(name);
+    let checkedValue;
+    names.forEach(name=>{
+        if(name.checked){
+            checkedValue = name.value;
+        }
+    })
+    return checkedValue
+}
 
+function signUp(){
+    event.preventDefault();
+var userId=document.getElementById('userId')
+var userName=document.getElementById('userName')
+var userFatherName=document.getElementById('userFatherName')
+var gender = document.getElementsByName('gender')
+var category=document.getElementsByName('category')
+var userGender = getRadioValues(gender)
+var userCategory = getRadioValues(category)
+var userAddress=document.getElementById('userAddress')
+var userEmail=document.getElementById('userEmail')
+var userNumber=document.getElementById('userNumber')
+var userPassword=document.getElementById('userPassword')
+var userConfpassword=document.getElementById('userConfpassword')
+var userTerms=document.getElementById('userTerms');
+var numberFormat= /^((\+92)|(0)){0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/;
+var isNumberValid=userNumber.value.match(numberFormat)
+if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.value!=='' && userGender&& userAddress.value !== '' && userEmail.value !=='' && isNumberValid && userPassword.value!== '' && userConfpassword.value!== '' && userTerms.checked){
+    if(userTerms){
+        let key, userData;
+        if(checkPassword(userPassword.value, userConfpassword.value)){
+            firebase.auth().createUserWithEmailAndPassword(userEmail.value,userPassword.value)
+            .then(res=>{
+                key = res.user.uid;
+                userData={
+                    key: key,
+                    category: userCategory,
+                    userId: userId.value,
+                    userName: userName.value,
+                    fatherName: userFatherName.value,
+                    gender: userGender,
+                    address: userAddress.value,
+                    email: userEmail.value,
+                    contact: userNumber.value,
+                    role: 'user'
+                }
+                firebase.database().ref(`/registered-users/${key}`).set(userData)
+                .then(res=>{
+                    // alert('data saved', res)
+                    Swal.fire({
+                        icon: 'success',
+                        title:'Your Account has been created successfully',
+                        customClass: 'swal-wide'
+                      }) 
+                      .then(function() {
+                        window.location = "../index.html";
+                    });
+                    userId.value="";
+                    userName.value="";
+                    userFatherName.value="";
+                    userEmail.value="";
+                    userNumber.value="";
+                    userAddress.value="";
+
+
+                    //how to get data from DB
+                    // firebase.database().ref(`/registered-users`).once('value')
+                    // .then(res=>{
+                    //     console.log(res.val())
+                    // })
+                    // .catch(err=>console.log(err))
+                })
+                .catch(err=>console.log(err))
+                    //unheld
+            })
+            .catch(
+                // error=>console.log(error)
+                (error)=>{
+                    console.log(error)
+                    if(error.code==="auth/email-already-in-use"){
+                        Swal.fire({
+                            icon: 'error',
+                            title:'The user with this email already exist',
+                            customClass: 'swal-wide',
+                          }) 
+    
+                    }
+                    if (error.code==="auth/invalid-email") {
+                        Swal.fire({
+                            icon: 'error',
+                            title:'Please enter valid email address',
+                            customClass: 'swal-wide',
+                          }) 
+                    }
+                    if (error.code==="auth/weak-password") {
+                        Swal.fire({
+                            icon: 'error',
+                            title:'The password must be 6 characters long or more.',
+                            customClass: 'swal-wide',
+                          })   
+                    }
+                }
+            )
+    
+        } else          //same password error
+        // alert('passwords different')
+        Swal.fire({
+            icon: 'error',
+            title:'Passwords must be same',
+            customClass: 'swal-wide',
+          }) 
+    } else{             //if terms ad condition not checked
+        // alert('terms and condition');
+        Swal.fire({
+            icon: 'error',
+            title:'Please accept terms and condition',
+            customClass: 'swal-wide',
+          }) 
+    }
+    
+    
+} if(!isNumberValid){
+    Swal.fire({
+        icon: 'error',
+        title:"Number pattern doesn't match",
+        customClass: 'swal-wide',
+      }) 
+}
+
+else{
+    Swal.fire({
+        icon: 'error',
+        title:'Feilds cannot be empty, Please fill all the fields',
+        customClass: 'swal-wide',
+      }) 
+}
+
+}
 // let userData = {
 //     category : userCategory,
 //     userID
 // }
 
-if(userTerms){
-    let key, userData;
-    if(checkPassword(userPassword, userConfpassword)){
-        firebase.auth().createUserWithEmailAndPassword(userEmail,userPassword)
-        .then(res=>{
-            key = res.user.uid;
-            userData={
-                key: key,
-                category: userCategory,
-                userId: userId,
-                userName: userName,
-                fatherName: userFatherName,
-                gender: userGender,
-                address: userAddress,
-                email: userEmail,
-                contact: userNumber,
-                role: 'user'
-            }
-            firebase.database().ref(`/registered-users/${key}`).set(userData)
-            .then(res=>{
-                alert('data saved', res)
-                //how to get data from DB
-                // firebase.database().ref(`/registered-users`).once('value')
-                // .then(res=>{
-                //     console.log(res.val())
-                // })
-                .catch(err=>console.log(err))
-            })
-            .catch(err=>console.log(err))
-        })
-        .catch(error=>console.log(error))
-    } else alert('passwords different')
-} else{
-    alert('terms and condition');
-}
 
 
-}
 
 const checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
 

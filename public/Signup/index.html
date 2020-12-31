@@ -21,7 +21,7 @@
     </a>
   </nav>
   <div class="signup-form">
-    <form  method="post">
+    <form  method="post" onsubmit="return signUp()">
 		<h2>Sign Up</h2>
       	<h4>(As a passenger only)</h4>
 		<p>Please fill in this form to create an account!</p>
@@ -29,56 +29,56 @@
        <div class="form-group">
          <h4>Choose your catagory:</h4>
             <div class="form-check form-check-inline ">
-          <input class="form-check-input" type="radio" name="category" id="student" value="student"  required="required">
+          <input class="form-check-input" type="radio" name="category" id="student" value="student"  >
           <label class="form-check-label" for="student">Student</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="category" id="faculty" value="faculty" required="required">
+          <input class="form-check-input" type="radio" name="category" id="faculty" value="faculty" >
           <label class="form-check-label" for="faculty">Faculty</label>
         </div>
       </div>
         <div class="form-group">
-        	<input type="text" class="form-control" id="userId" name="passengerID" placeholder="Student/Faculty ID" required="required">
+        	<input type="text" class="form-control" id="userId" name="passengerID" placeholder="Student/Faculty ID" >
         </div>
 
         <div class="form-group">
-        	<input type="text" class="form-control" id="userName" name="name" placeholder="Full Name" required="required">
+        	<input type="text" class="form-control" id="userName" name="name" placeholder="Full Name" >
         </div>
         <div class="form-group">
-        	<input type="text" class="form-control" id="userFatherName" name="f_name" placeholder="Father's Name" required="required">
+        	<input type="text" class="form-control" id="userFatherName" name="f_name" placeholder="Father's Name" >
         </div>
         <div class="form-group">
             <h4>Select your gender:</h4>
             <div class="form-check form-check-inline ">
-          <input class="form-check-input" type="radio" name="gender" id="male" value="male" required="required">
+          <input class="form-check-input" type="radio" name="gender" id="male" value="male" >
           <label class="form-check-label" for="gender">Male</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="gender" id="female" value="female" required="required">
+          <input class="form-check-input" type="radio" name="gender" id="female" value="female" >
           <label class="form-check-label" for="gender">Female</label>
         </div>
       </div>
         <div class="form-group">
             <h4>Enter your address:</h4>
-            <textarea class="form-control form-control-address" id="userAddress" name="Address" rows="4" cols="50" minlength="10" required></textarea>
+            <textarea class="form-control form-control-address" id="userAddress" name="Address" rows="4" cols="50" ></textarea>
         </div>
         <div class="form-group">
-        	<input type="email" id="userEmail" class="form-control" name="email" placeholder="Email" required="required">
+        	<input type="text" id="userEmail" class="form-control" name="email" placeholder="Email" >
         </div>
         <div class="form-group">
-        	<input type="tel" class="form-control" id="userNumber" name="phone" placeholder="Phone number as: 3xxxxxxxxx" pattern="[0-3]{1}[0-9]{9}" required="required">
+        	<input type="tel" class="form-control" id="userNumber" name="phone" placeholder="Phone number as: 03xxxxxxxxx" >
         </div>      
 		<div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password(min 8 charracters)" id="userPassword" required="required">
+            <input type="password" class="form-control" name="password" placeholder="Password(min 6 charracters)" id="userPassword" >
         </div>
 		<div class="form-group">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password (min 8 charracters)" id="userConfpassword" required="required">
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password (min 6 charracters)" id="userConfpassword" >
         </div>        
         <div class="form-group">
-			<label class="checkbox-inline"><input type="checkbox" id="userTerms" value='true' required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+			<label class="checkbox-inline"><input type="checkbox" id="userTerms" value='true' > I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
 		</div>
 		<div class="form-group">
-            <button type="button" onclick="signUp()" class="btn signuplgnbtn" >Sign Up</button>
+            <button type="submit"  class="btn signuplgnbtn" >Sign Up</button>
         </div>
     </form>
 	<div class="hint-text">Already have an account? <a href="../index.html" class="btn signuplgnbtn">Login</a> here.</div>
