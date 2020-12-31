@@ -1,27 +1,45 @@
-function userAuth() {
+async function userAuth() {
 let userKey, userData;
-console.log('Auth function');
-    firebase.auth().onAuthStateChanged(user=>{
-        console.log(user)
-        userKey = user.uid;
-        if(user){
-            firebase.database().ref(`/registered-users/${userKey}`).once('value')
-            .then(res=>{
-                userData = {...res.val()}
-                if(userData.role === 'admin'){
-                    location="./Admin/index.html"
-                }
-                else if(userData.role === 'user'){
-                    location="./User/index.html"
-                }
-            })
-            .catch(error=>console.log(error))
-        } else {
-            location = "../index.html"
-            return false;
-        }
-    })
+// var user = firebase.auth().currentUser;
+
+// if (user) {
+//   console.log(user)
+// } else {
+    //   console.log('not logged in')
+    // }
+    
+    await firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in.
+            console.log(user.uid)
+            firebase.database().ref(`/registered-users/${user.uid}`).once('value')
+                .then(res=>{
+                    userDetails = res.val();
+                    console.log(userDetails)
+                    userRole =  userDetails.role;
+                    userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
+                    console.log(userRole)
+                    location.replace=`/FYP/SMIU-Transport-Service/public/${userRole}/index.html`
+                })
+                .catch(err=>console.log(err))
+            } else {
+                // No user is signed in.
+                location=`/FYP/SMIU-Transport-Service/public/index.html`
+                console.log('not logged in')
+    }
+  });
+        // firebase.database().ref(`/registered-users/${userKey}`).once('value')
+        // if(userData.role === 'admin'){
+        //     location.replace="/FYP/SMIU-Transport-Service/public/Admin/index.html"
+        // } else if(userData.role === 'user'){
+        //     location.replace="/FYP/SMIU-Transport-Service/public/User/index.html"
+        //     // location="./User/index.html"
+        // } else{
+        //     location.replace('/FYP/SMIU-Transport-Service/public/index.html')
+        // }
 }
+
+
 
 function signOut(){
     firebase.auth().signOut()
@@ -46,10 +64,13 @@ function loginbtn(){
     .then(res=>{
         userData = {...res.val()}
             if(userData.role === 'admin'){
-                    location="./Admin/index.html"
-            }
-            else if(userData.role !== 'admin'){
-                    location="./User/index.html"
+                console.log(userData)
+                    // location="./Admin/index.html"
+                    location.replace('/FYP/SMIU-Transport-Service/public/Admin/index.html')
+                }
+                else if(userData.role !== 'admin'){
+                    // location="./User/index.html"
+                    location.replace('/FYP/SMIU-Transport-Service/public/User/index.html')
        }
       }
     )
@@ -194,7 +215,15 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
             title:'Passwords must be same',
             customClass: 'swal-wide',
           }) 
-    } else{             //if terms ad condition not checked
+    } 
+    else if(!isNumberValid){
+        Swal.fire({
+            icon: 'error',
+            title:"Number pattern doesn't match",
+            customClass: 'swal-wide',
+          }) 
+    }
+    else{             //if terms ad condition not checked
         // alert('terms and condition');
         Swal.fire({
             icon: 'error',
@@ -204,13 +233,7 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
     }
     
     
-} if(!isNumberValid){
-    Swal.fire({
-        icon: 'error',
-        title:"Number pattern doesn't match",
-        customClass: 'swal-wide',
-      }) 
-}
+} 
 
 else{
     Swal.fire({
