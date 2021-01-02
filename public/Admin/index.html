@@ -32,7 +32,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
-<body>
+<body onload='loader()'>
+  <div id="se-pre-con"></div>
+
   <script>userAuth()</script>
 
   <div class="d-flex" id="wrapper">
@@ -70,7 +72,7 @@
             <label for="news-text"></label>
             <textarea id="news-text" class="form-control form-control-address" name="news-text" rows="4" ></textarea>
               <br>
-              <button class="btn"><i class="fas fa-save"></i> Save</button>
+              <button class="btn" onclick="getData()"><i class="fas fa-save"></i> Save</button>
             </form>
         </div>
 

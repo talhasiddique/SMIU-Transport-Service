@@ -1,3 +1,20 @@
+function endLoader(){
+    var loaderClass = document.getElementById("se-pre-con")
+    loaderClass.style.display = 'none'
+}
+
+function setLoader(){
+    var loaderClass = document.getElementById("se-pre-con")
+    loaderClass.style.display =  'block';
+}
+
+function loader () {
+    setLoader();
+    setTimeout(function(){
+        endLoader()
+    }, 3000)
+}
+
 async function userAuth() {
         const directory = `${location.origin}/public`
         //          FOR FIREBASE
@@ -245,5 +262,18 @@ if (forgotemail===""){
           document.getElementById("forgetrestemail").value="";
           return false;  
     }
-  
 }
+  
+// kaam ka nahi hai
+
+// function getData() {
+//     setLoader();
+//     firebase.database().ref(`/registered-users`).once('value')
+//     .then(res=>{
+//         console.log(res.val())
+//         endLoader();
+//     }).catch(err=>{
+//         console.log(err)
+//         // endLoader()
+//     })
+// }
