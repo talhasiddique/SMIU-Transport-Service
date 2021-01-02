@@ -1,14 +1,6 @@
 async function userAuth() {
-let userKey, userData;
-// var user = firebase.auth().currentUser;
-
-// if (user) {
-//   console.log(user)
-// } else {
-    //   console.log('not logged in')
-    // }
-    
-    await firebase.auth().onAuthStateChanged(function(user) {
+        const directory = `${location.origin}/SMIU-Transport-Service-master/public`
+        await firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in.
             console.log(user.uid)
@@ -18,25 +10,21 @@ let userKey, userData;
                     console.log(userDetails)
                     userRole =  userDetails.role;
                     userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
-                    console.log(userRole)
-                    location.replace=`/FYP/SMIU-Transport-Service/public/${userRole}/index.html`
+                    // console.log(userRole)
+                    console.log(location.pathname)
+                    if((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
+                        (userRole === 'User' && location.href !== `${directory}/User/`)) 
+                        {
+                            location.replace(`${directory}/${userRole}/`)
+                        }
                 })
                 .catch(err=>console.log(err))
             } else {
-                // No user is signed in.
-                location=`/FYP/SMIU-Transport-Service/public/index.html`
-                console.log('not logged in')
+                if(location.href !==`${directory}/`){
+                    location.replace(`${directory}/`)
+                }
     }
-  });
-        // firebase.database().ref(`/registered-users/${userKey}`).once('value')
-        // if(userData.role === 'admin'){
-        //     location.replace="/FYP/SMIU-Transport-Service/public/Admin/index.html"
-        // } else if(userData.role === 'user'){
-        //     location.replace="/FYP/SMIU-Transport-Service/public/User/index.html"
-        //     // location="./User/index.html"
-        // } else{
-        //     location.replace('/FYP/SMIU-Transport-Service/public/index.html')
-        // }
+});
 }
 
 
@@ -59,22 +47,18 @@ function loginbtn(){
     let userKey, userData;
     firebase.auth().signInWithEmailAndPassword(lgnemailid, lgnpassword)
     .then((res) => {
-    userKey = res.user.uid;
-    firebase.database().ref(`/registered-users/${userKey}`).once('value')
-    .then(res=>{
-        userData = {...res.val()}
-            if(userData.role === 'admin'){
-                console.log(userData)
-                    // location="./Admin/index.html"
-                    location.replace('/FYP/SMIU-Transport-Service/public/Admin/index.html')
-                }
-                else if(userData.role !== 'admin'){
-                    // location="./User/index.html"
-                    location.replace('/FYP/SMIU-Transport-Service/public/User/index.html')
-       }
+        userKey = res.user.uid;
+        firebase.database().ref(`/registered-users/${userKey}`).once('value')
+        .then(res=>{
+            userData = {...res.val()}
+            userRole =  userDetails.role;
+            userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
+            location.pathname.replace=`/${userRole}/index.jt`
       }
     )
-    .catch(error=>console.log(error))
+    .catch(err=>{
+        location.pathname.replace(`/`)
+    })
   })
   .catch((error) => {
       if(error.code === 'auth/user-not-found'){
@@ -104,7 +88,6 @@ function loginbtn(){
 }
 
 function getRadioValues(names){
-    // let names = document.getElementsByName(name);
     let checkedValue;
     names.forEach(name=>{
         if(name.checked){
@@ -152,7 +135,6 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
                 }
                 firebase.database().ref(`/registered-users/${key}`).set(userData)
                 .then(res=>{
-                    // alert('data saved', res)
                     Swal.fire({
                         icon: 'success',
                         title:'Your Account has been created successfully',
@@ -167,20 +149,10 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
                     userEmail.value="";
                     userNumber.value="";
                     userAddress.value="";
-
-
-                    //how to get data from DB
-                    // firebase.database().ref(`/registered-users`).once('value')
-                    // .then(res=>{
-                    //     console.log(res.val())
-                    // })
-                    // .catch(err=>console.log(err))
                 })
                 .catch(err=>console.log(err))
-                    //unheld
             })
             .catch(
-                // error=>console.log(error)
                 (error)=>{
                     console.log(error)
                     if(error.code==="auth/email-already-in-use"){
@@ -208,8 +180,7 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
                 }
             )
     
-        } else          //same password error
-        // alert('passwords different')
+        } else
         Swal.fire({
             icon: 'error',
             title:'Passwords must be same',
@@ -223,8 +194,7 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
             customClass: 'swal-wide',
           }) 
     }
-    else{             //if terms ad condition not checked
-        // alert('terms and condition');
+    else{
         Swal.fire({
             icon: 'error',
             title:'Please accept terms and condition',
@@ -241,16 +211,8 @@ else{
         title:'Feilds cannot be empty, Please fill all the fields',
         customClass: 'swal-wide',
       }) 
+    }
 }
-
-}
-// let userData = {
-//     category : userCategory,
-//     userID
-// }
-
-
-
 
 const checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
 
@@ -258,16 +220,7 @@ function forgetpassreset() {
     var forgotemail=document.getElementById("forgetrestemail").value;
     console.log(forgotemail);
     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    // var useremail=document.getElementById("").innerHTML;
-// if (forgotemail!==useremail) {
-//     Swal.fire({
-//         icon: 'error',
-//         text: 'There is no account registered against this email. Kindly provide registerd e-mail or Signup',
-//          customClass: 'swal-wide',
-//       }) 
-//       document.getElementById("forgetrestemail").value="";
-//       return false;
-// }
+   
 if (forgotemail===""){
     Swal.fire({
         icon: 'warning',
@@ -289,49 +242,4 @@ if (forgotemail===""){
           return false;  
     }
   
-}
-
-function signupsubmit() {
-var signupid=document.getElementById("signuppassengerID").value;
-var signuemail=document.getElementById("signupemail").value;
-// var userid=document.getElementById("").value;
-// var userpemail=document.getElementById("").value;
-
-var signuppass=document.getElementById("signupconfpass").value;
-var signuppassagain=document.getElementById("signuppass").value;
-var minlength=8;
-// if (signupid===userid){
-//     Swal.fire({
-//         icon: 'error',
-//         title:'Sorry',
-//         text: 'An account already exixst with this passaengert ID',
-//          customClass: 'swal-wide',
-//       }) 
-//       return false;  
-// } 
-// if (signupemail===useremail){
-//     Swal.fire({
-//         icon: 'error',
-//         title:'Sorry',
-//         text: 'An account already exixst with this email address',
-//          customClass: 'swal-wide',
-//       }) 
-//       return false;  
-// }
-if(signuppass.length<minlength||signuppassagain.length<minlength){
-    Swal.fire({
-        icon: 'error',
-        text: 'Password length should not be less than 8 charracter',
-        customClass: 'swal-wide',
-      })  
-      return false;
-} 
-if(signuppass!==signuppassagain){
-    Swal.fire({
-        icon: 'error',
-        text: 'Your passwords does not match!',
-        customClass: 'swal-wide',
-      }) 
-      return false;
-}
 }
