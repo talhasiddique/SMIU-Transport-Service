@@ -1,5 +1,9 @@
 async function userAuth() {
-        const directory = `${location.origin}/SMIU-Transport-Service-master/public`
+        const directory = `${location.origin}/public`
+        //          FOR FIREBASE
+        // const directory = `${location.origin}/`
+
+        console.log(directory)
         await firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in.
