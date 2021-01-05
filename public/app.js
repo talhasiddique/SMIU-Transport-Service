@@ -74,12 +74,14 @@ function loginbtn(){
             userData = {...res.val()}
             userRole =  userDetails.role;
             userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
-            location.pathname.replace=`/${userRole}/index.jt`
+            location.pathname.replace=`/${userRole}/index.html`
       }
     )
     .catch(err=>{
         location.pathname.replace(`/`)
     })
+    document.getElementById("lgn-email-id").value  ="";
+    document.getElementById("lgn-password").value="";
   })
   .catch((error) => {
       if(error.code === 'auth/user-not-found'){

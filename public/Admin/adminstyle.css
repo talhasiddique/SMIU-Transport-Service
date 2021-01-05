@@ -143,6 +143,28 @@
   margin-right: 6px;
   margin-left: auto;
 }
+.search-btn{
+  background: none;
+  color: #095e689a !important;
+  margin: 0px 0px 0px 0px !important;
+}
+.search-btn:focus{
+  outline: none;
+}
+.search-field{
+  border: 2px solid #0c636d6b;
+  border-radius: 10px;
+}
+select{
+  color: #093b3b;
+  background-color: #054d5538;
+  margin: auto;
+  min-width: 20%;
+  height: 90%;
+  text-align: center;
+  border: 2px solid #0c646d;
+  border-radius: 5px;
+}
 .lgoutbtn:active,button:active{
   font-size: 80%;
 }
@@ -181,6 +203,98 @@ label{
   background: white;
   border: 2px solid #049280;
   }
+
+.lefttext{
+    color: black;
+    font-weight: bold;
+    font-size: small;
+    text-align: end;
+    margin-top: 10px;
+    box-shadow: none !important;
+}
+.righttext{
+  background: white;
+  padding-left: 2px;
+}
+
+
+  .grid-container {
+    display: grid;
+    grid-template-columns:  0.4fr 1.6fr;;
+    grid-template-rows: repeat(13, 1fr);
+    gap: 2px 12px;
+    grid-template-areas:
+      "userIDHd userIDVal ."
+      "userNameHd userNameVal ."
+      "userFNameHd userFNameVal ."
+      "userEmailHd userEmailVal ."
+      "userGenderHd userGenderVal ."
+      "busCreditHd busCreditVal ."
+      "userSubBusHd userSubBusVal ."
+      "userPhoneHd userPhoneVal ."
+      "userAddressHd userAddressVal ."
+      "userAddressHd userAddressVal ."
+      "userAddressHd userAddressVal ."
+      "userSaveBtn . ."
+      ". . ."
+      ". . ."
+      ". . ."
+
+  }
+  
+
+  .userIDHd { grid-area: userIDHd; }
+  
+  .userIDVal { grid-area: userIDVal; }
+  
+  .userNameHd { grid-area: userNameHd; }
+  
+  .userNameVal { grid-area: userNameVal; }
+  
+  .userFNameHd { grid-area: userFNameHd; }
+  
+  .userFNameVal { grid-area: userFNameVal; }
+
+  .userEmailHd { grid-area: userEmailHd; }
+  
+  .userEmailVal { grid-area: userEmailVal; }
+  
+  .userGenderHd { grid-area: userGenderHd; }
+  
+  .userGenderVal { grid-area: userGenderVal; }
+  
+  .busCreditHd { grid-area: busCreditHd; }
+  
+  .busCreditVal { grid-area: busCreditVal; }
+  
+  .userSubBusHd { grid-area: userSubBusHd; }
+  
+  .userSubBusVal { grid-area: userSubBusVal; }
+  
+  .userPhoneHd { grid-area: userPhoneHd; }
+  
+  .userPhoneVal { grid-area: userPhoneVal; }
+  
+  .userAddressHd { grid-area: userAddressHd; }
+  
+  .userAddressVal { grid-area: userAddressVal; }
+  
+  .userSaveBtn { grid-area: userSaveBtn; }
+  
+  input{
+   background-color: white !important;
+ }
+ input:disabled{
+  background-color: rgb(233, 227, 227) !important;
+
+ }
+  textarea {
+   background-color: white !important;
+    overflow-y: scroll;
+    height: 100px;
+    resize: none;
+}
+  
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;

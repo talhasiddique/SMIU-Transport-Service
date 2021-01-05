@@ -25,7 +25,6 @@
 <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="adminapp.js"></script>
-  <!-- <script src="../app.js"></script> -->
   <script src="../firebase/firebase.js"></script>
   <script src="../User/userapp.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -64,9 +63,65 @@
 
       <div class="container-fluid">
 
-        <div id="users-admin"></div>
-        <div id="buses-admin"></div>
-        <div id="news-admin" class="container">
+        <div id="users-admin" class="container">
+          <br>
+          <h2>Users</h2>
+          <br>
+          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2">
+            <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by user Email"
+              aria-label="Search">
+              <button class="search-btn">
+              <i class="fa-2x fas fa-search" aria-hidden="true"></i>
+              </button>
+          </form>
+          <hr>
+          <div class="grid-container">
+            <!-- <div class="userSearchHd lefttext">Search by user email</div> -->
+            <!-- <div class="userSearchArea">
+              <input class="form-control" type="text" placeholder="Search" aria-label="Search"> 
+            </div>
+            <div class="userSearchBtn"><button>search</button></div> -->
+            <div class="userIDHd lefttext"><label for="userID">ID</label></div>
+            <div class="userIDVal "><input class="form-control" type="text" id="userID" disabled placeholder="16fscsm013"></div>
+            <div class="userNameHd lefttext"><label for="userName">Name</label></div>
+            <div class="userNameVal"><input class="form-control" type="text" id="userName" placeholder="Talha Siddiqui"></div>
+            <div class="userFNameHd lefttext"><label for="userFName">Father Name</label></div>
+            <div class="userFNameVal"><input class="form-control" type="text" id="userFName" placeholder="Arshad Ali Siddiqui"></div>
+            <div class="userEmailHd lefttext"><label for="userEmail">Email</label></div>
+            <div class="userEmailVal"><input class="form-control" type="text" id="userEmail" disabled placeholder="talhasiddiqui975@gmail.com"></div>
+            <div class="userGenderHd lefttext"> <label for="userGender">Gender</label></div>
+            <div class="userGenderVal">
+              <select name="userGender" class="selectpicker" id="userGender">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select></div>
+            <div class="busCreditHd lefttext"><label for="userCredit">STS Credit</label></div>
+            <div class="busCreditVal"><input class="form-control" type="text" id="userCredit" placeholder="10000"></div>
+            <div class="userSubBusHd lefttext"><label for="userSubBus">Subscribed Bus</label></div>
+            <div class="userSubBusVal">
+              <select name="userSubBusVal" id="userSubBusVal">
+                <option value="BusOne">Bus # 1</option>
+                <option value="BusTwo">Bus # 2</option>
+                <option value="BusThree">Bus # 3</option>
+                <option value="BusFour">Bus # 4</option>
+                <option value="BusFive">Bus # 5</option>
+                <option value="BusSix">Bus # 6</option>
+                <option value="BusSeven">Bus # 7</option>
+              </select>
+            </div>
+            <div class="userPhoneHd lefttext"><label for="userPhone">Contact #</label></div>
+            <div class="userPhoneVal"><input class="form-control" type="text" id="userPhone" disabled placeholder="3009222867"></div>
+            <div class="userAddressHd lefttext"><label for="userAddress">Address</label></div>
+            <div class="userAddressVal">            
+              <textarea id="userAddress" class="form-control form-control-address" name="userAddress" rows="4" >SR-670 PIB Colony Karachi</textarea>
+            </div>
+            <button class="btn userSaveBtn"><i class="fas fa-save"></i> Save</button>
+          </div>
+        </div>
+        <!-- <div id="buses-admin"></div> -->
+
+        <!-- <div id="news-admin" class="container">
+          <br>
           <h2>Announcement</h2>
 
             <label for="news-text"></label>
@@ -77,7 +132,9 @@
         </div>
 
         <div id="chng-pass-admin" class="container">
+          <br>
           <h2>Password Change</h2>
+          <br>
           <div><label for="useroldpass">Old password</label></div>
           <div><input type="password" id="useroldpass" class="bordergreen"></div>
           <div><label for="usernewpass">New password</label></div>
@@ -85,7 +142,7 @@
           <div><label for="userconfnewpass"   >Confirm new password</label></div>
           <div><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
           <div><button type="submit" id="userpasssavebtn" class="btn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div>
-        </div>
+        </div> -->
       </div>
 
   
