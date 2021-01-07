@@ -62,8 +62,7 @@
       </nav>
 
       <div class="container-fluid">
-
-        <div id="users-admin" class="container">
+        <!-- <div id="users-admin" class="container">
           <br>
           <h2>Users</h2>
           <br>
@@ -76,11 +75,6 @@
           </form>
           <hr>
           <div class="grid-container">
-            <!-- <div class="userSearchHd lefttext">Search by user email</div> -->
-            <!-- <div class="userSearchArea">
-              <input class="form-control" type="text" placeholder="Search" aria-label="Search"> 
-            </div>
-            <div class="userSearchBtn"><button>search</button></div> -->
             <div class="userIDHd lefttext"><label for="userID">ID</label></div>
             <div class="userIDVal "><input class="form-control" type="text" id="userID" disabled placeholder="16fscsm013"></div>
             <div class="userNameHd lefttext"><label for="userName">Name</label></div>
@@ -115,10 +109,156 @@
             <div class="userAddressVal">            
               <textarea id="userAddress" class="form-control form-control-address" name="userAddress" rows="4" >SR-670 PIB Colony Karachi</textarea>
             </div>
-            <button class="btn userSaveBtn"><i class="fas fa-save"></i> Save</button>
+          </div>
+          <div>
+            <button class="btn userSavebtn"><i class="fas fa-save"></i> Save</button>
+          </div>
+              <br>
+              <br>
+              <br>
+        </div> -->
+        <div id="buses-admin" class="container">
+          <br>
+          <h2>Buses</h2>
+          <br>
+          <div class="container">
+          <form class="form-inline d-flex justify-content-center md-form form-sm">
+            <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by user Email"
+              aria-label="Search">
+              <button class="search-btn">
+              <i class="fa-2x fas fa-search" aria-hidden="true"></i>
+              </button>
+<!-- Button trigger modal -->
+<button type="button" class="btn " data-toggle="modal" data-target="#exampleModalCenter">
+  Add Buss
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card card-custom">
+          <div class="card-header" id="BusTwo">
+            <h2 class="mb-0">
+                BUS # 2
+            </h2>
+          Available Seats (<span id="seats-av">23</span>)
+          </div>          
+            <div class="card-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <span class="mor-eve-hd">Morning</span>
+                  </div>
+                  <div class="col">
+                    <span class="mor-eve-hd">Evening</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Points</b></span>
+                  </div>
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Time</b></span>
+                  </div>
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Points</b></span>
+                  </div>
+                  <div class="col">
+                    <span class="pnts-time-hd"><b>Time</b></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 1</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 1</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 2</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 2</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 3</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 3</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 4</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 4</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <span>Point 5</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                  <div class="col">
+                    <span>Point 5</span>
+                  </div>
+                  <div class="col">
+                    <span>00:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+          </form>
           </div>
         </div>
-        <!-- <div id="buses-admin"></div> -->
 
         <!-- <div id="news-admin" class="container">
           <br>

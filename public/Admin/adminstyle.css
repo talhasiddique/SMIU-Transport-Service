@@ -221,7 +221,7 @@ label{
   .grid-container {
     display: grid;
     grid-template-columns:  0.4fr 1.6fr;;
-    grid-template-rows: repeat(13, 1fr);
+    grid-template-rows: repeat(10, 1fr);
     gap: 2px 12px;
     grid-template-areas:
       "userIDHd userIDVal ."
@@ -234,12 +234,6 @@ label{
       "userPhoneHd userPhoneVal ."
       "userAddressHd userAddressVal ."
       "userAddressHd userAddressVal ."
-      "userAddressHd userAddressVal ."
-      "userSaveBtn . ."
-      ". . ."
-      ". . ."
-      ". . ."
-
   }
   
 
@@ -278,9 +272,7 @@ label{
   .userAddressHd { grid-area: userAddressHd; }
   
   .userAddressVal { grid-area: userAddressVal; }
-  
-  .userSaveBtn { grid-area: userSaveBtn; }
-  
+    
   input{
    background-color: white !important;
  }
@@ -293,6 +285,9 @@ label{
     overflow-y: scroll;
     height: 100px;
     resize: none;
+}
+.userSavebtn:active{
+  margin: 6px;
 }
   
 @media (min-width: 768px) {
