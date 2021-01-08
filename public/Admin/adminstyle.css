@@ -289,7 +289,10 @@ label{
 .userSavebtn:active{
   margin: 6px;
 }
-  
+.userDeleteBtn{
+  background: rgb(175, 12, 12);
+  float: right;
+}
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;
