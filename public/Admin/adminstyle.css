@@ -17,7 +17,9 @@
   transition: .5s ease-in-out;
   cursor: pointer;
 }
-
+*{
+  box-shadow: none !important;
+}
 #nav-icon span {
   display: block;
   position: absolute;
@@ -165,7 +167,7 @@ select{
   border: 2px solid #0c646d;
   border-radius: 5px;
 }
-.lgoutbtn:active,button:active{
+.lgoutbtn:active{
   font-size: 80%;
 }
 .lgoutbtn:focus,button:focus{
@@ -286,12 +288,57 @@ label{
     height: 100px;
     resize: none;
 }
-.userSavebtn:active{
-  margin: 6px;
+.userSavebtn{
+  float: right;
+}
+.BusDeleteBtn{
+  background: rgb(175, 12, 12);
+}
+.addBusBtn{
+  margin-left: 95%;
+  margin-top: 0;
+  margin-bottom: 16px;
+  border-radius: 31px;
+
+  /* box-shadow: 1px 2px 4px grey!important; */
+}
+.btn:active{
+/* font-size: 100% !important; */
+background: linear-gradient(234deg,#d36d13,#bd8452);
+
+}
+.editBusName{
+  padding: 0%;
+  background: transparent !important;
+}
+.addBusBtn:active{
+  font-size: 100% !important;
+}
+.modal-content{
+  text-align: center;
+}
+.modalInputsize{
+  text-align: center;
+  font-size: 13px;
+  width: 116px !important;
+  border-bottom: 2px solid;
+}
+.modal-dialog{
+  max-width: 768px;
+}
+.form-control, .btn {
+text-align: center;
 }
 .userDeleteBtn{
   background: rgb(175, 12, 12);
   float: right;
+}
+.availableSeats{
+  width: 50px !important;
+}
+.enterBusName{
+  border-bottom: 2px solid;
+  margin-bottom: 4px;
 }
 @media (min-width: 768px) {
   #sidebar-wrapper {
@@ -305,6 +352,12 @@ label{
 
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
+  }
+
+}
+@media screen and (max-width: 425px){
+.collapse {
+      font-size: 60%;
   }
 
 }
