@@ -63,7 +63,7 @@
       </nav>
 
       <div class="container-fluid">
-         <!-- <div id="users-admin" class="container">
+         <div id="users-admin" class="container" style="display: none;">
           <br>
           <h2>Users</h2>
           <br>
@@ -75,7 +75,7 @@
               </button>
           </form>
           <hr>
-          <div class="grid-container">
+          <div class="grid-container-user">
             <div class="userIDHd lefttext"><label for="userID">ID</label></div>
             <div class="userIDVal "><input class="form-control" type="text" id="userID" disabled placeholder="16fscsm013"></div>
             <div class="userNameHd lefttext"><label for="userName">Name</label></div>
@@ -118,7 +118,7 @@
               <br>
               <br>
               <br>
-        </div> -->
+        </div>
         <div id="buses-admin" class="container">
           <br>
           <h2>Buses</h2>
@@ -145,7 +145,7 @@
             <h2 class="mb-0">
               <input class="form-control enterBusName" type="text" id="newBusName" placeholder="Enter Bus Name">
             </h2>
-            <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av">)
+            <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="newSeatsAvailable">)
           </div>          
             <div class="card-body">
               <div class="container">
@@ -173,72 +173,58 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="morPoint1">
+                    <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="newMorPoint1">
                   </div>
                   <div class="col">
-                    <input class="form-control  modalInputsize" type="time" id="morTime1">
+                    <input class="form-control  modalInputsize" type="time" id="newMorTime1">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 1" id="evePoint1">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 1" id="newEvePoint1">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime1">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="morPoint2">
-                  </div>
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime2">
-                  </div>
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="evePoint2">
-                  </div>
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime2">
+                    <input class="form-control modalInputsize" type="time" id="newEveTime1">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="morPoint3">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="newMorPoint2">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime3">
+                    <input class="form-control modalInputsize" type="time" id="newMorTime2">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="evePoint3">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="newEvePoint2">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime3">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="morPoint4">
-                  </div>
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime4">
-                  </div>
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="evePoint4">
-                  </div>
-                  <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime4">
+                    <input class="form-control modalInputsize" type="time" id="newEveTime2">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 5" id="morPoint5">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="newMorPoint3">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime5">
+                    <input class="form-control modalInputsize" type="time" id="newMorTime3">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 5" id="evePoint5">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="newEvePoint3">
                   </div>
                   <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime5">
+                    <input class="form-control modalInputsize" type="time" id="newEveTime3">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="newMorPoint4">
+                  </div>
+                  <div class="col">
+                    <input class="form-control modalInputsize" type="time" id="newMorTime4">
+                  </div>
+                  <div class="col">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="newEvePoint4">
+                  </div>
+                  <div class="col">
+                    <input class="form-control modalInputsize" type="time" id="newEveTime4">
                   </div>
                 </div>
               </div>
@@ -247,14 +233,14 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Add Buss </button>
+        <button type="submit" class="btn btn-primary" onclick="addBus()">Add Buss </button>
       </div>
     </div>
   </div>
 </div>
 <!-- <div id="scrolldiv" style="overflow: auto;"> -->
           <div id="scrolldiv" style="overflow: auto;">
-            <div class="accordion" id="Buses">
+            <!-- <div class="accordion" id="Buses">
             <div class="card card-custom">
               <div class="card-header" id="BusOne">
                 <h2 class="mb-0">
@@ -263,7 +249,6 @@
                   </button>
                 </h2>
             <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av">)
-                <!-- Available Seats (<span id="seats-av">23</span>) -->
               </div>
           
               <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
@@ -348,89 +333,18 @@
                       </div>
                     </div>
                     <div class="row">
-                    <!-- <div class="row">
-                      <div class="col">
-                        <span>Point 1</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 1</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 2</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 2</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 3</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 3</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 4</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 4</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 5</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 5</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div> -->
                   </div>
                   <br>
                   <button class="btn"><i class="fas fa-save"></i> Save</button>
-                  <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete User</button>
+                  <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
                   <br>
                   <br>
-                    <!-- <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Save</button>
-                    <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Delete Bus</button> -->
                   </div>
                 </div>
               </div>
             </div>
-            <div class="accordion" id="Buses">
+            </div> -->
+            <!-- <div class="accordion" id="Buses">
               <div class="card card-custom">
                 <div class="card-header" id="BusTwo">
                   <h2 class="mb-0">
@@ -541,37 +455,40 @@
                   </div>
                   </div>
                 </div>
-            </div>     
+            </div>      -->
           <div>
       </div>
       </div>
           </div>
         </div>
 
-        <!-- <div id="news-admin" class="container">
-          <br>
-          <h2>Announcement</h2>
-
-            <label for="news-text"></label>
-            <textarea id="news-text" class="form-control form-control-address" name="news-text" rows="4" ></textarea>
-              <br>
-              <button class="btn" onclick="getData()"><i class="fas fa-save"></i> Save</button>
-            </form>
-        </div>
-
-        <div id="chng-pass-admin" class="container">
-          <br>
-          <h2>Password Change</h2>
-          <br>
-          <div><label for="useroldpass">Old password</label></div>
-          <div><input type="password" id="useroldpass" class="bordergreen"></div>
-          <div><label for="usernewpass">New password</label></div>
-          <div><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
-          <div><label for="userconfnewpass"   >Confirm new password</label></div>
-          <div><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
-          <div><button type="submit" id="userpasssavebtn" class="btn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div>
-        </div> -->
       </div>
+           <div id="news-admin" class="container">
+            <br>
+            <h2>Announcement</h2>
+  
+              <label for="news-text"></label>
+              <textarea id="news-text" class="form-control form-control-address" name="news-text" rows="4" ></textarea>
+                <br>
+                <button class="btn" onclick="getData()"><i class="fas fa-save"></i> Save</button>
+              </form>
+          </div>
+  
+          <div id="chng-pass-admin" class="container">
+            <br>
+            <h2>Password Change</h2>
+            <br>
+            <div><label for="useroldpass">Old password</label></div>
+            <div><input type="password" id="useroldpass" class="bordergreen"></div>
+            <div><label for="usernewpass">New password</label></div>
+            <div><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
+            <div><label for="userconfnewpass"   >Confirm new password</label></div>
+            <div><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
+            <div><button type="submit" id="userpasssavebtn" class="btn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div>
+            <br>
+            <br>
+          </div>
+     </div>
 
   
 

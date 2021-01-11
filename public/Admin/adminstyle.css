@@ -220,7 +220,7 @@ label{
 }
 
 
-  .grid-container {
+  .grid-container-user {
     display: grid;
     grid-template-columns:  0.4fr 1.6fr;;
     grid-template-rows: repeat(10, 1fr);

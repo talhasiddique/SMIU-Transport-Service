@@ -265,17 +265,201 @@ if (forgotemail===""){
           return false;  
     }
 }
-  
-// kaam ka nahi hai
 
-// function getData() {
-//     setLoader();
-//     firebase.database().ref(`/registered-users`).once('value')
-//     .then(res=>{
-//         console.log(res.val())
-//         endLoader();
-//     }).catch(err=>{
-//         console.log(err)
-//         // endLoader()
-//     })
-// }
+function addBus(){
+    var busName=document.getElementById("newBusName").value;
+    var seatsAvailable=document.getElementById("newSeatsAvailable").value;
+    var MorPoint1=document.getElementById("newMorPoint1").value;
+    var MorPoint2=document.getElementById("newMorPoint2").value;
+    var MorPoint3=document.getElementById("newMorPoint3").value;
+    var MorPoint4=document.getElementById("newMorPoint4").value;
+    var EvePoint1=document.getElementById("newEvePoint1").value;
+    var EvePoint2=document.getElementById("newEvePoint2").value;
+    var EvePoint3=document.getElementById("newEvePoint3").value;
+    var EvePoint4=document.getElementById("newEvePoint4").value;
+    var MorTime1=onTimeChange(document.getElementById("newMorTime1").value);
+    var MorTime2=onTimeChange(document.getElementById("newMorTime2").value);
+    var MorTime3=onTimeChange(document.getElementById("newMorTime3").value);
+    var MorTime4=onTimeChange(document.getElementById("newMorTime4").value);
+    var EveTime1=onTimeChange(document.getElementById("newEveTime1").value);
+    var EveTime2=onTimeChange(document.getElementById("newEveTime2").value);
+    var EveTime3=onTimeChange(document.getElementById("newEveTime3").value);
+    var EveTime4=onTimeChange(document.getElementById("newEveTime4").value);
+
+    
+    var busID = firebase.database().ref(`/busses`).push().key
+
+    var busData={
+        busName,
+        seatsAvailable,
+        MorPoint1,
+        MorPoint2,
+        MorPoint3,
+        MorPoint4,
+        EvePoint1,
+        EvePoint2,
+        EvePoint3,
+        EvePoint4,
+        MorTime1,
+        MorTime2,
+        MorTime3,
+        MorTime4,
+        EveTime1,
+        EveTime2,
+        EveTime3,
+        EveTime4,
+        key:busID
+    }
+
+    firebase.database().ref(`/busses/${busID}`).set(busData)
+    getBuses();
+}
+
+function onTimeChange(time) {
+    var timeSplit = time.split(':'),
+      hours,
+      minutes,
+      meridian;
+    hours = timeSplit[0];
+    minutes = timeSplit[1];
+    if (hours > 12) {
+      meridian = 'PM';
+      hours -= 12;
+    } else if (hours < 12) {
+      meridian = 'AM';
+      if (hours == 0) {
+        hours = 12;
+      }
+    } else {
+      meridian = 'PM';
+    }
+
+    return hours + ':' + minutes + ' ' + meridian;
+  }
+
+var getBuses = async() => {
+    var busesObj, busesArr;
+    await firebase.database().ref(`/busses`).once('value')
+        .then( res =>{
+            busesObj = {...res.val()};
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+
+        busesArr = Object.keys(busesObj)
+
+        document.getElementById('scrolldiv').innerHTML = busesArr.map( key =>{
+            console.log(key.slice(0,6))
+            return(
+                `
+                    <div class="accordion" id="Buses${key.slice(0,6)}">
+                        <div class="card card-custom">
+                            <div class="card-header" id="Bus${key.slice(0,6)}">
+                                <h2 class="mb-0">
+                                <button class="editBusName btn" type="button" data-toggle="collapse" data-target="#collapseBus${key.slice(0,6)}" aria-expanded="true" aria-controls="collapseBus${key.slice(0,6)}">
+                                    <input class="form-control enterBusName" type="text" id="newBusName${key.slice(0,6)}" placeholder="Enter Bus name">
+                                </button>
+                                </h2>
+                                <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av">)
+                                <!-- Available Seats (<span id="seats-av">23</span>) -->
+                            </div>
+                            <div id="collapseBus${key.slice(0,6)}" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
+                                <div class="card-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span class="mor-eve-hd">Morning</span>
+                                            </div>
+                                        <div class="col">
+                                        <span class="mor-eve-hd">Evening</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                                    </div>
+                                    <div class="col">
+                                        <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="morPoint1">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control  modalInputsize" type="time" id="morTime1">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 1" id="evePoint1">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="eveTime1">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 2" id="morPoint2">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="morTime2">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 2" id="evePoint2">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="eveTime2">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 3" id="morPoint3">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="morTime3">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 3" id="evePoint3">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="eveTime3">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 4" id="morPoint4">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="morTime4">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="text" placeholder="point 4" id="evePoint4">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control modalInputsize" type="time" id="eveTime4">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn"><i class="fas fa-save"></i> Save</button>
+                            <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
+                            <br>
+                            <br>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                `
+            )
+        })
+
+        // console.log(busesObj)
+        // console.log(busesArr)
+    }
