@@ -238,7 +238,7 @@ else{
     }
 }
 
-const checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
+var checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
 
 function forgetpassreset() {
     var forgotemail=document.getElementById("forgetrestemail").value;
@@ -442,6 +442,11 @@ function addBus(){
     var EveTime3=document.getElementById("newEveTime3");
     var EveTime4=document.getElementById("newEveTime4");
 
+
+    // console.log(MorTime1.value)
+    // console.log(onTimeChange(MorTime1.value))
+    // console.log(EveTime1.value)
+    // console.log(onTimeChange(EveTime1.value))
     
     var busID = firebase.database().ref(`/busses`).push().key
 
@@ -456,16 +461,18 @@ function addBus(){
         EvePoint2:EvePoint2.value,
         EvePoint3:EvePoint3.value,
         EvePoint4:EvePoint4.value,
-        MorTime1:onTimeChange(MorTime1.value),
-        MorTime2:onTimeChange(MorTime2.value),
-        MorTime3:onTimeChange(MorTime3.value),
-        MorTime4:onTimeChange(MorTime4.value),
-        EveTime1:onTimeChange(EveTime1.value),
-        EveTime2:onTimeChange(EveTime2.value),
-        EveTime3:onTimeChange(EveTime3.value),
-        EveTime4:onTimeChange(EveTime4.value),
+        MorTime1:MorTime1.value,
+        MorTime2:MorTime2.value,
+        MorTime3:MorTime3.value,
+        MorTime4:MorTime4.value,
+        EveTime1:EveTime1.value,
+        EveTime2:EveTime2.value,
+        EveTime3:EveTime3.value,
+        EveTime4:EveTime4.value,
         key:busID
     }
+
+    console.log(busData)
     
     firebase.database().ref(`/busses/${busID}`).set(busData)
     
@@ -481,16 +488,17 @@ function addBus(){
     EvePoint2.value = '';
     EvePoint3.value = '';
     EvePoint4.value = '';
-    MorTime1rTime1.value = '';
-    MorTime2rTime2.value = '';
-    MorTime3rTime3.value = '';
-    MorTime4rTime4.value = '';
-    EveTime1eTime1.value = '';
-    EveTime2eTime2.value = '';
-    EveTime3eTime3.value = '';
-    EveTime4eTime4.value = '';
+    MorTime1.value = '';
+    MorTime2.value = '';
+    MorTime3.value = '';
+    MorTime4.value = '';
+    EveTime1.value = '';
+    EveTime2.value = '';
+    EveTime3.value = '';
+    EveTime4.value = '';
 }
 
+// this function uesr when data show to the user
 function onTimeChange(time) {
     var timeSplit = time.split(':'),
       hours,
@@ -524,12 +532,15 @@ var getBuses = async() => {
         })
 
         busesArr = Object.keys(busesObj)
-        console.log(busesArr)
+        // console.log(busesArr)
 
         var buses = busesArr.map( key =>{
             var busKey = `${key.slice(0,8)}`
             // console.log(key)
             console.log(busesObj[key])
+            
+            // <button class="btn" type="button"><i class="fas fa-save"></i> Save</button>
+            // var btn = document.createElement('button')
             
             return(
                 `
@@ -579,7 +590,7 @@ var getBuses = async() => {
                                     <input class="form-control modalInputsize" type="text" placeholder="point 1" id="${busKey}evePoint1" value='${busesObj[key].EvePoint1}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime1">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime1" value='${busesObj[key].EveTime1}'>
                                 </div>
                             </div>
                             <div class="row">
@@ -587,13 +598,13 @@ var getBuses = async() => {
                                     <input class="form-control modalInputsize" type="text" placeholder="point 2" id="${busKey}morPoint2" value='${busesObj[key].MorPoint2}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime2">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime2" value='${busesObj[key].MorTime2}'>
                                 </div>
                                 <div class="col">
                                     <input class="form-control modalInputsize" type="text" placeholder="point 2" id="${busKey}evePoint2" value='${busesObj[key].EvePoint2}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime2">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime2" value='${busesObj[key].EveTime2}'>
                                 </div>
                             </div>
                             <div class="row">
@@ -601,13 +612,13 @@ var getBuses = async() => {
                                     <input class="form-control modalInputsize" type="text" placeholder="point 3" id="${busKey}morPoint3" value='${busesObj[key].MorPoint3}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime3">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime3" value='${busesObj[key].MorTime3}'>
                                 </div>
                                 <div class="col">
                                     <input class="form-control modalInputsize" type="text" placeholder="point 3" id="${busKey}evePoint3" value='${busesObj[key].EvePoint3}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime3">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime3" value='${busesObj[key].EveTime3}'>
                                 </div>
                             </div>
                             <div class="row">
@@ -615,18 +626,18 @@ var getBuses = async() => {
                                     <input class="form-control modalInputsize" type="text" placeholder="point 4" id="${busKey}morPoint4" value='${busesObj[key].MorPoint4}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime4">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime4" value='${busesObj[key].MorTime4}'>
                                 </div>
                                 <div class="col">
                                     <input class="form-control modalInputsize" type="text" placeholder="point 4" id="${busKey}evePoint4" value='${busesObj[key].EvePoint4}'>
                                 </div>
                                 <div class="col">
-                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime4">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime4" value='${busesObj[key].EveTime4}'>
                                 </div>
                             </div>
                         </div>
                         <br>
-                        <button class="btn"><i class="fas fa-save"></i> Save</button>
+                        <button class="btn" type="button"><i class="fas fa-save"></i> Save</button>
                         <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
                         <br>
                         <br>
@@ -640,11 +651,9 @@ var getBuses = async() => {
         })
         
         buses = buses.join(' ')
-        // for (var i=0; i < buses.length; i++) {
-            // console.log(buses[i]+"<br>")
-            document.getElementById('scrolldiv').innerHTML = buses;
-        // }
-
-        // console.log(busesObj)
-        // console.log(busesArr)
+        document.getElementById('scrolldiv').innerHTML = buses;
     }
+
+    // var editBus = () =>{
+    //     console.log("clicked")
+    // }
