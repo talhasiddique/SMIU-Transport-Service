@@ -20,19 +20,19 @@ async function userAuth() {
         //          FOR FIREBASE
         // const directory = `${location.origin}/`
 
-        console.log(directory)
+        // console.log(directory)
         await firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in.
-            console.log(user.uid)
+            // console.log(user.uid)
             firebase.database().ref(`/registered-users/${user.uid}`).once('value')
                 .then(res=>{
                     userDetails = res.val();
-                    console.log(userDetails)
+                    // console.log(userDetails)
                     userRole =  userDetails.role;
                     userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
                     // console.log(userRole)
-                    console.log(location.pathname)
+                    // console.log(location.pathname)
                     if((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
                         (userRole === 'User' && location.href !== `${directory}/User/`)) 
                         {
@@ -154,6 +154,7 @@ if(userCategory && userId.value!=='' && userName.value!=='' && userFatherName.va
                     address: userAddress.value,
                     email: userEmail.value,
                     contact: userNumber.value,
+                    credit: 0,
                     role: 'user'
                 }
                 firebase.database().ref(`/registered-users/${key}`).set(userData)
@@ -265,6 +266,136 @@ if (forgotemail===""){
           return false;  
     }
 }
+
+
+//search user function
+function searchUser() {
+    event.preventDefault()
+    let searchEmail = document.getElementById('search-user-admin');
+    let dataContainer = document.getElementById('user-data-container')
+    let mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    //HTML fields
+    let userID = document.getElementById('userID')
+    let name = document.getElementById('userName')
+    let userFName = document.getElementById('userFName')
+    let userGender = document.getElementById('userGender')
+    let userEmail = document.getElementById('userEmail')
+    let userCredit = document.getElementById('userCredit')
+    let userPhone = document.getElementById('userPhone')
+    let userAddress = document.getElementById('userAddress')
+    let userKey = document.getElementById('userKey')
+    let userRole = document.getElementById('userRole')
+    let category = document.getElementById('category')
+
+
+    let user;
+    if (searchEmail.value.match(mailformat)) {
+        // alert('valid email')
+        firebase.database().ref(`/registered-users`).orderByChild('email').equalTo(searchEmail.value).on('value', res => {
+            userData = res.val();
+            if (userData) {
+                dataContainer.style.display = 'grid'
+                Object.keys(userData).forEach(key => {
+                    user = {...userData[key]}
+                })
+
+                let {
+                    address,
+                    category,
+                    role,
+                    contact,
+                    email,
+                    fatherName,
+                    gender,
+                    key,
+                    credit,
+                    userId,
+                    userName
+                } = user;
+                userID.value = userId;
+                name.value = userName;
+                userFName.value = fatherName;
+                userEmail.value = email;
+                userCredit.value = credit;
+                userPhone.value = contact;
+                userAddress.value = address;
+                userGender.value = gender;
+                userKey.value = key;
+                userRole.value = role;
+                category.value = category;
+            }
+        })
+    } else {
+        alert('invalid email')
+    }
+}
+
+//edit user
+function editUser() {
+    let userID = document.getElementById('userID')
+    let name = document.getElementById('userName')
+    let userFName = document.getElementById('userFName')
+    let userGender = document.getElementById('userGender')
+    let userEmail = document.getElementById('userEmail')
+    let userCredit = document.getElementById('userCredit')
+    let userPhone = document.getElementById('userPhone')
+    let userAddress = document.getElementById('userAddress')
+    let userKey = document.getElementById('userKey')
+    let userRole = document.getElementById('userRole')
+    let category = document.getElementById('category')
+    let dataContainer = document.getElementById('user-data-container')
+    let searchEmail = document.getElementById('search-user-admin');
+
+
+
+    let user = {
+        userId: userID.value,
+        userName: name.value,
+        role: userRole.value,
+        key: userKey.value,
+        gender: userGender.value,
+        fatherName: userFName.value,
+        email: userEmail.value,
+        credit: userCredit.value,
+        contact: userPhone.value,
+        category: category.value,
+        address: userAddress.value
+    }
+
+    firebase.database().ref(`/registered-users/${user.key}`).set(user)
+        .then(res => {
+            alert('user updated');
+            dataContainer.style.display = 'none';
+            searchEmail.value = '';
+        })
+        .catch(err=>console.log(err))
+}
+
+//close user div
+function closeUser() {
+    let dataContainer = document.getElementById('user-data-container')
+    let searchEmail = document.getElementById('search-user-admin');
+    dataContainer.style.display = 'none';
+    searchEmail.value = '';
+}
+
+//delete selected user
+// function deleteUser() {
+//     let userKey = document.getElementById('userKey').value;
+//     let dataContainer = document.getElementById('user-data-container');
+//     let searchEmail = document.getElementById('search-user-admin');
+//     let user = firebase.auth().currentUser;
+//     console.log(user)
+    // firebase.auth().deleteUser(userKey).then(() => {
+    //     firebase.database().ref(`/registered-users/${userKey}`).remove().then(() => {
+    //         alert('user deleted successfully');
+    //         dataContainer.style.display = 'none';
+    //         searchEmail.value = '';
+
+    //     })
+    // })
+// }
 
 function addBus(){
     var busName=document.getElementById("newBusName").value;

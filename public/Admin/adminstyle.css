@@ -2,6 +2,9 @@
   color: #e48635;
   font-weight: bold;
 }
+/* body{
+    overflow: hidden; 
+} */
 #nav-icon {
   width: 57px;
   height: 18px;
@@ -221,7 +224,7 @@ label{
 
 
   .grid-container-user {
-    display: grid;
+    display: none;
     grid-template-columns:  0.4fr 1.6fr;;
     grid-template-rows: repeat(10, 1fr);
     gap: 2px 12px;
@@ -236,6 +239,7 @@ label{
       "userPhoneHd userPhoneVal ."
       "userAddressHd userAddressVal ."
       "userAddressHd userAddressVal ."
+      "userButtons userButtons ."
   }
   
 
@@ -274,6 +278,8 @@ label{
   .userAddressHd { grid-area: userAddressHd; }
   
   .userAddressVal { grid-area: userAddressVal; }
+  .userButtons { grid-area: userButtons; }
+
     
   input{
    background-color: white !important;
