@@ -222,6 +222,12 @@ label{
   padding-left: 2px;
 }
 
+.no-margin{
+  margin-top: 0;
+}
+.no-margin:focus{
+  outline: none;
+}
 
   .grid-container-user {
     display: none;

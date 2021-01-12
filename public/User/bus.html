@@ -134,18 +134,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
 <body> 
-  <div class="accordion" id="Buses">
+  <div class="accordion" id="Buses${busKey}">
     <div class="card card-custom">
-        <div class="card-header" id="BusOne">
+        <div class="card-header" id="Bus${busKey}">
             <h2 class="mb-0">
-            <button class="editBusName btn" type="button" data-toggle="collapse" data-target="#collapseBusOne" aria-expanded="true" aria-controls="collapseBusOne">
-                <input class="form-control enterBusName" type="text" id="newBusName" placeholder="Bus 1">
+            <button class="editBusName btn" type="button" data-toggle="collapse" data-target="#collapseBus${busKey}" aria-expanded="true" aria-controls="collapseBus${busKey}">
+                <input class="form-control enterBusName" type="text" id="newBusName${busKey}" placeholder="Enter Bus name">
             </button>
             </h2>
-            <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av">)
-            <!-- Available Seats (<span id="seats-av">23</span>) -->
+            <label for="seats-av${busKey}">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av${busKey}">)
         </div>
-        <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
+        <div id="collapseBus${busKey}" class="collapse show" aria-labelledby="Bus${busKey}" data-parent="#Buses${busKey}">
             <div class="card-body">
                 <div class="container">
                     <div class="row">
@@ -172,58 +171,58 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="morPoint1">
+                    <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="${busKey}morPoint1">
                 </div>
                 <div class="col">
-                    <input class="form-control  modalInputsize" type="time" id="morTime1">
+                    <input class="form-control  modalInputsize" type="time" id="${busKey}morTime1">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 1" id="evePoint1">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 1" id="${busKey}evePoint1">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime1">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="morPoint2">
-                </div>
-                <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime2">
-                </div>
-                <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="evePoint2">
-                </div>
-                <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime2">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime1">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="morPoint3">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="${busKey}morPoint2">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime3">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime2">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="evePoint3">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="${busKey}evePoint2">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime3">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime2">
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="morPoint4">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="${busKey}morPoint3">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="morTime4">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime3">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="evePoint4">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="${busKey}evePoint3">
                 </div>
                 <div class="col">
-                    <input class="form-control modalInputsize" type="time" id="eveTime4">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime3">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="${busKey}morPoint4">
+                </div>
+                <div class="col">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime4">
+                </div>
+                <div class="col">
+                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="${busKey}evePoint4">
+                </div>
+                <div class="col">
+                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime4">
                 </div>
             </div>
         </div>
@@ -232,114 +231,7 @@
         <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
         <br>
         <br>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="accordion" id="Buses">
-  <div class="card card-custom">
-      <div class="card-header" id="BusOne">
-          <h2 class="mb-0">
-          <button class="editBusName btn" type="button" data-toggle="collapse" data-target="#collapseBusOne" aria-expanded="true" aria-controls="collapseBusOne">
-              <input class="form-control enterBusName" type="text" id="newBusName" placeholder="Bus 1">
-          </button>
-          </h2>
-          <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av">)
-          <!-- Available Seats (<span id="seats-av">23</span>) -->
-      </div>
-      <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
-          <div class="card-body">
-              <div class="container">
-                  <div class="row">
-                      <div class="col">
-                          <span class="mor-eve-hd">Morning</span>
-                      </div>
-                  <div class="col">
-                  <span class="mor-eve-hd">Evening</span>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
-              </div>
-              <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
-              </div>
-              <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
-              </div>
-              <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col">
-                  <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="morPoint1">
-              </div>
-              <div class="col">
-                  <input class="form-control  modalInputsize" type="time" id="morTime1">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 1" id="evePoint1">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="eveTime1">
-              </div>
-          </div>
-          <div class="row">
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 2" id="morPoint2">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="morTime2">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 2" id="evePoint2">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="eveTime2">
-              </div>
-          </div>
-          <div class="row">
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 3" id="morPoint3">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="morTime3">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 3" id="evePoint3">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="eveTime3">
-              </div>
-          </div>
-          <div class="row">
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 4" id="morPoint4">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="morTime4">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="text" placeholder="point 4" id="evePoint4">
-              </div>
-              <div class="col">
-                  <input class="form-control modalInputsize" type="time" id="eveTime4">
-              </div>
-          </div>
-      </div>
-      <br>
-      <button class="btn"><i class="fas fa-save"></i> Save</button>
-      <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
-      <br>
-      <br>
-</div>
-</div>
-</div>
-</div>
+    </div>
 </div>
 </body>
 </html>

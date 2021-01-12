@@ -396,54 +396,99 @@ function closeUser() {
     //     })
     // })
 // }
+var showUser = () =>{
+    document.getElementById('users-admin').style.display = 'block'
+    document.getElementById('buses-admin').style.display = 'none'
+    document.getElementById('news-admin').style.display = 'none'
+    document.getElementById('chng-pass-admin').style.display = 'none'
+}
+var showBuses = () =>{
+    document.getElementById('buses-admin').style.display = 'block'
+    document.getElementById('users-admin').style.display = 'none'
+    document.getElementById('news-admin').style.display = 'none'
+    document.getElementById('chng-pass-admin').style.display = 'none'
+    getBuses();
+}
+var showAnnouncemebnt = () =>{
+    document.getElementById('users-admin').style.display = 'none'
+    document.getElementById('buses-admin').style.display = 'none'
+    document.getElementById('news-admin').style.display = 'block'
+    document.getElementById('chng-pass-admin').style.display = 'none'
+}
+var showChangePass = () =>{
+    document.getElementById('users-admin').style.display = 'none'
+    document.getElementById('buses-admin').style.display = 'none'
+    document.getElementById('news-admin').style.display = 'none'
+    document.getElementById('chng-pass-admin').style.display = 'block'
+}
 
 function addBus(){
-    var busName=document.getElementById("newBusName").value;
-    var seatsAvailable=document.getElementById("newSeatsAvailable").value;
-    var MorPoint1=document.getElementById("newMorPoint1").value;
-    var MorPoint2=document.getElementById("newMorPoint2").value;
-    var MorPoint3=document.getElementById("newMorPoint3").value;
-    var MorPoint4=document.getElementById("newMorPoint4").value;
-    var EvePoint1=document.getElementById("newEvePoint1").value;
-    var EvePoint2=document.getElementById("newEvePoint2").value;
-    var EvePoint3=document.getElementById("newEvePoint3").value;
-    var EvePoint4=document.getElementById("newEvePoint4").value;
-    var MorTime1=onTimeChange(document.getElementById("newMorTime1").value);
-    var MorTime2=onTimeChange(document.getElementById("newMorTime2").value);
-    var MorTime3=onTimeChange(document.getElementById("newMorTime3").value);
-    var MorTime4=onTimeChange(document.getElementById("newMorTime4").value);
-    var EveTime1=onTimeChange(document.getElementById("newEveTime1").value);
-    var EveTime2=onTimeChange(document.getElementById("newEveTime2").value);
-    var EveTime3=onTimeChange(document.getElementById("newEveTime3").value);
-    var EveTime4=onTimeChange(document.getElementById("newEveTime4").value);
+    var busName=document.getElementById("newBusName");
+    var seatsAvailable=document.getElementById("newSeatsAvailable");
+    var MorPoint1=document.getElementById("newMorPoint1");
+    var MorPoint2=document.getElementById("newMorPoint2");
+    var MorPoint3=document.getElementById("newMorPoint3");
+    var MorPoint4=document.getElementById("newMorPoint4");
+    var EvePoint1=document.getElementById("newEvePoint1");
+    var EvePoint2=document.getElementById("newEvePoint2");
+    var EvePoint3=document.getElementById("newEvePoint3");
+    var EvePoint4=document.getElementById("newEvePoint4");
+    var MorTime1=document.getElementById("newMorTime1");
+    var MorTime2=document.getElementById("newMorTime2");
+    var MorTime3=document.getElementById("newMorTime3");
+    var MorTime4=document.getElementById("newMorTime4");
+    var EveTime1=document.getElementById("newEveTime1");
+    var EveTime2=document.getElementById("newEveTime2");
+    var EveTime3=document.getElementById("newEveTime3");
+    var EveTime4=document.getElementById("newEveTime4");
 
     
     var busID = firebase.database().ref(`/busses`).push().key
 
     var busData={
-        busName,
-        seatsAvailable,
-        MorPoint1,
-        MorPoint2,
-        MorPoint3,
-        MorPoint4,
-        EvePoint1,
-        EvePoint2,
-        EvePoint3,
-        EvePoint4,
-        MorTime1,
-        MorTime2,
-        MorTime3,
-        MorTime4,
-        EveTime1,
-        EveTime2,
-        EveTime3,
-        EveTime4,
+        busName:busName.value,
+        seatsAvailable:seatsAvailable.value,
+        MorPoint1:MorPoint1.value,
+        MorPoint2:MorPoint2.value,
+        MorPoint3:MorPoint3.value,
+        MorPoint4:MorPoint4.value,
+        EvePoint1:EvePoint1.value,
+        EvePoint2:EvePoint2.value,
+        EvePoint3:EvePoint3.value,
+        EvePoint4:EvePoint4.value,
+        MorTime1:onTimeChange(MorTime1.value),
+        MorTime2:onTimeChange(MorTime2.value),
+        MorTime3:onTimeChange(MorTime3.value),
+        MorTime4:onTimeChange(MorTime4.value),
+        EveTime1:onTimeChange(EveTime1.value),
+        EveTime2:onTimeChange(EveTime2.value),
+        EveTime3:onTimeChange(EveTime3.value),
+        EveTime4:onTimeChange(EveTime4.value),
         key:busID
     }
-
+    
     firebase.database().ref(`/busses/${busID}`).set(busData)
+    
     getBuses();
+    
+    busName.value = '';
+    seatsAvailable.value = '';
+    MorPoint1.value = '';
+    MorPoint2.value = '';
+    MorPoint3.value = '';
+    MorPoint4.value = '';
+    EvePoint1.value = '';
+    EvePoint2.value = '';
+    EvePoint3.value = '';
+    EvePoint4.value = '';
+    MorTime1rTime1.value = '';
+    MorTime2rTime2.value = '';
+    MorTime3rTime3.value = '';
+    MorTime4rTime4.value = '';
+    EveTime1eTime1.value = '';
+    EveTime2eTime2.value = '';
+    EveTime3eTime3.value = '';
+    EveTime4eTime4.value = '';
 }
 
 function onTimeChange(time) {
@@ -479,117 +524,126 @@ var getBuses = async() => {
         })
 
         busesArr = Object.keys(busesObj)
+        console.log(busesArr)
 
-        document.getElementById('scrolldiv').innerHTML = busesArr.map( key =>{
-            console.log(key.slice(0,6))
+        var buses = busesArr.map( key =>{
+            var busKey = `${key.slice(0,8)}`
+            // console.log(key)
+            console.log(busesObj[key])
+            
             return(
                 `
-                    <div class="accordion" id="Buses${key.slice(0,6)}">
-                        <div class="card card-custom">
-                            <div class="card-header" id="Bus${key.slice(0,6)}">
-                                <h2 class="mb-0">
-                                <button class="editBusName btn" type="button" data-toggle="collapse" data-target="#collapseBus${key.slice(0,6)}" aria-expanded="true" aria-controls="collapseBus${key.slice(0,6)}">
-                                    <input class="form-control enterBusName" type="text" id="newBusName${key.slice(0,6)}" placeholder="Enter Bus name">
-                                </button>
-                                </h2>
-                                <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av">)
-                                <!-- Available Seats (<span id="seats-av">23</span>) -->
-                            </div>
-                            <div id="collapseBus${key.slice(0,6)}" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
-                                <div class="card-body">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="mor-eve-hd">Morning</span>
-                                            </div>
+                    <div class="accordion" id="Buses${busKey}">
+                    <div class="card card-custom">
+                        <div class="card-header" id="Bus${busKey}">
+                            <h2 class="mb-0">
+                            <button class="editBusName btn" type="button" data-toggle="collapse" data-target="#collapseBus${busKey}" aria-expanded="true" aria-controls="collapseBus${busKey}">
+                                <input class="form-control enterBusName" type="text" id="newBusName${busKey}" placeholder="Enter Bus name" value='${busesObj[key].busName}'>
+                            </button>
+                            </h2>
+                            <label for="seats-av${busKey}">Available Seats </label>(<input class="availableSeats" type="text" id="seats-av${busKey}" value='${busesObj[key].seatsAvailable}'>)
+                        </div>
+                        <div id="collapseBus${busKey}" class="collapse show" aria-labelledby="Bus${busKey}" data-parent="#Buses${busKey}">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
                                         <div class="col">
-                                        <span class="mor-eve-hd">Evening</span>
-                                    </div>
-                                </div>
-                                <div class="row">
+                                            <span class="mor-eve-hd">Morning</span>
+                                        </div>
                                     <div class="col">
-                                        <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
-                                    </div>
-                                    <div class="col">
-                                        <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
-                                    </div>
-                                    <div class="col">
-                                        <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
-                                    </div>
-                                    <div class="col">
-                                        <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="morPoint1">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control  modalInputsize" type="time" id="morTime1">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 1" id="evePoint1">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="eveTime1">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 2" id="morPoint2">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="morTime2">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 2" id="evePoint2">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="eveTime2">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 3" id="morPoint3">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="morTime3">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 3" id="evePoint3">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="eveTime3">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 4" id="morPoint4">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="morTime4">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="text" placeholder="point 4" id="evePoint4">
-                                    </div>
-                                    <div class="col">
-                                        <input class="form-control modalInputsize" type="time" id="eveTime4">
-                                    </div>
+                                    <span class="mor-eve-hd">Evening</span>
                                 </div>
                             </div>
-                            <br>
-                            <button class="btn"><i class="fas fa-save"></i> Save</button>
-                            <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
-                            <br>
-                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                                </div>
+                                <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                                </div>
+                                <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                                </div>
+                                <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="${busKey}morPoint1" value='${busesObj[key].MorPoint1}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control  modalInputsize" type="time" id="${busKey}morTime1" value='${busesObj[key].MorTime1}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 1" id="${busKey}evePoint1" value='${busesObj[key].EvePoint1}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="${busKey}morPoint2" value='${busesObj[key].MorPoint2}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime2">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 2" id="${busKey}evePoint2" value='${busesObj[key].EvePoint2}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime2">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="${busKey}morPoint3" value='${busesObj[key].MorPoint3}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime3">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 3" id="${busKey}evePoint3" value='${busesObj[key].EvePoint3}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime3">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="${busKey}morPoint4" value='${busesObj[key].MorPoint4}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}morTime4">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="text" placeholder="point 4" id="${busKey}evePoint4" value='${busesObj[key].EvePoint4}'>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control modalInputsize" type="time" id="${busKey}eveTime4">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn"><i class="fas fa-save"></i> Save</button>
+                        <button class="btn BusDeleteBtn"><i class="fas fa-trash"></i> Delete Bus</button>
+                        <br>
+                        <br>
                     </div>
                     </div>
                     </div>
                     </div>
-                    </div>
+                </div>
                 `
             )
         })
+        
+        buses = buses.join(' ')
+        // for (var i=0; i < buses.length; i++) {
+            // console.log(buses[i]+"<br>")
+            document.getElementById('scrolldiv').innerHTML = buses;
+        // }
 
         // console.log(busesObj)
         // console.log(busesArr)
