@@ -238,7 +238,7 @@ else{
     }
 }
 
-const checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
+var checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
 
 function forgetpassreset() {
     var forgotemail=document.getElementById("forgetrestemail").value;
@@ -396,6 +396,61 @@ function closeUser() {
     //     })
     // })
 // }
+
+//set annoucements
+function setAnnouncement() {
+    let annoucement = document.getElementById('news-text')
+    firebase.database().ref(`/annoucements`).set(annoucement.value).then(() => {
+        alert('announcement added')
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+function getAnnoucementEdit() {
+    let annoucement = document.getElementById('news-text')
+    firebase.database().ref(`/annoucements`).once('value', res => {
+        annoucement.value = res.val()
+    })
+}
+
+function getAnnoucement() {
+    let userAnnoucement = document.getElementById('annoucement')
+    console.log('hello')
+    firebase.database().ref(`/annoucements`).once('value', res => {
+        console.log(res.val())
+        userAnnoucement.innerHTML = res.val()
+    })
+}
+
+//change password
+function changePassword() {
+    let oldPassword = document.getElementById('useroldpass').value;
+    let newPassword = document.getElementById('usernewpass').value;
+    let confirmPassword = document.getElementById('userconfnewpass').value;
+    // console.log(newPassword.value + '\n' + confirmPassword.value)
+    if (newPassword === confirmPassword) {
+        let user = firebase.auth().currentUser;
+        console.log(user)
+        let credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword)
+        user.reauthenticateWithCredential(credentials).then(() => {
+           user.updatePassword(newPassword).then(function () {
+               alert('successful')
+           }).catch(function (error) {
+               console.log(error)
+           });
+        }).catch(error => {
+            console.log(error.message)
+        });
+        // console.log(user)
+    } else
+        alert("password not same")
+
+    oldPassword.value = '';
+    newPassword.value = '';
+    confirmPassword.value = '';
+}
+
 var showUser = () =>{
     document.getElementById('users-admin').style.display = 'block'
     document.getElementById('buses-admin').style.display = 'none'
@@ -414,6 +469,7 @@ var showAnnouncemebnt = () =>{
     document.getElementById('buses-admin').style.display = 'none'
     document.getElementById('news-admin').style.display = 'block'
     document.getElementById('chng-pass-admin').style.display = 'none'
+    getAnnoucementEdit();
 }
 var showChangePass = () =>{
     document.getElementById('users-admin').style.display = 'none'

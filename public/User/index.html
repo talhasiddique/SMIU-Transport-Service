@@ -47,7 +47,8 @@
         <div >
             <div class="d-flex justify-content-between align-items-center breaking-news newsbg">
                 <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Announcement <i class="fas fa-bullhorn m-1"></i></span></div>
-                <marquee id="announcement" class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" > The Vice Chancellor of Sindh Madressatul Islam University, Dr. Mujeeb Uddin Sahrai Memon said, “We will update the curriculum as per the contemporary requirements and also try to add some more subjects related to Islamic Banking as a part of our curriculum. He passed these remarks while speaking to a seminar organized by the Department of Accounting, Banking and Finance on “Overview of Islamic Finance and its Curriculum Development; National Financial Inclusion Strategy 2023” at Senate Hall on Monday. Admiring the effort of the department he furthered whenever any topic connected to religion it become a sensitive issue and while taking about it, a person has to understand it in-depth. Director of Centre for Excellence in Islamic Finance, IBA, Ahmed Ali Siddiqui said in his online addressed the most frequently asked question is, can banking be Islamic or not. While it is a comprehensive economic system and it is strengthening around the world. trading and partnership is Islamic Banking but lending is not, he said. While talking about the statistics he said there are more than 1300 Islamic Financial Institutions around the globe having size of 2.80 trillion. “Worldwide more than 150 million customers are using Islamic Financial services.” said Mr. Siddiqui. Assistant Professor of Centre for Excellence in Islamic Finance, Institute of Business Administration, Irum Saba said that the purpose of holding this seminar is to promote Islamic Banking because the next era is about Islamic Banking, so we need to prepare students as per the need of the practical life. It is important to introduce at least one course of Islamic Banking at undergraduate level and announce a specialized course in the last year, she said, adding that there are thousands of Islamic banking jobs in the field but no appropriate candidates are available. Chairperson and Dean of the Department Dr. Jamshed Adil also addressed on the occasion. At the end of the ceremony, the Vice Chancellor also presented shields to the guests. Students and teachers also attended in the seminar</marquee>
+                <marquee id="announcement" class="news-scroll" behavior="scroll" direction="left" onstart="getAnnoucement()" onmouseover="this.stop();" onmouseout="this.start();">
+                </marquee>
             </div>
         </div>
     </div>
@@ -76,7 +77,7 @@
       <div class="newpass-val"><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
       <div class="confirm-new-pass-hd lefttext"><label for="userconfnewpass"   >Confirm new password</label></div>
       <div class="confirm-new-pass-val"><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
-      <div class="save-pass-btn"><button type="submit" id="userpasssavebtn" class="signuplgnbtn savebtn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div>
+      <div class="save-pass-btn"><button  id="userpasssavebtn" class="signuplgnbtn savebtn"><i class="fas fa-save"></i> Save</button></div>
     </div>  
   </div>
   <div class="buscontainer">

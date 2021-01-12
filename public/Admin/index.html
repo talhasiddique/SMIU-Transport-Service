@@ -294,7 +294,7 @@
                   <label for="news-text"></label>
                   <textarea id="news-text" class="form-control form-control-address" name="news-text" rows="4" ></textarea>
                     <br>
-                    <button class="btn" onclick="getData()"><i class="fas fa-save"></i> Save</button>
+                    <button class="btn" onclick="setAnnouncement()"><i class="fas fa-save"></i> Save</button>
                   </form>
         </div>
       
@@ -308,7 +308,8 @@
                 <div><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
                 <div><label for="userconfnewpass"   >Confirm new password</label></div>
                 <div><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
-                <div><button type="submit" id="userpasssavebtn" class="btn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div>
+                <!-- <div><button type="submit" id="userpasssavebtn" class="btn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div> -->
+                <div><button id="userpasssavebtn" class="btn" onclick="changePassword()"><i class="fas fa-save"></i> Save</button></div>
                 <br>
                 <br>
         </div>
