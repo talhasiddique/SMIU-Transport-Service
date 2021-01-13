@@ -100,7 +100,7 @@
         <div id="users-admin" class="container"  style="display: block;">
           <br>
           <h2>Users</h2>
-          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" onsubmit="return searchUser()">
+          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" onsubmit="return searchUser(event)">
             <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by user Email"
               aria-label="Search" id='search-user-admin'>
               <button class="search-btn" type='submit'>
@@ -166,17 +166,144 @@
           <h2>Buses</h2>
           
           <div class="container">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn addBusBtn" data-toggle="modal" data-target="#exampleModalCenter">
-              <i class="fas fa-plus"></i>
-            </button>
-  
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            
+            <div class="busbuttons">
+              <button type="button" class="btn addBusBtn  margin" data-toggle="modal" data-target="#editbus">
+                <i class="fas fa-pen"></i>
+              </button>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn addBusBtn margin" data-toggle="modal" data-target="#addbus">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            
+            <!-- Modal  edit bus-->
+              <div class="modal fade" id="editbus" tabindex="-1" role="dialog" aria-labelledby="editbus" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="editbusLongTitle">Edit Bus</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card card-custom">
+                        <div class="card-header" id="BusTwo">
+                          
+                          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" onsubmit="return searchBus(event)">
+                            <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by registration number" aria-label="Search" id='search-bus-admin'>
+                            <button class="search-btn" type='submit'>
+                              <i class="fa-2x fas fa-search" aria-hidden="true"></i>
+                            </button>
+                          </form>
+                          
+                          <hr>
+                          <h2 class="mb-0">
+                            <input class="form-control enterBusName" type="text" id="editBusName" placeholder="Enter Bus Name">
+                            <input class="form-control enterBusName"  type="text" id="editBusRegNumber" placeholder="Enter bus registration number">
+                          </h2>
+                          <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="editSeatsAvailable">)
+                        </div>
+                        <div class="card-body">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col">
+                                <span class="mor-eve-hd">Morning</span>
+                              </div>
+                              <div class="col">
+                                <span class="mor-eve-hd">Evening</span>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <span class="pnts-time-hd"><b>Points</b></span>
+                              </div>
+                              <div class="col">
+                                <span class="pnts-time-hd"><b>Time</b></span>
+                              </div>
+                              <div class="col">
+                                <span class="pnts-time-hd"><b>Points</b></span>
+                              </div>
+                              <div class="col">
+                                <span class="pnts-time-hd"><b>Time</b></span>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <input class="form-control  modalInputsize" type="text" placeholder="point 1" id="editMorPoint1">
+                              </div>
+                              <div class="col">
+                                <input class="form-control  modalInputsize" type="time" id="editMorTime1">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 1" id="editEvePoint1">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editEveTime1">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 2" id="editMorPoint2">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editMorTime2">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 2" id="editEvePoint2">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editEveTime2">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 3" id="editMorPoint3">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editMorTime3">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 3" id="editEvePoint3">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editEveTime3">
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 4" id="editMorPoint4">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editMorTime4">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="text" placeholder="point 4" id="editEvePoint4">
+                              </div>
+                              <div class="col">
+                                <input class="form-control modalInputsize" type="time" id="editEveTime4">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <input type='hidden' id='fullKey' >
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearBusTextFields()">Close</button>
+                      <button type="submit" class="btn btn-primary" onclick="editBus()">Save Data </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- Modal  add bus-->
+            <div class="modal fade" id="addbus" tabindex="-1" role="dialog" aria-labelledby="addbus" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Add New Bus</h5>
+                  <h5 class="modal-title" id="addbusLongTitle">Add New Bus</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -184,9 +311,11 @@
                 <div class="modal-body">
                   <div class="card card-custom">
                     <div class="card-header" id="BusTwo">
-                      <h2 class="mb-0">
-                        <input class="form-control enterBusName" type="text" id="newBusName" placeholder="Enter Bus Name">
-                      </h2>
+                          <h2 class="mb-0">
+                            <input class="form-control enterBusName" type="text" id="newBusName" placeholder="Enter Bus Name">
+                            <input class="form-control enterBusName" type="text" id="newBusRegNumber"
+                              placeholder="Enter bus registration number">
+                          </h2>
                       <label for="seats-av">Available Seats </label>(<input class="availableSeats" type="text" id="newSeatsAvailable">)
                     </div>          
                       <div class="card-body">

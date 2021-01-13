@@ -307,13 +307,19 @@ label{
   background: rgb(175, 12, 12);
 }
 .addBusBtn{
-  margin-left: 95%;
+  /* margin-left: 95%; */
   margin-top: 0;
   margin-bottom: 16px;
   border-radius: 31px;
 
   /* box-shadow: 1px 2px 4px grey!important; */
 }
+/* .margin{
+  margin-right: 0;
+} */
+/* .busbuttons{
+display: flex;
+} */
 .btn:active{
 /* font-size: 100% !important; */
 background: linear-gradient(234deg,#d36d13,#bd8452);
