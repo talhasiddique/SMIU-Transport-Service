@@ -8,44 +8,47 @@ function setLoader(){
     loaderClass.style.display =  'block';
 }
 
-function loader () {
+async function loader () {
     setLoader();
     setTimeout(function(){
         endLoader()
     }, 3000)
+
 }
 
+
+const directory = `${location.origin}/public`
 async function userAuth() {
-        const directory = `${location.origin}/public`
         //          FOR FIREBASE
         // const directory = `${location.origin}/`
 
         // console.log(directory)
         await firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            // User is signed in.
-            // console.log(user.uid)
-            firebase.database().ref(`/registered-users/${user.uid}`).once('value')
-                .then(res=>{
-                    userDetails = res.val();
-                    // console.log(userDetails)
-                    userRole =  userDetails.role;
-                    userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
-                    // console.log(userRole)
-                    // console.log(location.pathname)
-                    if((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
-                        (userRole === 'User' && location.href !== `${directory}/User/`)) 
-                        {
-                            location.replace(`${directory}/${userRole}/`)
-                        }
-                })
-                .catch(err=>console.log(err))
+            if (user) {
+                // User is signed in.
+                // console.log(user.uid)
+                firebase.database().ref(`/registered-users/${user.uid}`).once('value')
+                    .then(res=>{
+                        userDetails = res.val();
+                        // user = userDetails;
+                        // console.log(userDetails)
+                        userRole =  userDetails.role;
+                        userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1)
+                        // console.log(userRole)
+                        // console.log(location.pathname)
+                        if((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
+                            (userRole === 'User' && location.href !== `${directory}/User/`)) 
+                                {
+                                    location.replace(`${directory}/${userRole}/`)
+                                }
+                    })
+                    .catch(err=>console.log(err))
             } else {
                 if(location.href !==`${directory}/`){
                     location.replace(`${directory}/`)
                 }
-    }
-});
+            }
+        });
 }
 
 
@@ -240,35 +243,61 @@ else{
 
 var checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
 
-function forgetpassreset() {
-    var forgotemail=document.getElementById("forgetrestemail").value;
-    console.log(forgotemail);
-    var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-   
-if (forgotemail===""){
-    Swal.fire({
-        icon: 'warning',
-        text: 'Please enter email',
-        customClass: 'swal-wide',
-      }) 
-      return false;  
-}
-    if (forgotemail.match(mailformat)) {
+// function passwordReset() {
+//     // event.preventDefault();
+//     var email=document.getElementById("forgetrestemail");
+//     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+//     if (email.value.match(mailformat)) {
+//         firebase.database().ref(`/registered-users`).orderByChild('email').equalTo(email.value).once('value', function (res) {
+//             if (res.val()) {
+//                 firebase.auth().sendPasswordResetEmail(email.value).then(function (res) {
+//                 console.log(res)
+//                     Swal.fire({
+//                         icon: 'success',
+//                         text: 'Reset Email has been sent to entered email',
+//                         customClass: 'swal-wide',
+//                     })
+//                 // location.replace(`${directory}/public/`)
+//                 }).catch(function (error) {
+//                     // An error happened.
+//                 });
+//             } else {
+//                 Swal.fire({
+//                     icon: 'warning',
+//                     text: 'Email does not exist',
+//                     customClass: 'swal-wide',
+//                 })
+//             }
+//         })
+//    }
+// // if (email.value===""){
+// //     Swal.fire({
+// //         icon: 'warning',
+// //         text: 'Please enter email.value',
+// //         customClass: 'swal-wide',
+// //       }) 
+// //       return false;  
+// // }
+//     // if (email.value.match(mailformat)) {
         
-        return true;}
-    else{
-        Swal.fire({
-            icon: 'warning',
-            text: 'Please enter a valid email address!',
-            customClass: 'swal-wide',
-          }) 
-          document.getElementById("forgetrestemail").value="";
-          return false;  
-    }
-}
+//     //     return true;
+//     // }
+//     else{
+//         Swal.fire({
+//             icon: 'warning',
+//             text: 'Please enter a valid email address!',
+//             customClass: 'swal-wide',
+//           }) 
+//         document.getElementById("forgetrestemail").value = "";
+//         return false;  
+//     }
+//     email.value = '';
+// }
 
 
 //search user function
+
+
 function searchUser() {
     event.preventDefault()
     let searchEmail = document.getElementById('search-user-admin');
@@ -398,40 +427,54 @@ function closeUser() {
 // }
 
 //set annoucements
+
 function setAnnouncement() {
-    let annoucement = document.getElementById('news-text')
-    firebase.database().ref(`/annoucements`).set(annoucement.value).then(() => {
+    let announcement = document.getElementById('news-text')
+    firebase.database().ref(`/announcements`).set(announcement.value).then(() => {
         alert('announcement added')
     }).catch(err => {
         console.log(err)
     })
 }
 
-function getAnnoucementEdit() {
-    let annoucement = document.getElementById('news-text')
-    firebase.database().ref(`/annoucements`).once('value', res => {
-        annoucement.value = res.val()
+async function getAnnouncement() {
+    var announcement;
+    await firebase.database().ref(`/announcements`).once('value').then(res => {
+        announcement = res.val()
+    }).catch(error => {
+        console.log(error)
+        return false;
     })
+    return announcement;
 }
 
-function getAnnoucement() {
-    let userAnnoucement = document.getElementById('annoucement')
-    console.log('hello')
-    firebase.database().ref(`/annoucements`).once('value', res => {
-        console.log(res.val())
-        userAnnoucement.innerHTML = res.val()
-    })
+async function getAdminAnnouncement() {
+    let dbAnnoucement = await getAnnouncement();
+    let announcement = document.getElementById('news-text')
+    announcement.value = dbAnnoucement;
+    // console.log(dbAnnoucement)
 }
+
+async function getUserAnnouncement() {
+    let dbAnnoucement = await getAnnouncement();
+    let announcement = document.getElementById('announcement');
+    announcement.innerHTML = dbAnnoucement;
+}
+
+async function loadAnnoucement() {
+    await getUserAnnouncement();
+}
+
+loadAnnoucement();
 
 //change password
 function changePassword() {
     let oldPassword = document.getElementById('useroldpass').value;
     let newPassword = document.getElementById('usernewpass').value;
     let confirmPassword = document.getElementById('userconfnewpass').value;
-    // console.log(newPassword.value + '\n' + confirmPassword.value)
+    // console.log(oldPassword +'\n'+newPassword + '\n' + confirmPassword)
     if (newPassword === confirmPassword) {
         let user = firebase.auth().currentUser;
-        console.log(user)
         let credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword)
         user.reauthenticateWithCredential(credentials).then(() => {
            user.updatePassword(newPassword).then(function () {
@@ -464,18 +507,25 @@ var showBuses = () =>{
     document.getElementById('chng-pass-admin').style.display = 'none'
     getBuses();
 }
-var showAnnouncemebnt = () =>{
+
+async function showAnnouncemebnt(){
     document.getElementById('users-admin').style.display = 'none'
     document.getElementById('buses-admin').style.display = 'none'
     document.getElementById('news-admin').style.display = 'block'
     document.getElementById('chng-pass-admin').style.display = 'none'
-    getAnnoucementEdit();
+    await getAdminAnnouncement();
 }
+
 var showChangePass = () =>{
     document.getElementById('users-admin').style.display = 'none'
     document.getElementById('buses-admin').style.display = 'none'
     document.getElementById('news-admin').style.display = 'none'
     document.getElementById('chng-pass-admin').style.display = 'block'
+}
+
+function getUserData() {
+    // let user = firebase.auth().currentUser;
+    console.log(firebase.auth().currentUser)
 }
 
 function addBus(){
@@ -709,7 +759,3 @@ var getBuses = async() => {
         buses = buses.join(' ')
         document.getElementById('scrolldiv').innerHTML = buses;
     }
-
-    // var editBus = () =>{
-    //     console.log("clicked")
-    // }

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
 </head>
 <link rel="icon" href="../logo/Title-logo.png" type="image/gif">
 </head>
@@ -31,7 +32,7 @@
                   <p>You can reset your password here.</p>
                   <div class="panel-body">
     
-                    <form id="register-form" role="form" autocomplete="off" class="form" method="post" action="forgtpasstoemail.html" onsubmit=" return forgetpassreset()">
+                    <!-- <form id="register-form" role="form" autocomplete="off" class="form" method="post"> -->
     
                       <div class="form-group">
                         <div class="input-group">
@@ -40,11 +41,11 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <input name="recover-submit" class="btn " value="Reset Password" type="submit" >
+                        <button name="recover-submit" class="btn" type="button" onclick="passwordReset()">Reset Password</button>
                       </div>
                       
-                      <input type="hidden" class="hide" name="token" id="token" value=""> 
-                    </form>
+                      <!-- <input type="hidden" class="hide" name="token" id="token" value="">  -->
+                    <!-- </form> -->
     
                   </div>
                 </div>

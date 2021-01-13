@@ -30,6 +30,7 @@
 <body onload='loader()'>
   <div id="se-pre-con"></div>
   <!-- <script>userAuth()</script> -->
+  <!-- <script>getUserData()</script> -->
     <nav class=" navbar usernavbar-color">
       <a class="navbar-brand " href="index.html">
         <img src="../logo/LOGO-YELLOW.png" height="70px" class="d-inline-block align-top main-logo " alt="SMIU TRANSPORT" loading="lazy">
@@ -44,10 +45,11 @@
     </nav>
   <div class="container-fluid">
     <div class="row">
-        <div >
+        <div>
             <div class="d-flex justify-content-between align-items-center breaking-news newsbg">
                 <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Announcement <i class="fas fa-bullhorn m-1"></i></span></div>
-                <marquee id="announcement" class="news-scroll" behavior="scroll" direction="left" onstart="getAnnoucement()" onmouseover="this.stop();" onmouseout="this.start();">
+                <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                  <p id="announcement" onload="dummy()"></p>
                 </marquee>
             </div>
         </div>
@@ -58,17 +60,17 @@
   <div class="accountcontainer">
     <div class="top-headings"><h4 id="userpgName"><i class="fas fa-user-circle mr-2"></i>Talha Siddiqui</h4> </div>
     <div class="grid-container">
-      <div class="sts-hd-logo"><h4>STS Credit</h4><span id="stscrdtamnt" >10000<i class="fas fa-coins m-2"></i></span></div>
+      <div class="sts-hd-logo"><h4>STS Credit</h4><span id="stscrdtamnt" ><i class="fas fa-coins m-2"></i></span></div>
       <div class="id-hd lefttext">ID:</div>
-      <div class="id-val righttext"><span id="userpgId">16FBSCSM013</span></div>
+      <div class="id-val righttext"><span id="userpgId"></span></div>
       <div class="email-hd lefttext">Email:</div>
-      <div class="email-val righttext"><span id="userpgEmail">talhasiddiqui975@gmail.com</span></div>
+      <div class="email-val righttext"><span id="userpgEmail"></span></div>
       <div class="gender-hd lefttext">Gender:</div>
-      <div class="gender-val righttext"><span id="userpgGender">Male</span></div>
+      <div class="gender-val righttext"><span id="userpgGender"></span></div>
       <div class="phn-hd lefttext">Phone Number:</div>
-      <div class="phn-val righttext"><span id="userpgPhone">3009222867</span></div>
+      <div class="phn-val righttext"><span id="userpgPhone"></span></div>
       <div class="Address-hd lefttext">Address:</div>
-      <div class="address-val righttext"><span id="userpgAddress">SR-670 PIB COLONY, KARACHI, SINDH, PAKISTAN</span></div>
+      <div class="address-val righttext"><span id="userpgAddress"></span></div>
       <div class="subs-bus-hd"><h6>Subscribed Bus</h6><span id="user-bus-val">BUS # 1</span></div>
       <div class="passchng-hd"><h5>Change password</h5></div>
       <div class="old-pass-hd lefttext"><label for="useroldpass">Old password</label></div>
@@ -77,7 +79,7 @@
       <div class="newpass-val"><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
       <div class="confirm-new-pass-hd lefttext"><label for="userconfnewpass"   >Confirm new password</label></div>
       <div class="confirm-new-pass-val"><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
-      <div class="save-pass-btn"><button  id="userpasssavebtn" class="signuplgnbtn savebtn"><i class="fas fa-save"></i> Save</button></div>
+      <div class="save-pass-btn"><button  id="userpasssavebtn" onclick="changePassword()" class="signuplgnbtn savebtn"><i class="fas fa-save"></i> Save</button></div>
     </div>  
   </div>
   <div class="buscontainer">
@@ -884,6 +886,37 @@
       </div>
   </div>
 </footer>
+
+<script>
+  async function getUser(){
+    let credit = document.getElementById('stscrdtamnt');
+    let userName = document.getElementById('userpgName');
+    let userID = document.getElementById('userpgId');
+    let email = document.getElementById('userpgEmail');
+    let gender = document.getElementById('userpgGender');
+    let contactNo = document.getElementById('userpgPhone');
+    let address = document.getElementById('userpgAddress');
+
+    await firebase.auth().onAuthStateChanged(function (user){
+      if(user){
+        firebase.database().ref(`/registered-users/${user.uid}`).on('value',res=>{
+          let userData = {...res.val()}
+          credit.innerHTML = userData.credit;
+          userName.innerHTML=userData.userName;
+          userID.innerHTML=userData.userId;
+          email.innerHTML=userData.email;
+          gender.innerHTML=userData.gender;
+          contactNo.innerHTML=userData.contact;
+          address.innerHTML=userData.address;
+          // console.log(userData)
+
+        })
+      }
+    })
+  }
+
+  getUser();
+</script>
 </body>
 </html>
 
