@@ -191,9 +191,9 @@
                       <div class="card card-custom">
                         <div class="card-header" id="BusTwo">
                           
-                          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" onsubmit="return searchBus(event)">
+                          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" >
                             <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by registration number" aria-label="Search" id='search-bus-admin'>
-                            <button class="search-btn" type='submit'>
+                            <button class="search-btn" type='button' onclick="searchBus(event)">
                               <i class="fa-2x fas fa-search" aria-hidden="true"></i>
                             </button>
                           </form>
@@ -291,7 +291,7 @@
                     </div>
                     <div class="modal-footer">
                       <input type='hidden' id='fullKey' >
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="clearBusTextFields()">Close</button>
+                      <button type="button" class="btn btn-secondary" onclick="deleteBus()">Delete</button>
                       <button type="submit" class="btn btn-primary" onclick="editBus()">Save Data </button>
                     </div>
                   </div>

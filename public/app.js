@@ -749,11 +749,15 @@ function searchBus(event) {
     var EveningTime3 = document.getElementById("editEveTime3");
     var EveningTime4 = document.getElementById("editEveTime4");
 
+    if (searchRegNo.value === '') {
+        return false
+    }
+
     let bus;
     // alert('valid email')
     firebase.database().ref(`/busses`).orderByChild('regNo').equalTo(searchRegNo.value).on('value', res => {
         busData = res.val();
-        // console.log(busData);
+        console.log(busData);
         
         if (busData) {
             // dataContainer.style.display = 'grid';
@@ -785,6 +789,8 @@ function searchBus(event) {
                     EveTime4,
                     key
                 } = bus;
+
+                searchRegNo.value = '';
                 
                 busKey.value = key;
                 name.value = busName;
@@ -811,30 +817,45 @@ function searchBus(event) {
             alert('invalid registration no');
         }
     });
+    
 }
 
-function clearBusTextFields() {
+function deleteBus() {
+    var busKey = document.getElementById("fullKey");
+    // console.log(`${ busKey.value }`)
+    
+    firebase.database().ref(`/busses/${busKey.value}`).remove()
+        .then(res => {
+            // console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+    getBuses();  
+
     document.getElementById('search-bus-admin').value = '';
     document.getElementById("fullKey").value = '';
     document.getElementById("editBusName").value = '';
-     document.getElementById('editBusRegNumber').value = '';
+    document.getElementById('editBusRegNumber').value = '';
     document.getElementById("editSeatsAvailable").value = '';
-     document.getElementById("editMorPoint1").value = '';
-     document.getElementById("editMorPoint2").value = '';
-     document.getElementById("editMorPoint3").value = '';
-     document.getElementById("editMorPoint4").value = '';
-     document.getElementById("editEvePoint1").value = '';
-     document.getElementById("editEvePoint2").value = '';
-     document.getElementById("editEvePoint3").value = '';
-     document.getElementById("editEvePoint4").value = '';
-     document.getElementById("editMorTime1").value = '';
-     document.getElementById("editMorTime2").value = '';
-     document.getElementById("editMorTime3").value = '';
-     document.getElementById("editMorTime4").value = '';
-     document.getElementById("editEveTime1").value = '';
-     document.getElementById("editEveTime2").value = '';
-     document.getElementById("editEveTime3").value = '';
-     document.getElementById("editEveTime4").value = '';
+    document.getElementById("editMorPoint1").value = '';
+    document.getElementById("editMorPoint2").value = '';
+    document.getElementById("editMorPoint3").value = '';
+    document.getElementById("editMorPoint4").value = '';
+    document.getElementById("editEvePoint1").value = '';
+    document.getElementById("editEvePoint2").value = '';
+    document.getElementById("editEvePoint3").value = '';
+    document.getElementById("editEvePoint4").value = '';
+    document.getElementById("editMorTime1").value = '';
+    document.getElementById("editMorTime2").value = '';
+    document.getElementById("editMorTime3").value = '';
+    document.getElementById("editMorTime4").value = '';
+    document.getElementById("editEveTime1").value = '';
+    document.getElementById("editEveTime2").value = '';
+    document.getElementById("editEveTime3").value = '';
+    document.getElementById("editEveTime4").value = '';
+
 }
 
 
@@ -883,11 +904,29 @@ var editBus = () => {
         key: busKey.value
     };
 
-    // console.log(editBusData);
-    // console.log(busKey.value);
-
     firebase.database().ref(`/busses/${busKey.value}`).set({...editBusData});
 
     getBuses();  
-    clearBusTextFields();
+
+    document.getElementById('search-bus-admin').value = '';
+    document.getElementById("fullKey").value = '';
+    document.getElementById("editBusName").value = '';
+    document.getElementById('editBusRegNumber').value = '';
+    document.getElementById("editSeatsAvailable").value = '';
+    document.getElementById("editMorPoint1").value = '';
+    document.getElementById("editMorPoint2").value = '';
+    document.getElementById("editMorPoint3").value = '';
+    document.getElementById("editMorPoint4").value = '';
+    document.getElementById("editEvePoint1").value = '';
+    document.getElementById("editEvePoint2").value = '';
+    document.getElementById("editEvePoint3").value = '';
+    document.getElementById("editEvePoint4").value = '';
+    document.getElementById("editMorTime1").value = '';
+    document.getElementById("editMorTime2").value = '';
+    document.getElementById("editMorTime3").value = '';
+    document.getElementById("editMorTime4").value = '';
+    document.getElementById("editEveTime1").value = '';
+    document.getElementById("editEveTime2").value = '';
+    document.getElementById("editEveTime3").value = '';
+    document.getElementById("editEveTime4").value = '';
 };
