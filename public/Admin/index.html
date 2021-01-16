@@ -110,13 +110,13 @@
           <hr>
           <div class="grid-container-user" id="user-data-container">
             <div class="userIDHd lefttext"><label for="userID">ID</label></div>
-            <div class="userIDVal "><input class="form-control" type="text" id="userID" disabled placeholder="16fscsm013"></div>
+            <div class="userIDVal "><input class="form-control" type="text" id="userID" disabled></div>
             <div class="userNameHd lefttext"><label for="userName">Name</label></div>
-            <div class="userNameVal"><input class="form-control" type="text" id="userName" placeholder="Talha Siddiqui"></div>
+            <div class="userNameVal"><input class="form-control" type="text" id="userName"placeholder="Full Name" ></div>
             <div class="userFNameHd lefttext"><label for="userFName">Father Name</label></div>
-            <div class="userFNameVal"><input class="form-control" type="text" id="userFName" placeholder="Arshad Ali Siddiqui"></div>
+            <div class="userFNameVal"><input class="form-control" type="text" id="userFName" ></div>
             <div class="userEmailHd lefttext"><label for="userEmail">Email</label></div>
-            <div class="userEmailVal"><input class="form-control" type="text" id="userEmail" disabled placeholder="talhasiddiqui975@gmail.com"></div>
+            <div class="userEmailVal"><input class="form-control" type="text" id="userEmail" disabled ></div>
             <!-- hidden field -->
 
             <input type="hidden" id='userKey' name='key'>
@@ -131,7 +131,7 @@
               <option value="female" selected>Female</option>
             </select></div>
             <div class="busCreditHd lefttext"><label for="userCredit">STS Credit</label></div>
-            <div class="busCreditVal"><input class="form-control" type="text" id="userCredit" placeholder="10000"></div>
+            <div class="busCreditVal"><input class="form-control" type="text" id="userCredit" placeholder="recharge STS credit"></div>
             <div class="userSubBusHd lefttext"><label for="userSubBus">Subscribed Bus</label></div>
             <div class="userSubBusVal">
               <select name="userSubBusVal" id="userSubBusVal">
@@ -145,14 +145,14 @@
               </select>
             </div>
             <div class="userPhoneHd lefttext"><label for="userPhone">Contact #</label></div>
-            <div class="userPhoneVal"><input class="form-control" type="text" id="userPhone" disabled placeholder="3009222867"></div>
+            <div class="userPhoneVal"><input class="form-control" type="text" id="userPhone" disabled></div>
             <div class="userAddressHd lefttext"><label for="userAddress">Address</label></div>
             <div class="userAddressVal">            
-              <textarea id="userAddress" class="form-control form-control-address" name="userAddress" rows="4" >SR-670 PIB Colony Karachi</textarea>
+              <textarea id="userAddress" class="form-control form-control-address" name="userAddress" rows="4" placeholder="minimum 20 charracters are allowed"></textarea>
             </div>
             <div class="userButtons">
               <button class="btn userSavebtn" onclick="editUser()"><i class="fas fa-save"></i> Save</button>
-              <button class="btn userSavebtn" onclick="closeUser()"><i class="fas fa-close"></i> Close</button>
+              <button class="btn userSavebtn closeButton" onclick="closeUser()"><i class="fas fa-close"></i> Close</button>
               <!-- <button class="btn userSavebtn userDeleteBtn" onclick="deleteUser()"><i class="fas fa-trash"></i> Delete User</button> -->
             </div>
           </div>
@@ -163,10 +163,8 @@
         
         <div id="buses-admin" class="container"  style="display: none;">
           <br>
-          <h2>Buses</h2>
-          
-          <div class="container">
-            
+          <nav class="navbar navbar-dark bus-nav">
+            <h2>Buses</h2>
             <div class="busbuttons">
               <button type="button" class="btn addBusBtn  margin" data-toggle="modal" data-target="#editbus">
                 <i class="fas fa-pen"></i>
@@ -176,14 +174,16 @@
                 <i class="fas fa-plus"></i>
               </button>
             </div>
-            
+          </nav>
+          <div class="container">
             <!-- Modal  edit bus-->
               <div class="modal fade" id="editbus" tabindex="-1" role="dialog" aria-labelledby="editbus" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="editbusLongTitle">Edit Bus</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <p style="font-size: 60%; color: rgb(117, 11, 11); font-weight: bold; font-style: italic; margin: auto;">(only number allowed for available seats<br>Only Alphanumeric charracters having length between 4-10 charracters allowed for all reamining fields)</p>
+                      <button type="button " class="close closeButton" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
@@ -191,12 +191,12 @@
                       <div class="card card-custom">
                         <div class="card-header" id="BusTwo">
                           
-                          <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" >
+                          <div class="form-inline d-flex justify-content-center md-form form-sm mt-2" >
                             <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by registration number" aria-label="Search" id='search-bus-admin'>
                             <button class="search-btn" type='button' onclick="searchBus(event)">
                               <i class="fa-2x fas fa-search" aria-hidden="true"></i>
                             </button>
-                          </form>
+                          </div>
                           
                           <hr>
                           <h2 class="mb-0">
@@ -291,8 +291,8 @@
                     </div>
                     <div class="modal-footer">
                       <input type='hidden' id='fullKey' >
-                      <button type="button" class="btn btn-secondary" onclick="deleteBus()">Delete</button>
-                      <button type="submit" class="btn btn-primary" onclick="editBus()">Save Data </button>
+                      <button type="button" id="updateDeleteButton" class="btn btn-secondary closeButton" disabled='true' onclick="deleteBus()">Delete</button>
+                      <button type="submit" id="updateEditButton" class="btn btn-primary" disabled='true' onclick="editBus()">Save Data</button>
                     </div>
                   </div>
                 </div>
@@ -304,7 +304,8 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="addbusLongTitle">Add New Bus</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <p style="font-size: 60%; color: rgb(117, 11, 11); font-weight: bold; font-style: italic; margin: auto;">(only number allowed for available seats<br>Only Alphanumeric charracters having length between 4-10 charracters allowed for all reamining fields)</p>
+                  <button type="button" class="close closeButton" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -403,7 +404,7 @@
                       </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-secondary closeButton" data-dismiss="modal">Close</button>
                   <button type="submit" class="btn btn-primary" onclick="addBus()">Add Buss </button>
                 </div>
               </div>
@@ -434,9 +435,9 @@
                 <div><label for="useroldpass">Old password</label></div>
                 <div><input type="password" id="useroldpass" class="bordergreen"></div>
                 <div><label for="usernewpass">New password</label></div>
-                <div><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
+                <div><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 6 charracter)"></div>
                 <div><label for="userconfnewpass"   >Confirm new password</label></div>
-                <div><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
+                <div><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen"  placeholder="(minimum 6 charracter)"></div>
                 <!-- <div><button type="submit" id="userpasssavebtn" class="btn" onclick="userpgpassSave()"><i class="fas fa-save"></i> Save</button></div> -->
                 <div><button id="userpasssavebtn" class="btn" onclick="changePassword()"><i class="fas fa-save"></i> Save</button></div>
                 <br>

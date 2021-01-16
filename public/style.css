@@ -68,7 +68,9 @@ h5,
 h6 {
     font-family: montBold;
 }
-
+html{
+    scroll-behavior: smooth;
+  }
 body {
     background: linear-gradient(45deg, rgb(235, 232, 232),rgb(255, 255, 255));
     margin: 0;

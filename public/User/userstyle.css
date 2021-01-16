@@ -10,12 +10,18 @@ body{
     width: 130px;
     font-size: small;
     background: linear-gradient(234deg,#ec7916,#d19664);
+    box-shadow: 2px 0px 2px #726f6f;
 }
 
 .news-scroll a {
     text-decoration: none
 }
-
+.width100{
+  width: 100%;
+}
+#announcement{
+  margin: 0;
+}
 .newsbg{
     background-color: #84d9de;
     box-shadow: 0 0 6px #242221;

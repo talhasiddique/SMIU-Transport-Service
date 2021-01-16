@@ -57,7 +57,14 @@ function signOut() {
             console.log('logout');
             location = "../index.html";
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'An Exceptional error occured. Please try again',
+                customClass: 'swal-wide',
+            });
+        });
 }
 
 function loginbtn() {
@@ -88,7 +95,6 @@ function loginbtn() {
             if (error.code === 'auth/user-not-found') {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Sorry',
                     text: 'There is no account register against this email address',
                     customClass: 'swal-wide',
                 });
@@ -138,72 +144,98 @@ function signUp() {
     var userTerms = document.getElementById('userTerms');
     var numberFormat = /^((\+92)|(0)){0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$/;
     var isNumberValid = userNumber.value.match(numberFormat);
-    if (userCategory && userId.value !== '' && userName.value !== '' && userFatherName.value !== '' && userGender && userAddress.value !== '' && userEmail.value !== '' && isNumberValid && userPassword.value !== '' && userConfpassword.value !== '' && userTerms.checked) {
-        if (userTerms) {
+    if (userCategory && userId.value !== '' && userName.value !== '' && userFatherName.value !== '' && userGender && userAddress.value !== '' && userEmail.value !== '' && userPassword.value !== '' && userConfpassword.value !== '') {
+        if (userTerms.checked) {
             let key, userData;
             if (checkPassword(userPassword.value, userConfpassword.value)) {
-                firebase.auth().createUserWithEmailAndPassword(userEmail.value, userPassword.value)
-                    .then(res => {
-                        key = res.user.uid;
-                        userData = {
-                            key: key,
-                            category: userCategory,
-                            userId: userId.value,
-                            userName: userName.value,
-                            fatherName: userFatherName.value,
-                            gender: userGender,
-                            address: userAddress.value,
-                            email: userEmail.value,
-                            contact: userNumber.value,
-                            credit: 0,
-                            role: 'user'
-                        };
-                        firebase.database().ref(`/registered-users/${key}`).set(userData)
+                if (isNumberValid) {
+                    if (userAddress.value.length>=20) {
+                        firebase.auth().createUserWithEmailAndPassword(userEmail.value, userPassword.value)
                             .then(res => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Your Account has been created successfully',
-                                    customClass: 'swal-wide'
-                                })
-                                    .then(function () {
-                                        window.location = "../index.html";
+                                key = res.user.uid;
+                                userData = {
+                                    key: key,
+                                    category: userCategory,
+                                    userId: userId.value,
+                                    userName: userName.value,
+                                    fatherName: userFatherName.value,
+                                    gender: userGender,
+                                    address: userAddress.value,
+                                    email: userEmail.value,
+                                    contact: userNumber.value,
+                                    credit: 0,
+                                    role: 'user'
+                                };
+                                firebase.database().ref(`/registered-users/${key}`).set(userData)
+                                    .then(res => {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Your Account has been created successfully',
+                                            customClass: 'swal-wide'
+                                        })
+                                            .then(function () {
+                                                window.location = "../index.html";
+                                            });
+                                        userId.value = "";
+                                        userName.value = "";
+                                        userFatherName.value = "";
+                                        userEmail.value = "";
+                                        userNumber.value = "";
+                                        userAddress.value = "";
+                                    })
+                                    .catch(err => {
+                                        Swal.fire({
+                                        icon: 'error',
+                                        title: 'Sorry',
+                                        text: 'An Exceptional error occured. Please try again',
+                                        customClass: 'swal-wide',
                                     });
-                                userId.value = "";
-                                userName.value = "";
-                                userFatherName.value = "";
-                                userEmail.value = "";
-                                userNumber.value = "";
-                                userAddress.value = "";
+                                });
                             })
-                            .catch(err => console.log(err));
-                    })
-                    .catch(
-                        (error) => {
-                            console.log(error);
-                            if (error.code === "auth/email-already-in-use") {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'The user with this email already exist',
-                                    customClass: 'swal-wide',
-                                });
-
-                            }
-                            if (error.code === "auth/invalid-email") {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Please enter valid email address',
-                                    customClass: 'swal-wide',
-                                });
-                            }
-                            if (error.code === "auth/weak-password") {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'The password must be 6 characters long or more.',
-                                    customClass: 'swal-wide',
-                                });
-                            }
-                        }
-                    );
+                            .catch(
+                                (error) => {
+                                    console.log(error);
+                                    if (error.code === "auth/email-already-in-use") {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'The user with this email already exist',
+                                            customClass: 'swal-wide',
+                                        });
+        
+                                    }
+                                    if (error.code === "auth/invalid-email") {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Please enter valid email address',
+                                            customClass: 'swal-wide',
+                                        });
+                                    }
+                                    if (error.code === "auth/weak-password") {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'The password must be 6 characters long or more.',
+                                            customClass: 'swal-wide',
+                                        });
+                                    }
+                                }
+                            );
+                    }
+                    else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Minimum 20 charracters allowed for address",
+                            customClass: 'swal-wide',
+                        });
+                    }
+                    
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Number pattern doesn't match",
+                        customClass: 'swal-wide',
+                    });
+                }
 
             } else
                 Swal.fire({
@@ -212,13 +244,6 @@ function signUp() {
                     customClass: 'swal-wide',
                 });
         }
-        else if (!isNumberValid) {
-            Swal.fire({
-                icon: 'error',
-                title: "Number pattern doesn't match",
-                customClass: 'swal-wide',
-            });
-        }
         else {
             Swal.fire({
                 icon: 'error',
@@ -226,10 +251,7 @@ function signUp() {
                 customClass: 'swal-wide',
             });
         }
-
-
     }
-
     else {
         Swal.fire({
             icon: 'error',
@@ -297,39 +319,58 @@ function searchUser(event) {
         firebase.database().ref(`/registered-users`).orderByChild('email').equalTo(searchEmail.value).on('value', res => {
             userData = res.val();
             if (userData) {
-                dataContainer.style.display = 'grid';
                 Object.keys(userData).forEach(key => {
                     user = { ...userData[key] };
                 });
-
-                let {
-                    address,
-                    category,
-                    role,
-                    contact,
-                    email,
-                    fatherName,
-                    gender,
-                    key,
-                    credit,
-                    userId,
-                    userName
-                } = user;
-                userID.value = userId;
-                name.value = userName;
-                userFName.value = fatherName;
-                userEmail.value = email;
-                userCredit.value = credit;
-                userPhone.value = contact;
-                userAddress.value = address;
-                userGender.value = gender;
-                userKey.value = key;
-                userRole.value = role;
-                category.value = category;
+                if (user.role === "user") {
+                dataContainer.style.display = 'grid';
+                    let {
+                        address,
+                        category,
+                        role,
+                        contact,
+                        email,
+                        fatherName,
+                        gender,
+                        key,
+                        credit,
+                        userId,
+                        userName
+                    } = user;
+                    userID.value = userId;
+                    name.value = userName;
+                    userFName.value = fatherName;
+                    userEmail.value = email;
+                    userCredit.value = credit;
+                    userPhone.value = contact;
+                    userAddress.value = address;
+                    userGender.value = gender;
+                    userKey.value = key;
+                    userRole.value = role;
+                    category.value = category;
+                }
+                else{
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'Cannot access admin account',
+                        customClass: 'swal-wide',
+                    });
+                }
+                }
+            else{
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'There is no account registered against this email address',
+                    customClass: 'swal-wide',
+                });
             }
         });
-    } else {
-        alert('invalid email');
+    }       else {
+        Swal.fire({
+            icon: 'error',
+            text: 'Please enter a valid email address',
+            customClass: 'swal-wide',
+        });
     }
 }
 
@@ -348,8 +389,7 @@ function editUser() {
     let category = document.getElementById('category');
     let dataContainer = document.getElementById('user-data-container');
     let searchEmail = document.getElementById('search-user-admin');
-
-
+    let validCredit= /^[0-9/.]*$/;
 
     let user = {
         userId: userID.value,
@@ -364,15 +404,51 @@ function editUser() {
         category: category.value,
         address: userAddress.value
     };
-
-    firebase.database().ref(`/registered-users/${user.key}`).set(user)
-        .then(res => {
-            alert('user updated');
-            dataContainer.style.display = 'none';
-            searchEmail.value = '';
-        })
-        .catch(err => console.log(err));
-}
+    if(name.value !== '' && userFName.value !=='' && userCredit.value !== '') {
+        if (userAddress.value.length>=20) {
+            if(userCredit.value.match(validCredit) ){
+                firebase.database().ref(`/registered-users/${user.key}`).set(user)
+                    .then(res => {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'User data has been updated',
+                            customClass: 'swal-wide',
+                        });
+                        dataContainer.style.display = 'none';
+                        searchEmail.value = '';
+                    })
+                    .catch(err => {
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'Exceptional Error has been occured, please try again',
+                            customClass: 'swal-wide',
+                        });
+                    });
+            }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Only numbers alowed for credit',
+                    customClass: 'swal-wide',
+                });
+            }
+        }
+        else{
+            Swal.fire({
+                icon: 'warning',
+                text: 'Minimum 20 charracters allowed for address',
+                customClass: 'swal-wide',
+            });
+        }
+    }
+    else{
+        Swal.fire({
+            icon: 'warning',
+            text: 'Fields cannot be empty',
+            customClass: 'swal-wide',
+        });
+    }
+    }
 
 //close user div
 function closeUser() {
@@ -404,8 +480,18 @@ function closeUser() {
 function setAnnouncement() {
     let annoucement = document.getElementById('news-text');
     firebase.database().ref(`/annoucements`).set(annoucement.value).then(() => {
-        alert('announcement added');
+        Swal.fire({
+            icon: 'success',
+            text: 'Announcement updated successfully',
+            customClass: 'swal-wide',
+        });
     }).catch(err => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Sorry',
+            text: 'An Exceptional error occured. Please try again',
+            customClass: 'swal-wide',
+        });
         console.log(err);
     });
 }
@@ -418,7 +504,7 @@ function getAnnoucementEdit() {
 }
 
 function getAnnoucement() {
-    let userAnnoucement = document.getElementById('annoucement');
+    let userAnnoucement = document.getElementById('announcement');
     console.log('hello');
     firebase.database().ref(`/annoucements`).once('value', res => {
         console.log(res.val());
@@ -426,38 +512,77 @@ function getAnnoucement() {
     });
 }
 
-async function loadAnnoucement() {
-    await getUserAnnouncement();
-}
+// async function loadAnnoucement() {
+//     await getUserAnnouncement();
+// }
 
-loadAnnoucement();
+// loadAnnoucement();
 
 //change password
 function changePassword() {
-    let oldPassword = document.getElementById('useroldpass').value;
-    let newPassword = document.getElementById('usernewpass').value;
-    let confirmPassword = document.getElementById('userconfnewpass').value;
+    let oldPassword = document.getElementById('useroldpass');
+    let newPassword = document.getElementById('usernewpass');
+    let confirmPassword = document.getElementById('userconfnewpass');
     // console.log(oldPassword +'\n'+newPassword + '\n' + confirmPassword)
-    if (newPassword === confirmPassword) {
-        let user = firebase.auth().currentUser;
-        console.log(user);
-        let credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword);
-        user.reauthenticateWithCredential(credentials).then(() => {
-            user.updatePassword(newPassword).then(function () {
-                alert('successful');
-            }).catch(function (error) {
-                console.log(error);
+    if (newPassword.value!=='' &&  confirmPassword.value!=='' && oldPassword.value!=='') {
+        if (newPassword.value === confirmPassword.value) {
+            if(newPassword.value!==oldPassword.value){
+            let user = firebase.auth().currentUser;
+            // console.log(user);
+            let credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword.value);
+            user.reauthenticateWithCredential(credentials).then(() => {
+                user.updatePassword(newPassword.value).then(function () {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Your Password has been changed successfully',
+                        customClass: 'swal-wide'
+                        })  
+                    oldPassword.value=null;
+                    newPassword.value=null;
+                    confirmPassword.value=null ;
+                    
+                    // console.log(oldPassword.value,newPassword.value,confirmPassword.value)
+                    // alert('successful');
+                }).catch(function (error) {
+                    // The password is invalid or the user does not have a password.
+                    // console.log(error);
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'New password must be 6 characters long or more',
+                        customClass: 'swal-wide'
+                    })
+                });
+            }).catch(error => {
+                // console.log(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    text: 'You have entered wrong old password, Please enter a valid old password',
+                    customClass: 'swal-wide'
+                })
             });
-        }).catch(error => {
-            console.log(error.message);
-        });
-        // console.log(user)
-    } else
-        alert("password not same");
-
-    oldPassword.value = '';
-    newPassword.value = '';
-    confirmPassword.value = '';
+            }
+            else    
+            Swal.fire({
+                icon: 'error',
+                text: 'Old Password and new password can not be same',
+                customClass: 'swal-wide'
+            })
+    
+            // console.log(user)
+        } else
+        Swal.fire({
+            icon: 'error',
+            text: 'Please enter same new password and confirm new password',
+            customClass: 'swal-wide'
+        })
+    }
+    else{
+        Swal.fire({
+            icon: 'warning',
+            text: 'Fields cannot be empty',
+            customClass: 'swal-wide'
+        })
+    }
 }
 
 var showUser = () => {
@@ -507,63 +632,97 @@ function addBus() {
     var EveTime2 = document.getElementById("newEveTime2");
     var EveTime3 = document.getElementById("newEveTime3");
     var EveTime4 = document.getElementById("newEveTime4");
+    var alphanumericOnly=/^[a-zA-Z0-9]{4,10}$/;
+    var onlyNumber=/^[0-9]+$/;
 
 
+if (busName.value!=='' && regNo.value!=='' && seatsAvailable.value!=='' && MorPoint1.value!=='' && MorPoint2.value!=='' && MorPoint3.value!=='' && MorPoint4.value!=='' && EvePoint1.value!=='' && EvePoint2.value!=='' && EvePoint3.value!=='' && EvePoint4.value!=='' && MorTime1.value!=='' && MorTime2.value!=='' && MorTime3.value!=='' && MorTime4.value!=='' && EveTime1.value!=='' && EveTime2.value!=='' && EveTime3.value!=='' && EveTime4.value!=='') {
+    if (busName.value.match(alphanumericOnly) && regNo.value.match(alphanumericOnly) && MorPoint1.value.match(alphanumericOnly) && MorPoint2.value.match(alphanumericOnly) && MorPoint3.value.match(alphanumericOnly) && MorPoint4.value.match(alphanumericOnly) && EvePoint1.value.match(alphanumericOnly) && EvePoint2.value.match(alphanumericOnly) && EvePoint3.value.match(alphanumericOnly) && EvePoint4.value.match(alphanumericOnly) ) {
+        if (seatsAvailable.value.match(onlyNumber)) {
+            var busID = firebase.database().ref(`/busses`).push().key;
+            var busData = {
+                busName: busName.value,
+                regNo: regNo.value,
+                seatsAvailable: seatsAvailable.value,
+                MorPoint1: MorPoint1.value,
+                MorPoint2: MorPoint2.value,
+                MorPoint3: MorPoint3.value,
+                MorPoint4: MorPoint4.value,
+                EvePoint1: EvePoint1.value,
+                EvePoint2: EvePoint2.value,
+                EvePoint3: EvePoint3.value,
+                EvePoint4: EvePoint4.value,
+                MorTime1: MorTime1.value,
+                MorTime2: MorTime2.value,
+                MorTime3: MorTime3.value,
+                MorTime4: MorTime4.value,
+                EveTime1: EveTime1.value,
+                EveTime2: EveTime2.value,
+                EveTime3: EveTime3.value,
+                EveTime4: EveTime4.value,
+                key: busID
+            };
+            
+            console.log(busData);
+            
+            firebase.database().ref(`/busses/${busID}`).set(busData);
+            
+            getBuses();
+            
+            busName.value = '';
+            regNo.value = '';
+            seatsAvailable.value = '';
+            MorPoint1.value = '';
+            MorPoint2.value = '';
+            MorPoint3.value = '';
+            MorPoint4.value = '';
+            EvePoint1.value = '';
+            EvePoint2.value = '';
+            EvePoint3.value = '';
+            EvePoint4.value = '';
+            MorTime1.value = '';
+            MorTime2.value = '';
+            MorTime3.value = '';
+            MorTime4.value = '';
+            EveTime1.value = '';
+            EveTime2.value = '';
+            EveTime3.value = '';
+            EveTime4.value = '';
+            Swal.fire({
+                icon: 'success',
+                text: 'Bus has been added successfully',
+                customClass: 'swal-wide',
+            });
+            
+        }
+        else{
+            Swal.fire({
+                icon: 'warning',
+                text: 'only number allowed for available seats',
+                customClass: 'swal-wide',
+            });
+        }
+    }
+    else {
+        Swal.fire({
+            icon: 'warning',
+            text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
+            customClass: 'swal-wide',
+        });
+    }
+}
+else{
+    Swal.fire({
+        icon: 'warning',
+        text: 'fields cannot be empty',
+        customClass: 'swal-wide',
+    });
+}
     // console.log(MorTime1.value)
     // console.log(onTimeChange(MorTime1.value))
     // console.log(EveTime1.value)
     // console.log(onTimeChange(EveTime1.value))
 
-    var busID = firebase.database().ref(`/busses`).push().key;
-
-    var busData = {
-        busName: busName.value,
-        regNo: regNo.value,
-        seatsAvailable: seatsAvailable.value,
-        MorPoint1: MorPoint1.value,
-        MorPoint2: MorPoint2.value,
-        MorPoint3: MorPoint3.value,
-        MorPoint4: MorPoint4.value,
-        EvePoint1: EvePoint1.value,
-        EvePoint2: EvePoint2.value,
-        EvePoint3: EvePoint3.value,
-        EvePoint4: EvePoint4.value,
-        MorTime1: MorTime1.value,
-        MorTime2: MorTime2.value,
-        MorTime3: MorTime3.value,
-        MorTime4: MorTime4.value,
-        EveTime1: EveTime1.value,
-        EveTime2: EveTime2.value,
-        EveTime3: EveTime3.value,
-        EveTime4: EveTime4.value,
-        key: busID
-    };
-
-    console.log(busData);
-
-    firebase.database().ref(`/busses/${busID}`).set(busData);
-
-    getBuses();
-
-    busName.value = '';
-    regNo.value = '';
-    seatsAvailable.value = '';
-    MorPoint1.value = '';
-    MorPoint2.value = '';
-    MorPoint3.value = '';
-    MorPoint4.value = '';
-    EvePoint1.value = '';
-    EvePoint2.value = '';
-    EvePoint3.value = '';
-    EvePoint4.value = '';
-    MorTime1.value = '';
-    MorTime2.value = '';
-    MorTime3.value = '';
-    MorTime4.value = '';
-    EveTime1.value = '';
-    EveTime2.value = '';
-    EveTime3.value = '';
-    EveTime4.value = '';
 }
 
 // this function uesr when data show to the user
@@ -596,7 +755,12 @@ var getBuses = async () => {
             busesObj = { ...res.val() };
         })
         .catch(err => {
-            console.log(err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'An Exceptional error occured. Please try again',
+                customClass: 'swal-wide',
+            });
         });
 
     busesArr = Object.keys(busesObj);
@@ -749,75 +913,91 @@ function searchBus(event) {
     var EveningTime3 = document.getElementById("editEveTime3");
     var EveningTime4 = document.getElementById("editEveTime4");
 
-    if (searchRegNo.value === '') {
-        return false
+    if (searchRegNo.value !== '') {
+        
+        let bus;
+        // alert('valid email')
+        firebase.database().ref(`/busses`).orderByChild('regNo').equalTo(searchRegNo.value).on('value', res => {
+            busData = res.val();
+            console.log(busData);
+
+            if (busData) {
+                // dataContainer.style.display = 'grid';
+                Object.keys(busData).forEach(key => {
+                    // console.log(key);
+                    bus = { ...busData[key] };
+                });
+                
+                // if (searchRegNo.value == bus.regNo) {
+                    let {
+                        busName,
+                        regNo,
+                        seatsAvailable,
+                        MorPoint1,
+                        MorPoint2,
+                        MorPoint3,
+                        MorPoint4,
+                        EvePoint1,
+                        EvePoint2,
+                        EvePoint3,
+                        EvePoint4,
+                        MorTime1,
+                        MorTime2,
+                        MorTime3,
+                        MorTime4,
+                        EveTime1,
+                        EveTime2,
+                        EveTime3,
+                        EveTime4,
+                        key
+                    } = bus;
+                    
+                    //enable button here
+                    document.getElementById('updateDeleteButton').disabled = false;
+                    document.getElementById('updateEditButton').disabled = false;
+
+                    searchRegNo.value = '';
+                    
+                    busKey.value = key;
+                    name.value = busName;
+                    registration.value = regNo;
+                    seats.value = seatsAvailable;
+                    MorningPoint1.value = MorPoint1;
+                    MorningPoint2.value = MorPoint2;
+                    MorningPoint3.value = MorPoint3;
+                    MorningPoint4.value = MorPoint4;
+                    EveningPoint1.value = EvePoint1;
+                    EveningPoint2.value = EvePoint2;
+                    EveningPoint3.value = EvePoint3;
+                    EveningPoint4.value = EvePoint4;
+                    MorningTime1.value = MorTime1;
+                    MorningTime2.value = MorTime2;
+                    MorningTime3.value = MorTime3;
+                    MorningTime4.value = MorTime4;
+                    EveningTime1.value = EveTime1;
+                    EveningTime2.value = EveTime2;
+                    EveningTime3.value = EveTime3;
+                    EveningTime4.value = EveTime4;
+                }    
+                else {
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'There is no bus registered against this registration number',
+                        customClass: 'swal-wide',
+                    });
+                } 
+            // }
+        });
+        
+    }
+    else{
+        Swal.fire({
+            icon: 'warning',
+            text: 'Please enter bus registration number',
+            customClass: 'swal-wide',
+        });
     }
 
-    let bus;
-    // alert('valid email')
-    firebase.database().ref(`/busses`).orderByChild('regNo').equalTo(searchRegNo.value).on('value', res => {
-        busData = res.val();
-        console.log(busData);
-        
-        if (busData) {
-            // dataContainer.style.display = 'grid';
-            Object.keys(busData).forEach(key => {
-                // console.log(key);
-                bus = { ...busData[key] };
-            });
-            
-            if (searchRegNo.value == bus.regNo) {
-                let {
-                    busName,
-                    regNo,
-                    seatsAvailable,
-                    MorPoint1,
-                    MorPoint2,
-                    MorPoint3,
-                    MorPoint4,
-                    EvePoint1,
-                    EvePoint2,
-                    EvePoint3,
-                    EvePoint4,
-                    MorTime1,
-                    MorTime2,
-                    MorTime3,
-                    MorTime4,
-                    EveTime1,
-                    EveTime2,
-                    EveTime3,
-                    EveTime4,
-                    key
-                } = bus;
-
-                searchRegNo.value = '';
-                
-                busKey.value = key;
-                name.value = busName;
-                registration.value = regNo;
-                seats.value = seatsAvailable;
-                MorningPoint1.value = MorPoint1;
-                MorningPoint2.value = MorPoint2;
-                MorningPoint3.value = MorPoint3;
-                MorningPoint4.value = MorPoint4;
-                EveningPoint1.value = EvePoint1;
-                EveningPoint2.value = EvePoint2;
-                EveningPoint3.value = EvePoint3;
-                EveningPoint4.value = EvePoint4;
-                MorningTime1.value = MorTime1;
-                MorningTime2.value = MorTime2;
-                MorningTime3.value = MorTime3;
-                MorningTime4.value = MorTime4;
-                EveningTime1.value = EveTime1;
-                EveningTime2.value = EveTime2;
-                EveningTime3.value = EveTime3;
-                EveningTime4.value = EveTime4;
-            } 
-        } else {
-            alert('invalid registration no');
-        }
-    });
-    
 }
 
 function deleteBus() {
@@ -826,10 +1006,20 @@ function deleteBus() {
     
     firebase.database().ref(`/busses/${busKey.value}`).remove()
         .then(res => {
+            Swal.fire({
+                icon: 'success',
+                text: 'Bus has been deleted successfuly',
+                customClass: 'swal-wide',
+            });
             // console.log(res)
         })
         .catch(err => {
-            console.log(err)
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'An Exceptional error occured. Please try again',
+                customClass: 'swal-wide',
+            });
         })
 
     getBuses();  
@@ -856,10 +1046,13 @@ function deleteBus() {
     document.getElementById("editEveTime3").value = '';
     document.getElementById("editEveTime4").value = '';
 
+    document.getElementById('updateDeleteButton').disabled = true;
+    document.getElementById('updateEditButton').disabled = true;
 }
 
 
 var editBus = () => {
+    
     var busKey = document.getElementById("fullKey");
     var name = document.getElementById("editBusName");
     var registration = document.getElementById('editBusRegNumber');
@@ -880,53 +1073,91 @@ var editBus = () => {
     var EveningTime2 = document.getElementById("editEveTime2");
     var EveningTime3 = document.getElementById("editEveTime3");
     var EveningTime4 = document.getElementById("editEveTime4");
+    var alphanumericOnly=/^[a-zA-Z0-9]{4,10}$/;
+    var onlyNumber=/^[0-9]+$/;
 
-    var editBusData = {
-        busName: name.value,
-        regNo: registration.value,
-        seatsAvailable: seats.value,
-        MorPoint1: MorningPoint1.value,
-        MorPoint2: MorningPoint2.value,
-        MorPoint3: MorningPoint3.value,
-        MorPoint4: MorningPoint4.value,
-        EvePoint1: EveningPoint1.value,
-        EvePoint2: EveningPoint2.value,
-        EvePoint3: EveningPoint3.value,
-        EvePoint4: EveningPoint4.value,
-        MorTime1: MorningTime1.value,
-        MorTime2: MorningTime2.value,
-        MorTime3: MorningTime3.value,
-        MorTime4: MorningTime4.value,
-        EveTime1: EveningTime1.value,
-        EveTime2: EveningTime2.value,
-        EveTime3: EveningTime3.value,
-        EveTime4: EveningTime4.value,
-        key: busKey.value
-    };
+    if (name.value!=='' && registration.value!=='' && seats.value!=='' && MorningPoint1.value!=='' && MorningPoint2.value!=='' && MorningPoint3.value!=='' && MorningPoint4.value!=='' && EveningPoint1.value!=='' && EveningPoint2.value!=='' && EveningPoint3.value!=='' && EveningPoint4.value!=='' && MorningTime1.value!=='' && MorningTime2.value!=='' && MorningTime3.value!=='' && MorningTime4.value!=='' && EveningTime1.value!=='' && EveningTime2.value!=='' && EveningTime3.value!=='' && EveningTime4.value!=='') {
+        if (name.value.match(alphanumericOnly) && registration.value.match(alphanumericOnly) && MorningPoint1.value.match(alphanumericOnly) && MorningPoint2.value.match(alphanumericOnly) && MorningPoint3.value.match(alphanumericOnly) && MorningPoint4.value.match(alphanumericOnly) && EveningPoint1.value.match(alphanumericOnly) && EveningPoint2.value.match(alphanumericOnly) && EveningPoint3.value.match(alphanumericOnly) && EveningPoint4.value.match(alphanumericOnly) ) {
+            if (seats.value.match(onlyNumber)) {
+                var editBusData = {
+                    busName: name.value,
+                    regNo: registration.value,
+                    seatsAvailable: seats.value,
+                    MorPoint1: MorningPoint1.value,
+                    MorPoint2: MorningPoint2.value,
+                    MorPoint3: MorningPoint3.value,
+                    MorPoint4: MorningPoint4.value,
+                    EvePoint1: EveningPoint1.value,
+                    EvePoint2: EveningPoint2.value,
+                    EvePoint3: EveningPoint3.value,
+                    EvePoint4: EveningPoint4.value,
+                    MorTime1: MorningTime1.value,
+                    MorTime2: MorningTime2.value,
+                    MorTime3: MorningTime3.value,
+                    MorTime4: MorningTime4.value,
+                    EveTime1: EveningTime1.value,
+                    EveTime2: EveningTime2.value,
+                    EveTime3: EveningTime3.value,
+                    EveTime4: EveningTime4.value,
+                    key: busKey.value
+                };
+            
+                firebase.database().ref(`/busses/${busKey.value}`).set({...editBusData});
+            
+                getBuses();  
+            
+                document.getElementById('search-bus-admin').value = '';
+                document.getElementById("fullKey").value = '';
+                document.getElementById("editBusName").value = '';
+                document.getElementById('editBusRegNumber').value = '';
+                document.getElementById("editSeatsAvailable").value = '';
+                document.getElementById("editMorPoint1").value = '';
+                document.getElementById("editMorPoint2").value = '';
+                document.getElementById("editMorPoint3").value = '';
+                document.getElementById("editMorPoint4").value = '';
+                document.getElementById("editEvePoint1").value = '';
+                document.getElementById("editEvePoint2").value = '';
+                document.getElementById("editEvePoint3").value = '';
+                document.getElementById("editEvePoint4").value = '';
+                document.getElementById("editMorTime1").value = '';
+                document.getElementById("editMorTime2").value = '';
+                document.getElementById("editMorTime3").value = '';
+                document.getElementById("editMorTime4").value = '';
+                document.getElementById("editEveTime1").value = '';
+                document.getElementById("editEveTime2").value = '';
+                document.getElementById("editEveTime3").value = '';
+                document.getElementById("editEveTime4").value = '';
 
-    firebase.database().ref(`/busses/${busKey.value}`).set({...editBusData});
+                document.getElementById('updateDeleteButton').disabled = true;
+                document.getElementById('updateEditButton').disabled = true;
 
-    getBuses();  
-
-    document.getElementById('search-bus-admin').value = '';
-    document.getElementById("fullKey").value = '';
-    document.getElementById("editBusName").value = '';
-    document.getElementById('editBusRegNumber').value = '';
-    document.getElementById("editSeatsAvailable").value = '';
-    document.getElementById("editMorPoint1").value = '';
-    document.getElementById("editMorPoint2").value = '';
-    document.getElementById("editMorPoint3").value = '';
-    document.getElementById("editMorPoint4").value = '';
-    document.getElementById("editEvePoint1").value = '';
-    document.getElementById("editEvePoint2").value = '';
-    document.getElementById("editEvePoint3").value = '';
-    document.getElementById("editEvePoint4").value = '';
-    document.getElementById("editMorTime1").value = '';
-    document.getElementById("editMorTime2").value = '';
-    document.getElementById("editMorTime3").value = '';
-    document.getElementById("editMorTime4").value = '';
-    document.getElementById("editEveTime1").value = '';
-    document.getElementById("editEveTime2").value = '';
-    document.getElementById("editEveTime3").value = '';
-    document.getElementById("editEveTime4").value = '';
-};
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data Updated',
+                    customClass: 'swal-wide',
+                });
+            }
+                else{
+                    Swal.fire({
+                        icon: 'warning',
+                        text: 'only number allowed for available seats',
+                        customClass: 'swal-wide',
+                    });
+                }
+            }
+            else {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
+                    customClass: 'swal-wide',
+                });
+            }
+        }
+        else{
+            Swal.fire({
+                icon: 'warning',
+                text: 'fields cannot be empty',
+                customClass: 'swal-wide',
+            });
+    
+}};

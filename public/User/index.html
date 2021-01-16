@@ -27,7 +27,7 @@
 </head>
 <link rel="icon" href="../logo/Title-logo.png" type="image/gif">
 </head>
-<body onload='loader()'>
+<body onload='loader(), getAnnoucement()'>
   <div id="se-pre-con"></div>
   <!-- <script>userAuth()</script> -->
   <!-- <script>getUserData()</script> -->
@@ -45,7 +45,7 @@
     </nav>
   <div class="container-fluid">
     <div class="row">
-        <div>
+        <div class="width100">
             <div class="d-flex justify-content-between align-items-center breaking-news newsbg">
                 <div class="d-flex flex-row flex-grow-1 flex-fill justify-content-center py-2 text-white px-1 news"><span class="d-flex align-items-center">&nbsp;Announcement <i class="fas fa-bullhorn m-1"></i></span></div>
                 <marquee class="news-scroll" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
@@ -76,9 +76,9 @@
       <div class="old-pass-hd lefttext"><label for="useroldpass">Old password</label></div>
       <div class="old-pass-val"><input type="password" id="useroldpass" class="bordergreen"></div>
       <div class="newpass-hd lefttext"><label for="usernewpass">New password</label></div>
-      <div class="newpass-val"><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 8 charracter)"></div>
-      <div class="confirm-new-pass-hd lefttext"><label for="userconfnewpass"   >Confirm new password</label></div>
-      <div class="confirm-new-pass-val"><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" minlength="8" placeholder="(minimum 8 charracter)"></div>
+      <div class="newpass-val"><input type="password" id="usernewpass" name="usernewpass" class="bordergreen" placeholder="(minimum 6 charracter)"></div>
+      <div class="confirm-new-pass-hd lefttext"><label for="userconfnewpass">Confirm new password</label></div>
+      <div class="confirm-new-pass-val"><input type="password" id="userconfnewpass" name="userconfnewpass" class="bordergreen" placeholder="(minimum 6 charracter)"></div>
       <div class="save-pass-btn"><button  id="userpasssavebtn" onclick="changePassword()" class="signuplgnbtn savebtn"><i class="fas fa-save"></i> Save</button></div>
     </div>  
   </div>
