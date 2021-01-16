@@ -292,13 +292,13 @@ function passwordReset() {
                 })
             }
         })
-   }
+    }
     else{
         Swal.fire({
             icon: 'warning',
             text: 'Please enter a valid email address!',
             customClass: 'swal-wide',
-          }) 
+        }) 
         document.getElementById("forgetrestemail").value = "";
         return false;  
     }
@@ -627,12 +627,14 @@ var showUser = () => {
     document.getElementById('buses-admin').style.display = 'none';
     document.getElementById('news-admin').style.display = 'none';
     document.getElementById('chng-pass-admin').style.display = 'none';
+    document.getElementById('subscription-menu').style.display = 'none';
 };
 var showBuses = () => {
     document.getElementById('buses-admin').style.display = 'block';
     document.getElementById('users-admin').style.display = 'none';
     document.getElementById('news-admin').style.display = 'none';
     document.getElementById('chng-pass-admin').style.display = 'none';
+    document.getElementById('subscription-menu').style.display = 'none';
     getBuses();
 };
 var showAnnouncemebnt = () => {
@@ -640,13 +642,22 @@ var showAnnouncemebnt = () => {
     document.getElementById('buses-admin').style.display = 'none';
     document.getElementById('news-admin').style.display = 'block';
     document.getElementById('chng-pass-admin').style.display = 'none';
+    document.getElementById('subscription-menu').style.display = 'none';
     getAnnoucementEdit();
+};
+var SubscriptionMenu = () => {
+    document.getElementById('users-admin').style.display = 'none';
+    document.getElementById('buses-admin').style.display = 'none';
+    document.getElementById('news-admin').style.display = 'none';
+    document.getElementById('chng-pass-admin').style.display = 'none';
+    document.getElementById('subscription-menu').style.display = 'block';
 };
 var showChangePass = () => {
     document.getElementById('users-admin').style.display = 'none';
     document.getElementById('buses-admin').style.display = 'none';
     document.getElementById('news-admin').style.display = 'none';
     document.getElementById('chng-pass-admin').style.display = 'block';
+    document.getElementById('subscription-menu').style.display = 'none';
 };
 
 function addBus() {
