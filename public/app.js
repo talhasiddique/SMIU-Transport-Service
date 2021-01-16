@@ -168,7 +168,6 @@ function signUp() {
                             .then(res => {
                                 console.log(res.user)
                                 res.user.sendEmailVerification().then(function () {
-                                    alert('verification email has been sent')
                                 }).catch(function (error) {
                                     console.log(error)
                                 });
@@ -191,7 +190,7 @@ function signUp() {
                                     .then(res => {
                                         Swal.fire({
                                             icon: 'success',
-                                            title: 'Your Account has been created successfully',
+                                            title: 'Your Account has been created successfully. Please check your inbox to verify your account',
                                             customClass: 'swal-wide'
                                         })
                                             .then(function () {
