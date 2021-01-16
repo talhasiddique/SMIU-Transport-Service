@@ -17,6 +17,7 @@ function loader() {
 
 
 const directory = `${location.origin}/public`
+
 async function userAuth() {
     const directory = `${location.origin}/public`;
     //          FOR FIREBASE
@@ -263,10 +264,46 @@ function signUp() {
 
 var checkPassword = (password, confirmPassword) => password === confirmPassword ? true : false;
 
-function forgetpassreset() {
-    var forgotemail = document.getElementById("forgetrestemail").value;
-    console.log(forgotemail);
+function passwordReset() {
+    // event.preventDefault();
+    var email = document.getElementById("forgetrestemail").value;
     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (email.match(mailformat)) {
+        console.log(email)
+        firebase.database().ref(`/registered-users`).orderByChild('email').equalTo(email).once('value', function (res) {
+            if (res.val()) {
+                console.log(email)
+                firebase.auth().sendPasswordResetEmail(email).then(function (res) {
+                // console.log(res)
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'Reset Email has been sent to entered email',
+                        customClass: 'swal-wide',
+                    })
+                // location.replace(`${directory}/`)
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Email does not exist',
+                    customClass: 'swal-wide',
+                })
+            }
+        })
+   }
+    else{
+        Swal.fire({
+            icon: 'warning',
+            text: 'Please enter a valid email address!',
+            customClass: 'swal-wide',
+          }) 
+        document.getElementById("forgetrestemail").value = "";
+        return false;  
+    }
+    email.value = '';
+// }
 
     if (forgotemail === "") {
         Swal.fire({
