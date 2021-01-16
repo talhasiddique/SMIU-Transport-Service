@@ -663,13 +663,15 @@ var showAnnouncemebnt = () => {
     document.getElementById('subscription-menu').style.display = 'none';
     getAnnoucementEdit();
 };
-var SubscriptionMenu = () => {
+async function SubscriptionMenu(){
     document.getElementById('users-admin').style.display = 'none';
     document.getElementById('buses-admin').style.display = 'none';
     document.getElementById('news-admin').style.display = 'none';
     document.getElementById('chng-pass-admin').style.display = 'none';
     document.getElementById('subscription-menu').style.display = 'block';
-};
+    await getCreditData();
+}
+
 var showChangePass = () => {
     document.getElementById('users-admin').style.display = 'none';
     document.getElementById('buses-admin').style.display = 'none';
@@ -1227,3 +1229,33 @@ var editBus = () => {
             });
     
 }};
+
+
+function updateCredit(){
+    let credit = document.getElementById('subscriptionFeeVal').value;
+    var creditFormat=/^[0-9\.]+$/;
+    if(credit.match(creditFormat)){
+    firebase.database().ref(`/subscriptionFee`).set(credit).then(()=>{
+        alert('credit updated');
+    }).catch(err=>console.log(err))
+    } else{
+        alert('bug')
+    }
+}
+
+async function getCreditData(){
+    let inputfield = document.getElementById('subscriptionFeeVal')
+    await firebase.database().ref(`/subscriptionFee`).on('value', res=>{
+        if(res.val()){
+            inputfield.value = res.val();
+        } else{
+            inputfield.value=0;
+        }
+    })
+}
+
+function cancelAllSubscriptions(){
+    firebase.database().ref(`/subscriptions`).remove().then(()=>{
+        alert('subscriptions removed')
+    }).catch(err=>console.log(err))
+}

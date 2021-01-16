@@ -440,13 +440,13 @@
           <h2>Subscription menu</h2>
           <br>
           <div class="subfeediv">
-            <label for="suscriptionFeeVal">Subscription fee</label><br>
-            <input type="text" id="suscriptionFeeVal" class="bordergreen" placeholder="set subscription fee" style="text-align: center;"><br>
-            <button id="suscriptionFeeBtn" class="btn"><i class="fas fa-save"></i> Save</button>
+            <label for="subscriptionFeeVal">Subscription fee</label><br>
+            <input type="text" id="subscriptionFeeVal" class="bordergreen" placeholder="set subscription fee" style="text-align: center;"><br>
+            <button id="suscriptionFeeBtn" onclick="updateCredit()" class="btn"><i class="fas fa-save"></i> Save</button>
           </div>
           <br>
           <br>
-          <button id="removeAllSubs" class="btn"><i class="fas fa-minus-circle"></i> Cancel All Subscriptions</button>
+          <button id="removeAllSubs" onclick="cancelAllSubscriptions()" class="btn"><i class="fas fa-minus-circle"></i> Cancel All Subscriptions</button>
       </div>
       
         <div id="chng-pass-admin" class="container"  style="display: none;">
