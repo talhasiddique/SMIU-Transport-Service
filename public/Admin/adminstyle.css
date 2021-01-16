@@ -368,6 +368,20 @@ text-align: center;
   align-items: baseline;
 }
 
+.subfeediv{
+  border: 2px solid #0a676a;
+    padding: 9px 10px 10px 12px;
+    background: #0a686a29;
+    border-radius: 10px;
+    /* margin: auto 198px; */
+    padding: 13px 1px 15px 11px;
+}
+#removeAllSubs{
+  background: rgb(187, 9, 45);
+}
+#removeAllSubs:active{
+  background: rgb(124, 5, 29);
+}
 
 @media (min-width: 768px) {
   #sidebar-wrapper {

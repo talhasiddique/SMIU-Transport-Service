@@ -86,3 +86,5 @@ function userpgpassSave() {
     document.getElementById("usernewpass").value="";
     document.getElementById("userconfnewpass").value="";
     }
+
+    
