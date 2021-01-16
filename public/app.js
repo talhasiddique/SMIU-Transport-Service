@@ -27,21 +27,33 @@ async function userAuth() {
     await firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User is signed in.
+                firebase.database().ref(`/registered-users/${user.uid}`).once('value')
+                    .then(res => {
+                        userDetails = res.val();
+                        if ((userDetails.role === 'user' && user.emailVerified) || (userDetails.role !=='user' && !user.emailVerified)) {
+                                // console.log(userDetails)
+                                userRole = userDetails.role;
+                                userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+                                // console.log(userRole)
+                                // console.log(location.pathname)
+                                if ((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
+                                    (userRole === 'User' && location.href !== `${directory}/User/`)) {
+                                    location.replace(`${directory}/${userRole}/`);
+                                }
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Warning',
+                                text: 'Your Account is not Verified. Please verify your account via email sent',
+                                customClass: 'swal-wide',
+                            });
+                            setTimeout(() => {
+                                firebase.auth().signOut()
+                            }, 2000)
+                        }
+                    })
+                    .catch(err => console.log(err));
             // console.log(user.uid)
-            firebase.database().ref(`/registered-users/${user.uid}`).once('value')
-                .then(res => {
-                    userDetails = res.val();
-                    // console.log(userDetails)
-                    userRole = userDetails.role;
-                    userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1);
-                    // console.log(userRole)
-                    // console.log(location.pathname)
-                    if ((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
-                        (userRole === 'User' && location.href !== `${directory}/User/`)) {
-                        location.replace(`${directory}/${userRole}/`);
-                    }
-                })
-                .catch(err => console.log(err));
         } else {
             if (location.href !== `${directory}/`) {
                 location.replace(`${directory}/`);
@@ -56,7 +68,7 @@ function signOut() {
     firebase.auth().signOut()
         .then(() => {
             console.log('logout');
-            location = "../index.html";
+            location.replace(`${directory}/`);
         })
         .catch(error => {
             Swal.fire({
@@ -149,10 +161,17 @@ function signUp() {
         if (userTerms.checked) {
             let key, userData;
             if (checkPassword(userPassword.value, userConfpassword.value)) {
+
                 if (isNumberValid) {
                     if (userAddress.value.length>=20) {
                         firebase.auth().createUserWithEmailAndPassword(userEmail.value, userPassword.value)
                             .then(res => {
+                                console.log(res.user)
+                                res.user.sendEmailVerification().then(function () {
+                                    alert('verification email has been sent')
+                                }).catch(function (error) {
+                                    console.log(error)
+                                });
                                 key = res.user.uid;
                                 userData = {
                                     key: key,
@@ -167,6 +186,7 @@ function signUp() {
                                     credit: 0,
                                     role: 'user'
                                 };
+                                
                                 firebase.database().ref(`/registered-users/${key}`).set(userData)
                                     .then(res => {
                                         Swal.fire({
@@ -192,6 +212,7 @@ function signUp() {
                                         customClass: 'swal-wide',
                                     });
                                 });
+                                
                             })
                             .catch(
                                 (error) => {
@@ -542,9 +563,7 @@ function getAnnoucementEdit() {
 
 function getAnnoucement() {
     let userAnnoucement = document.getElementById('announcement');
-    console.log('hello');
     firebase.database().ref(`/annoucements`).once('value', res => {
-        console.log(res.val());
         userAnnoucement.innerHTML = res.val();
     });
 }
