@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 function subscribe(e) {
     var stsamount0= document.getElementById("stscrdtamnt").innerHTML;
     var stsamount=parseInt(stsamount0)
@@ -88,3 +89,5 @@ function userpgpassSave() {
     }
 
     
+=======
+>>>>>>> Stashed changes

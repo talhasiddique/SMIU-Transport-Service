@@ -27,7 +27,8 @@
 </head>
 <link rel="icon" href="../logo/Title-logo.png" type="image/gif">
 </head>
-<body onload='loader(), getAnnoucement()'>
+<body onload='loader(), getUser(), getAnnoucement()'>
+  <input type="hidden" id="userID" >
   <div id="se-pre-con"></div>
   <!-- <script>userAuth()</script> -->
   <!-- <script>getUserData()</script> -->
@@ -89,130 +90,18 @@
    <div id="Scrollparent">
      
     <div id="scrolldiv" style="overflow: auto;">
-      <div class="accordion" id="Buses">
-      <div class="card card-custom">
-        <div class="card-header" id="BusOne">
-          <h2 class="mb-0">
+      
+      <!-- <div class="accordion" id="Buses">
+        <div class="card card-custom">
+          <div class="card-header" id="BusOne">
+            <h2 class="mb-0">
             <button class="btn btn-link bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusOne" aria-expanded="true" aria-controls="collapseBusOne">
               BUS # 1 
             </button>
-          </h2>
-          Available Seats (<span id="seats-av">23</span>)
-        </div>
-    
-        <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
-          <div class="card-body">
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <span class="mor-eve-hd">Morning</span>
-                </div>
-                <div class="col">
-                  <span class="mor-eve-hd">Evening</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
-                </div>
-                <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
-                </div>
-                <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
-                </div>
-                <div class="col">
-                  <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <span>Point 1</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-                <div class="col">
-                  <span>Point 1</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <span>Point 2</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-                <div class="col">
-                  <span>Point 2</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <span>Point 3</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-                <div class="col">
-                  <span>Point 3</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <span>Point 4</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-                <div class="col">
-                  <span>Point 4</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <span>Point 5</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-                <div class="col">
-                  <span>Point 5</span>
-                </div>
-                <div class="col">
-                  <span>00:00</span>
-                </div>
-              </div>
-            </div>
-              <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="Buses">
-        <div class="card card-custom">
-          <div class="card-header" id="BusTwo">
-            <h2 class="mb-0">
-              <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusTwo" aria-expanded="false" aria-controls="collapseBusTwo">
-                BUS # 2
-              </button>
             </h2>
-          Available Seats (<span id="seats-av">23</span>)
+            Available Seats (<span id="seats-av">23</span>)
           </div>
-      
-          <div id="collapseBusTwo" class="collapse" aria-labelledby="BusTwo" data-parent="#Buses">
+          <div id="collapseBusOne" class="collapse show" aria-labelledby="BusOne" data-parent="#Buses">
             <div class="card-body">
               <div class="container">
                 <div class="row">
@@ -225,16 +114,16 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <span class="pnts-time-hd"><b>Points</b></span>
+                    <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
                   </div>
                   <div class="col">
-                    <span class="pnts-time-hd"><b>Time</b></span>
+                    <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
                   </div>
                   <div class="col">
-                    <span class="pnts-time-hd"><b>Points</b></span>
+                    <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
                   </div>
                   <div class="col">
-                    <span class="pnts-time-hd"><b>Time</b></span>
+                    <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
                   </div>
                 </div>
                 <div class="row">
@@ -288,20 +177,6 @@
                   </div>
                   <div class="col">
                     <span>Point 4</span>
-                  </div>
-                  <div class="col">
-                    <span>00:00</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <span>Point 5</span>
-                  </div>
-                  <div class="col">
-                    <span>00:00</span>
-                  </div>
-                  <div class="col">
-                    <span>Point 5</span>
                   </div>
                   <div class="col">
                     <span>00:00</span>
@@ -310,571 +185,12 @@
               </div>
               <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
             </div>
-            </div>
           </div>
-      </div>  
-      <div class="accordion" id="Buses">
-          <div class="card card-custom">
-            <div class="card-header" id="BusThree">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusThree" aria-expanded="false" aria-controls="collapseBusThree">
-                  BUS # 3
-                </button>
-              </h2>
-              Available Seats (<span id="seats-av">23</span>)
-            </div>
-        
-            <div id="collapseBusThree" class="collapse" aria-labelledby="BusThree" data-parent="#Buses">
-              <div class="card-body">
-                <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <span class="mor-eve-hd">Morning</span>
-                    </div>
-                    <div class="col">
-                      <span class="mor-eve-hd">Evening</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <span class="pnts-time-hd"><b>Points</b></span>
-                    </div>
-                    <div class="col">
-                      <span class="pnts-time-hd"><b>Time</b></span>
-                    </div>
-                    <div class="col">
-                      <span class="pnts-time-hd"><b>Points</b></span>
-                    </div>
-                    <div class="col">
-                      <span class="pnts-time-hd"><b>Time</b></span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <span>Point 1</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                    <div class="col">
-                      <span>Point 1</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <span>Point 2</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                    <div class="col">
-                      <span>Point 2</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <span>Point 3</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                    <div class="col">
-                      <span>Point 3</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <span>Point 4</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                    <div class="col">
-                      <span>Point 4</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <span>Point 5</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                    <div class="col">
-                      <span>Point 5</span>
-                    </div>
-                    <div class="col">
-                      <span>00:00</span>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
-              </div>
-              </div>
-            </div>
-      </div> 
-      <div class="accordion" id="Buses">
-            <div class="card card-custom">
-              <div class="card-header" id="BusFour">
-                <h2 class="mb-0">
-                  <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusFour" aria-expanded="false" aria-controls="collapseBusFour">
-                    BUS # 4
-                  </button>
-                </h2>
-          Available Seats (<span id="seats-av">23</span>)
-              </div>
-          
-              <div id="collapseBusFour" class="collapse" aria-labelledby="BusFour" data-parent="#Buses">
-                <div class="card-body">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col">
-                        <span class="mor-eve-hd">Morning</span>
-                      </div>
-                      <div class="col">
-                        <span class="mor-eve-hd">Evening</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span class="pnts-time-hd"><b>Points</b></span>
-                      </div>
-                      <div class="col">
-                        <span class="pnts-time-hd"><b>Time</b></span>
-                      </div>
-                      <div class="col">
-                        <span class="pnts-time-hd"><b>Points</b></span>
-                      </div>
-                      <div class="col">
-                        <span class="pnts-time-hd"><b>Time</b></span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 1</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 1</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 2</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 2</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 3</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 3</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 4</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 4</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <span>Point 5</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                      <div class="col">
-                        <span>Point 5</span>
-                      </div>
-                      <div class="col">
-                        <span>00:00</span>
-                      </div>
-                    </div>
-                  </div>
-                  <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
-                </div>
-                </div>
-              </div>
-      </div> 
-      <div class="accordion" id="Buses">
-              <div class="card card-custom">
-                <div class="card-header" id="BusFive">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusFive" aria-expanded="false" aria-controls="collapseBusFive">
-                      BUS # 5
-                    </button>
-                  </h2>
-          Available Seats (<span id="seats-av">23</span>)
-                </div>
-            
-                <div id="collapseBusFive" class="collapse" aria-labelledby="BusFive" data-parent="#Buses">
-                  <div class="card-body">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col">
-                          <span class="mor-eve-hd">Morning</span>
-                        </div>
-                        <div class="col">
-                          <span class="mor-eve-hd">Evening</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <span class="pnts-time-hd"><b>Points</b></span>
-                        </div>
-                        <div class="col">
-                          <span class="pnts-time-hd"><b>Time</b></span>
-                        </div>
-                        <div class="col">
-                          <span class="pnts-time-hd"><b>Points</b></span>
-                        </div>
-                        <div class="col">
-                          <span class="pnts-time-hd"><b>Time</b></span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <span>Point 1</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                        <div class="col">
-                          <span>Point 1</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <span>Point 2</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                        <div class="col">
-                          <span>Point 2</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <span>Point 3</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                        <div class="col">
-                          <span>Point 3</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <span>Point 4</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                        <div class="col">
-                          <span>Point 4</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <span>Point 5</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                        <div class="col">
-                          <span>Point 5</span>
-                        </div>
-                        <div class="col">
-                          <span>00:00</span>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
-                  </div>
-                  </div>
-                </div>
-      </div> 
-      <div class="accordion" id="Buses">
-                <div class="card card-custom">
-                  <div class="card-header" id="BusSix">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusSix" aria-expanded="false" aria-controls="collapseBusSix">
-                        BUS # 6
-                      </button>
-                    </h2>
-          Available Seats (<span id="seats-av">23</span>)
-                  </div>
-              
-                  <div id="collapseBusSix" class="collapse" aria-labelledby="BusSix" data-parent="#Buses">
-                    <div class="card-body">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col">
-                            <span class="mor-eve-hd">Morning</span>
-                          </div>
-                          <div class="col">
-                            <span class="mor-eve-hd">Evening</span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span class="pnts-time-hd"><b>Points</b></span>
-                          </div>
-                          <div class="col">
-                            <span class="pnts-time-hd"><b>Time</b></span>
-                          </div>
-                          <div class="col">
-                            <span class="pnts-time-hd"><b>Points</b></span>
-                          </div>
-                          <div class="col">
-                            <span class="pnts-time-hd"><b>Time</b></span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span>Point 1</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                          <div class="col">
-                            <span>Point 1</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span>Point 2</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                          <div class="col">
-                            <span>Point 2</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span>Point 3</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                          <div class="col">
-                            <span>Point 3</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span>Point 4</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                          <div class="col">
-                            <span>Point 4</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <span>Point 5</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                          <div class="col">
-                            <span>Point 5</span>
-                          </div>
-                          <div class="col">
-                            <span>00:00</span>
-                          </div>
-                        </div>
-                      </div>
-                      <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
-                    </div>
-                    </div>
-                  </div>
-      </div> 
-      <div class="accordion" id="Buses">
-                  <div class="card card-custom">
-                    <div class="card-header" id="BusSeven">
-                      <h2 class="mb-0">
-                        <button class="btn btn-link collapsed bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBusSeven" aria-expanded="false" aria-controls="collapseBusSeven">
-                          BUS # 7
-                        </button>
-                      </h2>
-          Available Seats (<span id="seats-av">23</span>)
-                    </div>
-                
-                    <div id="collapseBusSeven" class="collapse" aria-labelledby="BusSeven" data-parent="#Buses">
-                      <div class="card-body">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col">
-                              <span class="mor-eve-hd">Morning</span>
-                            </div>
-                            <div class="col">
-                              <span class="mor-eve-hd">Evening</span>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <span class="pnts-time-hd"><b>Points</b></span>
-                            </div>
-                            <div class="col">
-                              <span class="pnts-time-hd"><b>Time</b></span>
-                            </div>
-                            <div class="col">
-                              <span class="pnts-time-hd"><b>Points</b></span>
-                            </div>
-                            <div class="col">
-                              <span class="pnts-time-hd"><b>Time</b></span>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <span>Point 1</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                            <div class="col">
-                              <span>Point 1</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <span>Point 2</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                            <div class="col">
-                              <span>Point 2</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <span>Point 3</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                            <div class="col">
-                              <span>Point 3</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <span>Point 4</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                            <div class="col">
-                              <span>Point 4</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <span>Point 5</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                            <div class="col">
-                              <span>Point 5</span>
-                            </div>
-                            <div class="col">
-                              <span>00:00</span>
-                            </div>
-                          </div>
-                        </div>
-                          <button type="submit" name="subscribe" id="subscribe" class="btn-subs" onclick="subscribe()">Subscribe</button>
-                        </div>
-                      </div>
-                    </div>
-      </div>           
+        </div>
+      </div> -->
+
     <div>
-</div>
+  </div>
 </div>
    </div>
   </div>
@@ -896,6 +212,7 @@
     let gender = document.getElementById('userpgGender');
     let contactNo = document.getElementById('userpgPhone');
     let address = document.getElementById('userpgAddress');
+    let uid = document.getElementById('userID');
 
     await firebase.auth().onAuthStateChanged(function (user){
       if(user){
@@ -908,14 +225,15 @@
           gender.innerHTML=userData.gender;
           contactNo.innerHTML=userData.contact;
           address.innerHTML=userData.address;
-          // console.log(userData)
-
+          uid.value = userData.key;
+          // console.log(userData)  
         })
+        getUserBuses();
       }
     })
   }
 
-  getUser();
+  // getUser();
 </script>
 </body>
 </html>

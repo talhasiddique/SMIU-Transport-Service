@@ -1230,7 +1230,6 @@ var editBus = () => {
     
 }};
 
-
 function updateCredit(){
     let credit = document.getElementById('subscriptionFeeVal').value;
     var creditFormat=/^[0-9\.]+$/;
@@ -1259,3 +1258,222 @@ function cancelAllSubscriptions(){
         alert('subscriptions removed')
     }).catch(err=>console.log(err))
 }
+var getUserBuses = async () => {
+    var busesObj, busesArr;
+    await firebase.database().ref(`/busses`).once('value')
+    .then(res => {
+        busesObj = { ...res.val() };
+    })
+    .catch(err => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Sorry',
+            text: 'An Exceptional error occured. Please try again',
+            customClass: 'swal-wide',
+        });
+    });
+    
+    busesArr = Object.keys(busesObj);
+    var uid = await document.getElementById('userID');
+    // console.log(busesArr)
+
+    var buses = await busesArr.map(async (key) => {
+        var busKey = `${key.slice(0, 8)}`;
+        console.log(uid.value);
+        var subscribedBus = await firebase.database().ref(`/subscriptions/${key}`).orderByChild('userId').equalTo(uid.value).once('value')
+            .then(res => {
+                return (
+                    `
+                    <div class="accordion" id="Buses${busKey}">
+                        <div class="card card-custom">
+                            <div class="card-header" id="Bus${busKey}">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBus${busKey}" aria-expanded="true" aria-controls="collapseBus${busKey}">
+                                    ${busesObj[key].busName}
+                                </button>
+                            </h2>
+                            Registration Number (<span id="busRegNo${busKey}">${busesObj[key].regNo}</span>)
+                            <br>
+                            Available Seats (<span id="seats-av${busKey}">${busesObj[key].seatsAvailable}</span>)
+                            </div>
+                        
+                            <div id="collapseBus${busKey}" class="collapse show" aria-labelledby="Bus${busKey}" data-parent="#Buses${busKey}">
+                            <div class="card-body">
+                                <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                    <span class="mor-eve-hd">Morning</span>
+                                    </div>
+                                    <div class="col">
+                                    <span class="mor-eve-hd">Evening</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                                    </div>
+                                    <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                                    </div>
+                                    <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-map-marker-alt mr-2"></i><b>Points</b></span>
+                                    </div>
+                                    <div class="col">
+                                    <span class="pnts-time-hd"><i class="fas fa-clock mr-2"></i><b>Time</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <span>${busesObj[key].MorPoint1}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].MorTime1)}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${busesObj[key].EvePoint1}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].EveTime1)}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <span>${busesObj[key].MorPoint2}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].MorTime2)}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${busesObj[key].EvePoint2}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].EveTime2)}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <span>${busesObj[key].MorPoint3}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].MorTime3)}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${busesObj[key].EvePoint3}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].EveTime3)}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <span>${busesObj[key].MorPoint4}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].MorTime4)}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${busesObj[key].EvePoint4}</span>
+                                    </div>
+                                    <div class="col">
+                                    <span>${onTimeChange(busesObj[key].EveTime4)}</span>
+                                    </div>
+                                </div>
+                                </div>
+                                    <button type="button" name="subscribe" id="subscribe" value="${key}" class="btn-subs" onclick="subscribe(this.value);">
+                                        ${res.val() ? 'Subscribed' : 'Subscribe'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+                )
+            })
+            .catch(err => {
+                console.log(err)
+            });
+
+        console.log(subscribedBus)
+        // buses = buses.push(subscribedBus)
+        // console.log(buses)
+        // return subscribedBus;
+    });
+    
+    console.log(buses)
+    
+    // buses = buses.join(' ');
+    // document.getElementById('scrolldiv').innerHTML = buses;
+
+
+
+};
+
+async function subscribe(busKey) {
+    var stsamount = parseInt(document.getElementById("stscrdtamnt").innerHTML);
+    var userId = document.getElementById('userID').value;
+    var credit = document.getElementById('stscrdtamnt');
+    var userName = document.getElementById('userpgName');
+    var email = document.getElementById('userpgEmail');
+
+    var subscribeUsers;
+    console.log(stsamount, userId);
+
+    await firebase.database().ref(`/subscriptions/${busKey}`).once('value')
+        .then(res => {
+            subscribeUsers = { ...res.val() }
+            // console.log(subscribeUsers);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    
+    subscribeUsers = {
+        ...subscribeUsers,
+        [userId]: {
+            userId: userId,
+            credit: credit.innerHTML,
+            Name: userName.innerHTML,
+            email: email.innerHTML,
+        }
+    }
+
+
+    firebase.database().ref('/subscriptionFee/').once('value')
+        .then(res => {
+            if (stsamount >= res.val()) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Are you sure?',
+                    showCancelButton: true,
+                    confirmButtonText: `Yes`,
+                    cancelButtonColor: '#971414',
+                    confirmButtonColor: '#ec7916',
+                    customClass: 'swal-wide',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        firebase.database().ref(`/subscriptions/${busKey}`).set(subscribeUsers)
+                            .then(res => {
+                                console.log('data set ');
+                                Swal.fire('You have subscribed this Bus', '', 'success');
+                            }).catch(err => {
+                                console.log(err);
+                                Swal.fire(err.message, '', 'error');
+                            })
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Insufficient Credit',
+                    text: 'Sorry, you have insufficent credit,please recharge ',
+                    customClass: 'swal-wide',
+                });
+                return false;
+            }
+        })
+        .catch(err => {
+            console.log(ree)
+        })
+}
+
