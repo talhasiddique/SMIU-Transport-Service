@@ -91,6 +91,11 @@ body {
             animation-fill-mode: forwards;
 }
 
+::selection {
+    color: white;
+    background: #efa35f;}
+
+
 .navbar-custom{
     background: linear-gradient(45deg,#047062,#0c646d);
     height: 90px;

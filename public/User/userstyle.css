@@ -76,13 +76,13 @@ body{
 }
 
 .sts-hd-logo {
+  background: linear-gradient(234deg,#ec7916,#d19664);
   display: grid;
   text-align: center;
-  border-radius: 13px;
-  background: linear-gradient(234deg,#ec7916,#d19664);
+  border-radius: 7px;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 1px black;
   gap: 0px 0px;
   grid-template-areas:
     ".";
@@ -92,12 +92,15 @@ body{
   color: rgb(151, 20, 20);
   font-weight: bold;
   font-size: x-large;
-  border-radius: 0px 0px 13px 13px;
+  border-radius: 0px 0px 7px 7px;
   background: #f7eeee;
 }
 
 .sts-val {
+  color: rgb(216, 29, 29);
   display: grid;
+  text-align: center;
+  border-radius: 13px;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   gap: 0px 0px;
@@ -304,10 +307,10 @@ body{
 
 .subs-bus-hd {
   display: grid;
-  border-radius: 13px;
+  border-radius: 7px;
   text-align: center;
   background: linear-gradient(234deg,#ec7916,#d19664);
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 1px black;
   margin: auto 37px;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -442,7 +445,7 @@ div.top-headings {
   font-size: large;
   font-weight: bold;
   background: #f7eeee;
-  border-radius: 0px 0px 13px 13px;
+  border-radius: 0px 0px 7px 7  px;
   color: rgb(151 20 20);
 }
 

@@ -62,6 +62,7 @@
     <div class="top-headings"><h4 id="userpgName"><i class="fas fa-user-circle mr-2"></i>Talha Siddiqui</h4> </div>
     <div class="grid-container">
       <div class="sts-hd-logo"><h4>STS Credit</h4><span id="stscrdtamnt" ><i class="fas fa-coins m-2"></i></span></div>
+      <div class="sts-val"><i>(subscribtion fee is : <b id="set-subscribtion-fee"></b>)</i></div>
       <div class="id-hd lefttext">ID:</div>
       <div class="id-val righttext"><span id="userpgId"></span></div>
       <div class="email-hd lefttext">Email:</div>
@@ -204,6 +205,7 @@
 </footer>
 
 <script>
+
   async function getUser(){
     let credit = document.getElementById('stscrdtamnt');
     let userName = document.getElementById('userpgName');
@@ -213,8 +215,9 @@
     let contactNo = document.getElementById('userpgPhone');
     let address = document.getElementById('userpgAddress');
     let uid = document.getElementById('userID');
+    let subFee = document.getElementById('set-subscribtion-fee');
 
-    await firebase.auth().onAuthStateChanged(function (user){
+    await firebase.auth().onAuthStateChanged(async function (user){
       if(user){
         firebase.database().ref(`/registered-users/${user.uid}`).on('value',res=>{
           let userData = {...res.val()}
@@ -228,7 +231,16 @@
           uid.value = userData.key;
           // console.log(userData)  
         })
-        getUserBuses();
+
+        firebase.database().ref(`/subscriptionFee`).on('value',res=>{
+          let subscritionFee = res.val();
+          subFee.innerHTML = subscritionFee;
+          // console.log(subscritionFee)  
+        })
+        
+        await getUserBuses();
+
+        // await test();
       }
     })
   }

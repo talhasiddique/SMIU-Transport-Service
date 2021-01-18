@@ -850,13 +850,13 @@ var getBuses = async () => {
                         <div class="card card-custom">
                             <div class="card-header" id="Bus${busKey}">
                             <h2 class="mb-0">
-                                <button class="btn btn-link bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBus${busKey}" aria-expanded="true" aria-controls="collapseBus${busKey}">
+                                <button class="busnameadmin btn btn-link bus-btn-custom" type="button" data-toggle="collapse" data-target="#collapseBus${busKey}" aria-expanded="true" aria-controls="collapseBus${busKey}">
                                     ${busesObj[key].busName}
                                 </button>
                             </h2>
-                            Registration Number (<span id="busRegNo${busKey}">${busesObj[key].regNo}</span>)
+                            Registration Number (<span class="boldRed" id="busRegNo${busKey}">${busesObj[key].regNo}</span>)
                             <br>
-                            Available Seats (<span id="seats-av${busKey}">${busesObj[key].seatsAvailable}</span>)
+                            Available Seats (<span class="boldRed" id="seats-av${busKey}">${busesObj[key].seatsAvailable}</span>)
                             </div>
                         
                             <div id="collapseBus${busKey}" class="collapse show" aria-labelledby="Bus${busKey}" data-parent="#Buses${busKey}">
@@ -1235,10 +1235,18 @@ function updateCredit(){
     var creditFormat=/^[0-9\.]+$/;
     if(credit.match(creditFormat)){
     firebase.database().ref(`/subscriptionFee`).set(credit).then(()=>{
-        alert('credit updated');
+        Swal.fire({
+            icon: 'success',
+            text: 'STS credit has been added',
+            customClass: 'swal-wide',
+        });
     }).catch(err=>console.log(err))
     } else{
-        alert('bug')
+        Swal.fire({
+            icon: 'error',
+            text: 'An Exceptional error occured. Please try again',
+            customClass: 'swal-wide',
+        });
     }
 }
 
@@ -1255,7 +1263,12 @@ async function getCreditData(){
 
 function cancelAllSubscriptions(){
     firebase.database().ref(`/subscriptions`).remove().then(()=>{
-        alert('subscriptions removed')
+        Swal.fire({
+            icon: 'success',
+            text: 'All susbcriptions are removed successfully',
+            customClass: 'swal-wide',
+        });
+        // alert('subscriptions removed')
     }).catch(err=>console.log(err))
 }
 var getUserBuses = async () => {
@@ -1274,10 +1287,11 @@ var getUserBuses = async () => {
     });
     
     busesArr = Object.keys(busesObj);
-    var uid = await document.getElementById('userID');
+    var uid = document.getElementById('userID');
     // console.log(busesArr)
 
-    var buses = await busesArr.map(async (key) => {
+    var buses = []
+    busesArr.map(async (key) => {
         var busKey = `${key.slice(0, 8)}`;
         console.log(uid.value);
         var subscribedBus = await firebase.database().ref(`/subscriptions/${key}`).orderByChild('userId').equalTo(uid.value).once('value')
@@ -1394,19 +1408,27 @@ var getUserBuses = async () => {
             });
 
         console.log(subscribedBus)
-        // buses = buses.push(subscribedBus)
+        buses = buses.push(subscribedBus)
         // console.log(buses)
-        // return subscribedBus;
+        // document.getElementById('scrolldiv').innerHTML = subscribedBus;
+    
+    
+        return subscribedBus;
     });
     
-    console.log(buses)
-    
+    console.log(buses)    
     // buses = buses.join(' ');
     // document.getElementById('scrolldiv').innerHTML = buses;
-
-
+    
+    
+    // return buses
 
 };
+
+// async function test (){
+//     document.getElementById('scrolldiv').innerHTML = await getUserBuses();
+
+// }
 
 async function subscribe(busKey) {
     var stsamount = parseInt(document.getElementById("stscrdtamnt").innerHTML);
