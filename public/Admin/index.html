@@ -107,6 +107,7 @@
         <div id="users-admin" class="container"  style="display: block;">
           <br>
           <h2>Users</h2>
+          <hr>
           <form class="form-inline d-flex justify-content-center md-form form-sm mt-2" onsubmit="return searchUser(event)">
             <input class="form-control form-control-sm mr-3 w-75 search-field" type="text" placeholder="Search by user Email"
               aria-label="Search" id='search-user-admin'>
@@ -114,7 +115,7 @@
               <i class="fa-2x fas fa-search" aria-hidden="true"></i>
               </button>
           </form>
-          <hr>
+          <br>
           <div class="grid-container-user" id="user-data-container">
             <div class="userIDHd lefttext"><label for="userID">ID</label></div>
             <div class="userIDVal "><input class="form-control" type="text" id="userID" disabled></div>
@@ -141,7 +142,9 @@
             <div class="busCreditVal"><input class="form-control" type="text" id="userCredit" placeholder="recharge STS credit"></div>
             <div class="userSubBusHd lefttext"><label for="userSubBus">Subscribed Bus</label></div>
             <div class="userSubBusVal">
-              <select name="userSubBusVal" id="userSubBusVal">
+              <input class="form-control" type="text" id="userSubBusVal" disabled>
+              <button type="button" class="btn indivUnsubscribeBtn" id='indivUnsubscribeBtn' onclick="unsubscribeUser()"><i class="fas fa-minus-circle"></i> Unsubscribe</button>
+              <!-- <select name="userSubBusVal" id="userSubBusVal">
                 <option value="BusOne">Bus # 1</option>
                 <option value="BusTwo">Bus # 2</option>
                 <option value="BusThree">Bus # 3</option>
@@ -149,7 +152,7 @@
                 <option value="BusFive">Bus # 5</option>
                 <option value="BusSix">Bus # 6</option>
                 <option value="BusSeven">Bus # 7</option>
-              </select>
+              </select> -->
             </div>
             <div class="userPhoneHd lefttext"><label for="userPhone">Contact #</label></div>
             <div class="userPhoneVal"><input class="form-control" type="text" id="userPhone" disabled></div>
@@ -427,7 +430,7 @@
         <div id="news-admin" class="container"  style="display: none;">
                 <br>
                 <h2>Announcement</h2>
-      
+                <hr>
                   <label for="news-text"></label>
                   <textarea id="news-text" class="form-control form-control-address" name="news-text" rows="4" ></textarea>
                     <br>
@@ -438,7 +441,7 @@
         <div id="subscription-menu" class="container"  style="display: none;">
           <br>
           <h2>Subscription menu</h2>
-          <br>
+          <hr>
           <div class="subfeediv">
             <label for="subscriptionFeeVal">Subscription fee</label><br>
             <input type="text" id="subscriptionFeeVal" class="bordergreen" placeholder="set subscription fee" style="text-align: center;"><br>
@@ -451,8 +454,8 @@
       
         <div id="chng-pass-admin" class="container"  style="display: none;">
                 <br>
-                <h2>Password Change</h2>
-                <br>
+                <h2>Change Password</h2>
+                <hr>
                 <div><label for="useroldpass">Old password</label></div>
                 <div><input type="password" id="useroldpass" class="bordergreen"></div>
                 <div><label for="usernewpass">New password</label></div>

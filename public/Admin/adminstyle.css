@@ -417,6 +417,20 @@ input#subscriptionFeeVal {
   font-weight: bold;
   color: #e28737;
 }
+.indivUnsubscribeBtn {
+  padding: 6px;
+  background: #c60e1f !important;
+  margin: 2px 17px;
+}
+
+.indivUnsubscribeBtn:active {
+  background: #a30b1a !important;
+}
+
+input#userSubBusVal {
+  width: 30%;
+  float: left;
+}
 
 @media (min-width: 768px) {
   #sidebar-wrapper {

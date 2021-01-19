@@ -74,7 +74,7 @@ function signOut() {
             Swal.fire({
                 icon: 'error',
                 title: 'Sorry',
-                text: 'An Exceptional error occured. Please try again',
+                text: 'Something went wrong. Please check your connection and try again.',
                 customClass: 'swal-wide',
             });
         });
@@ -207,7 +207,7 @@ function signUp() {
                                         Swal.fire({
                                         icon: 'error',
                                         title: 'Sorry',
-                                        text: 'An Exceptional error occured. Please try again',
+                                        text: 'Something went wrong.Please check your connection and try again.',
                                         customClass: 'swal-wide',
                                     });
                                 });
@@ -368,6 +368,8 @@ function searchUser(event) {
     let userKey = document.getElementById('userKey');
     let userRole = document.getElementById('userRole');
     let category = document.getElementById('category');
+    let busName = document.getElementById('userSubBusVal');
+    let unsubscribeButton = document.getElementById('indivUnsubscribeBtn');
 
 
     let user;
@@ -394,6 +396,8 @@ function searchUser(event) {
                         userId,
                         userName
                     } = user;
+                    // let subscribeBusKey = user.subscribeBus.key;
+                    let subscribeBusName = user.subscribeBus ? user.subscribeBus.bus : 'no bus subscribed';
                     userID.value = userId;
                     name.value = userName;
                     userFName.value = fatherName;
@@ -405,6 +409,9 @@ function searchUser(event) {
                     userKey.value = key;
                     userRole.value = role;
                     category.value = category;
+                    busName.value = subscribeBusName;
+                    unsubscribeButton.disabled = user.subscribeBus ? false: true;
+
                 }
                 else{
                     Swal.fire({
@@ -431,6 +438,35 @@ function searchUser(event) {
     }
 }
 
+function unsubscribeUser(){
+    let userKey = document.getElementById('userKey').value;
+    let busKey =null;
+    firebase.database().ref(`/registered-users/${userKey}`).once('value')
+    .then(res=>{
+        data  = res.val();
+        firebase.database().ref(`/registered-users/${userKey}/subscribeBus`).remove()
+        .then(()=>{
+            let busKey = data.subscribeBus.key
+            firebase.database().ref(`/subscriptions/${busKey}/${userKey}`).remove()
+            .then(()=>{
+                Swal.fire({
+                    icon: 'success',
+                    text: 'unnscribed successfully',
+                    customClass: 'swal-wide',
+                });
+                closeUser()
+            }).catch(err=>console.log(err))
+        }).catch(err=>{
+            console.log(err)
+        })
+    }).catch(
+        error=>{
+            console.log(error)
+        }
+    )
+
+
+}
 //edit user
 function editUser() {
     let userID = document.getElementById('userID');
@@ -477,7 +513,7 @@ function editUser() {
                     .catch(err => {
                         Swal.fire({
                             icon: 'error',
-                            text: 'Exceptional Error has been occured, please try again',
+                            text: 'Something went wrong.Please check your connection and try again.',
                             customClass: 'swal-wide',
                         });
                     });
@@ -546,7 +582,7 @@ function setAnnouncement() {
         Swal.fire({
             icon: 'error',
             title: 'Sorry',
-            text: 'An Exceptional error occured. Please try again',
+            text: 'Something went wrong.Please check your connection and try again.',
             customClass: 'swal-wide',
         });
         console.log(err);
@@ -826,7 +862,7 @@ var getBuses = async () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Sorry',
-                text: 'An Exceptional error occured. Please try again',
+                text: 'Something went wrong.Please check your connection and try again.',
                 customClass: 'swal-wide',
             });
         });
@@ -1085,7 +1121,7 @@ function deleteBus() {
             Swal.fire({
                 icon: 'error',
                 title: 'Sorry',
-                text: 'An Exceptional error occured. Please try again',
+                text: 'Something went wrong.Please check your connection and try again.',
                 customClass: 'swal-wide',
             });
         })
@@ -1244,7 +1280,7 @@ function updateCredit(){
     } else{
         Swal.fire({
             icon: 'error',
-            text: 'An Exceptional error occured. Please try again',
+            text: 'Something went wrong.Please check your connection and try again.',
             customClass: 'swal-wide',
         });
     }
@@ -1270,6 +1306,7 @@ function cancelAllSubscriptions(){
         });
         // alert('subscriptions removed')
     }).catch(err=>console.log(err))
+    // firebase.database().ref(`/registered-users`).orderByChild(`subscribeBus`).equalTo('suscribeBus`)
 }
 var getUserBuses = async () => {
     var busesObj, busesArr;
@@ -1281,7 +1318,7 @@ var getUserBuses = async () => {
         Swal.fire({
             icon: 'error',
             title: 'Sorry',
-            text: 'An Exceptional error occured. Please try again',
+            text: 'Something went wrong.Please check your connection and try again.',
             customClass: 'swal-wide',
         });
     });
