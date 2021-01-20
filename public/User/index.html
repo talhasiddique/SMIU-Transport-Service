@@ -73,7 +73,7 @@
       <div class="phn-val righttext"><span id="userpgPhone"></span></div>
       <div class="Address-hd lefttext">Address:</div>
       <div class="address-val righttext"><span id="userpgAddress"></span></div>
-      <div class="subs-bus-hd"><h6>Subscribed Bus</h6><span id="user-bus-val">BUS # 1</span></div>
+      <!-- <div class="subs-bus-hd"><h6>Subscribed Bus</h6><span id="user-bus-val">BUS # 1</span></div> -->
       <div class="passchng-hd"><h5>Change password</h5></div>
       <div class="old-pass-hd lefttext"><label for="useroldpass">Old password</label></div>
       <div class="old-pass-val"><input type="password" id="useroldpass" class="bordergreen"></div>
@@ -217,7 +217,7 @@
     let uid = document.getElementById('userID');
     let subFee = document.getElementById('set-subscribtion-fee');
 
-    await firebase.auth().onAuthStateChanged(async function (user){
+    await firebase.auth().onAuthStateChanged(function (user){
       if(user){
         firebase.database().ref(`/registered-users/${user.uid}`).on('value',res=>{
           let userData = {...res.val()}
@@ -230,6 +230,8 @@
           address.innerHTML=userData.address;
           uid.value = userData.key;
           // console.log(userData)  
+          
+          getUserBuses();
         })
 
         firebase.database().ref(`/subscriptionFee`).on('value',res=>{
@@ -238,7 +240,6 @@
           // console.log(subscritionFee)  
         })
         
-        await getUserBuses();
 
         // await test();
       }

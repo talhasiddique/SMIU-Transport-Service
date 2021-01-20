@@ -16,7 +16,7 @@ function loader() {
 }
 
 
-const directory = `${location.origin}/public`
+const directory = `${location.origin}/public`;
 
 async function userAuth() {
     const directory = `${location.origin}/public`;
@@ -27,32 +27,32 @@ async function userAuth() {
     await firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User is signed in.
-                firebase.database().ref(`/registered-users/${user.uid}`).once('value')
-                    .then(res => {
-                        userDetails = res.val();
-                        if ((userDetails.role === 'user' && user.emailVerified) || (userDetails.role !=='user' && !user.emailVerified)) {
-                                // console.log(userDetails)
-                                userRole = userDetails.role;
-                                userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1);
-                                // console.log(userRole)
-                                // console.log(location.pathname)
-                                if ((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
-                                    (userRole === 'User' && location.href !== `${directory}/User/`)) {
-                                    location.replace(`${directory}/${userRole}/`);
-                                }
-                        } else {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Warning',
-                                text: 'Your Account is not Verified. Please verify your account via email sent',
-                                customClass: 'swal-wide',
-                            });
-                            setTimeout(() => {
-                                firebase.auth().signOut()
-                            }, 2000)
+            firebase.database().ref(`/registered-users/${user.uid}`).once('value')
+                .then(res => {
+                    userDetails = res.val();
+                    if ((userDetails.role === 'user' && user.emailVerified) || (userDetails.role !== 'user' && !user.emailVerified)) {
+                        // console.log(userDetails)
+                        userRole = userDetails.role;
+                        userRole = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+                        // console.log(userRole)
+                        // console.log(location.pathname)
+                        if ((userRole === 'Admin' && location.href !== `${directory}/Admin/`) ||
+                            (userRole === 'User' && location.href !== `${directory}/User/`)) {
+                            location.replace(`${directory}/${userRole}/`);
                         }
-                    })
-                    .catch(err => console.log(err));
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: 'Your Account is not Verified. Please verify your account via email sent',
+                            customClass: 'swal-wide',
+                        });
+                        setTimeout(() => {
+                            firebase.auth().signOut();
+                        }, 2000);
+                    }
+                })
+                .catch(err => console.log(err));
             // console.log(user.uid)
         } else {
             if (location.href !== `${directory}/`) {
@@ -163,13 +163,13 @@ function signUp() {
             if (checkPassword(userPassword.value, userConfpassword.value)) {
 
                 if (isNumberValid) {
-                    if (userAddress.value.length>=20) {
+                    if (userAddress.value.length >= 20) {
                         firebase.auth().createUserWithEmailAndPassword(userEmail.value, userPassword.value)
                             .then(res => {
-                                console.log(res.user)
+                                console.log(res.user);
                                 res.user.sendEmailVerification().then(function () {
                                 }).catch(function (error) {
-                                    console.log(error)
+                                    console.log(error);
                                 });
                                 key = res.user.uid;
                                 userData = {
@@ -185,7 +185,7 @@ function signUp() {
                                     credit: 0,
                                     role: 'user'
                                 };
-                                
+
                                 firebase.database().ref(`/registered-users/${key}`).set(userData)
                                     .then(res => {
                                         Swal.fire({
@@ -205,13 +205,13 @@ function signUp() {
                                     })
                                     .catch(err => {
                                         Swal.fire({
-                                        icon: 'error',
-                                        title: 'Sorry',
-                                        text: 'Something went wrong.Please check your connection and try again.',
-                                        customClass: 'swal-wide',
+                                            icon: 'error',
+                                            title: 'Sorry',
+                                            text: 'An Exceptional error occured. Please try again',
+                                            customClass: 'swal-wide',
+                                        });
                                     });
-                                });
-                                
+
                             })
                             .catch(
                                 (error) => {
@@ -222,7 +222,7 @@ function signUp() {
                                             title: 'The user with this email already exist',
                                             customClass: 'swal-wide',
                                         });
-        
+
                                     }
                                     if (error.code === "auth/invalid-email") {
                                         Swal.fire({
@@ -241,16 +241,16 @@ function signUp() {
                                 }
                             );
                     }
-                    else{
+                    else {
                         Swal.fire({
                             icon: 'error',
                             title: "Minimum 20 charracters allowed for address",
                             customClass: 'swal-wide',
                         });
                     }
-                    
+
                 }
-                else{
+                else {
                     Swal.fire({
                         icon: 'error',
                         title: "Number pattern doesn't match",
@@ -289,18 +289,18 @@ function passwordReset() {
     var email = document.getElementById("forgetrestemail").value;
     var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (email.match(mailformat)) {
-        console.log(email)
+        console.log(email);
         firebase.database().ref(`/registered-users`).orderByChild('email').equalTo(email).once('value', function (res) {
             if (res.val()) {
-                console.log(email)
+                console.log(email);
                 firebase.auth().sendPasswordResetEmail(email).then(function (res) {
-                // console.log(res)
+                    // console.log(res)
                     Swal.fire({
                         icon: 'success',
                         text: 'Reset Email has been sent to entered email',
                         customClass: 'swal-wide',
-                    })
-                // location.replace(`${directory}/`)
+                    });
+                    // location.replace(`${directory}/`)
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -309,21 +309,21 @@ function passwordReset() {
                     icon: 'warning',
                     text: 'Email does not exist',
                     customClass: 'swal-wide',
-                })
+                });
             }
-        })
+        });
     }
-    else{
+    else {
         Swal.fire({
             icon: 'warning',
             text: 'Please enter a valid email address!',
             customClass: 'swal-wide',
-        }) 
+        });
         document.getElementById("forgetrestemail").value = "";
-        return false;  
+        return false;
     }
     email.value = '';
-// }
+    // }
 
     if (forgotemail === "") {
         Swal.fire({
@@ -382,7 +382,7 @@ function searchUser(event) {
                     user = { ...userData[key] };
                 });
                 if (user.role === "user") {
-                dataContainer.style.display = 'grid';
+                    dataContainer.style.display = 'grid';
                     let {
                         address,
                         category,
@@ -413,15 +413,15 @@ function searchUser(event) {
                     unsubscribeButton.disabled = user.subscribeBus ? false: true;
 
                 }
-                else{
+                else {
                     Swal.fire({
                         icon: 'warning',
                         text: 'Cannot access admin account',
                         customClass: 'swal-wide',
                     });
                 }
-                }
-            else{
+            }
+            else {
                 Swal.fire({
                     icon: 'warning',
                     text: 'There is no account registered against this email address',
@@ -429,7 +429,7 @@ function searchUser(event) {
                 });
             }
         });
-    }       else {
+    } else {
         Swal.fire({
             icon: 'error',
             text: 'Please enter a valid email address',
@@ -448,7 +448,44 @@ function unsubscribeUser(){
         .then(()=>{
             let busKey = data.subscribeBus.key
             firebase.database().ref(`/subscriptions/${busKey}/${userKey}`).remove()
-            .then(()=>{
+            .then(() => {
+                firebase.database().ref(`/registered-users/${userKey}`).once('value')
+                .then(res => {
+                    updatedData = { ...res.val() }
+                    
+                    firebase.database().ref(`/subscriptionFee`).once('value')
+                        .then(res => {
+                            fee = parseInt(res.val());
+                            updatedData = {
+                                ...updatedData,
+                                credit: updatedData.credit + fee,
+                            }
+
+                            firebase.database().ref(`/registered-users/${userKey}`).set({...updatedData})
+                        }) 
+                        .catch(err => {
+                            console.log(err)
+                        })
+                    
+                    firebase.database().ref(`/busses/${busKey}`).once('value')
+                        .then(res => {
+                            bus = {...res.val()};
+                            bus = {
+                                ...bus,
+                                seatsAvailable: bus.seatsAvailable + 1    
+                            };
+                            // console.log(bus);
+
+                            firebase.database().ref(`/busses/${busKey}`).set({ ...bus });
+
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
                 Swal.fire({
                     icon: 'success',
                     text: 'unnscribed successfully',
@@ -482,7 +519,7 @@ function editUser() {
     let category = document.getElementById('category');
     let dataContainer = document.getElementById('user-data-container');
     let searchEmail = document.getElementById('search-user-admin');
-    let validCredit= /^[0-9/.]*$/;
+    let validCredit = /^[0-9/.]*$/;
 
     let user = {
         userId: userID.value,
@@ -497,9 +534,9 @@ function editUser() {
         category: category.value,
         address: userAddress.value
     };
-    if(name.value !== '' && userFName.value !=='' && userCredit.value !== '') {
-        if (userAddress.value.length>=20) {
-            if(userCredit.value.match(validCredit) ){
+    if (name.value !== '' && userFName.value !== '' && userCredit.value !== '') {
+        if (userAddress.value.length >= 20) {
+            if (userCredit.value.match(validCredit)) {
                 firebase.database().ref(`/registered-users/${user.key}`).set(user)
                     .then(res => {
                         Swal.fire({
@@ -518,7 +555,7 @@ function editUser() {
                         });
                     });
             }
-            else{
+            else {
                 Swal.fire({
                     icon: 'error',
                     text: 'Only numbers alowed for credit',
@@ -526,7 +563,7 @@ function editUser() {
                 });
             }
         }
-        else{
+        else {
             Swal.fire({
                 icon: 'warning',
                 text: 'Minimum 20 charracters allowed for address',
@@ -534,14 +571,14 @@ function editUser() {
             });
         }
     }
-    else{
+    else {
         Swal.fire({
             icon: 'warning',
             text: 'Fields cannot be empty',
             customClass: 'swal-wide',
         });
     }
-    }
+}
 
 //close user div
 function closeUser() {
@@ -615,64 +652,64 @@ function changePassword() {
     let newPassword = document.getElementById('usernewpass');
     let confirmPassword = document.getElementById('userconfnewpass');
     // console.log(oldPassword +'\n'+newPassword + '\n' + confirmPassword)
-    if (newPassword.value!=='' &&  confirmPassword.value!=='' && oldPassword.value!=='') {
+    if (newPassword.value !== '' && confirmPassword.value !== '' && oldPassword.value !== '') {
         if (newPassword.value === confirmPassword.value) {
-            if(newPassword.value!==oldPassword.value){
-            let user = firebase.auth().currentUser;
-            // console.log(user);
-            let credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword.value);
-            user.reauthenticateWithCredential(credentials).then(() => {
-                user.updatePassword(newPassword.value).then(function () {
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'Your Password has been changed successfully',
-                        customClass: 'swal-wide'
-                        })  
-                    oldPassword.value=null;
-                    newPassword.value=null;
-                    confirmPassword.value=null ;
-                    
-                    // console.log(oldPassword.value,newPassword.value,confirmPassword.value)
-                    // alert('successful');
-                }).catch(function (error) {
-                    // The password is invalid or the user does not have a password.
-                    // console.log(error);
+            if (newPassword.value !== oldPassword.value) {
+                let user = firebase.auth().currentUser;
+                // console.log(user);
+                let credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword.value);
+                user.reauthenticateWithCredential(credentials).then(() => {
+                    user.updatePassword(newPassword.value).then(function () {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Your Password has been changed successfully',
+                            customClass: 'swal-wide'
+                        });
+                        oldPassword.value = null;
+                        newPassword.value = null;
+                        confirmPassword.value = null;
+
+                        // console.log(oldPassword.value,newPassword.value,confirmPassword.value)
+                        // alert('successful');
+                    }).catch(function (error) {
+                        // The password is invalid or the user does not have a password.
+                        // console.log(error);
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'New password must be 6 characters long or more',
+                            customClass: 'swal-wide'
+                        });
+                    });
+                }).catch(error => {
+                    // console.log(error.message);
                     Swal.fire({
                         icon: 'error',
-                        text: 'New password must be 6 characters long or more',
+                        text: 'You have entered wrong old password, Please enter a valid old password',
                         customClass: 'swal-wide'
-                    })
+                    });
                 });
-            }).catch(error => {
-                // console.log(error.message);
+            }
+            else
                 Swal.fire({
                     icon: 'error',
-                    text: 'You have entered wrong old password, Please enter a valid old password',
+                    text: 'Old Password and new password can not be same',
                     customClass: 'swal-wide'
-                })
-            });
-            }
-            else    
-            Swal.fire({
-                icon: 'error',
-                text: 'Old Password and new password can not be same',
-                customClass: 'swal-wide'
-            })
-    
+                });
+
             // console.log(user)
         } else
-        Swal.fire({
-            icon: 'error',
-            text: 'Please enter same new password and confirm new password',
-            customClass: 'swal-wide'
-        })
+            Swal.fire({
+                icon: 'error',
+                text: 'Please enter same new password and confirm new password',
+                customClass: 'swal-wide'
+            });
     }
-    else{
+    else {
         Swal.fire({
             icon: 'warning',
             text: 'Fields cannot be empty',
             customClass: 'swal-wide'
-        })
+        });
     }
 }
 
@@ -699,7 +736,7 @@ var showAnnouncemebnt = () => {
     document.getElementById('subscription-menu').style.display = 'none';
     getAnnoucementEdit();
 };
-async function SubscriptionMenu(){
+async function SubscriptionMenu() {
     document.getElementById('users-admin').style.display = 'none';
     document.getElementById('buses-admin').style.display = 'none';
     document.getElementById('news-admin').style.display = 'none';
@@ -718,7 +755,7 @@ var showChangePass = () => {
 
 function addBus() {
     var busName = document.getElementById("newBusName");
-    var regNo = document.getElementById('newBusRegNumber')
+    var regNo = document.getElementById('newBusRegNumber');
     var seatsAvailable = document.getElementById("newSeatsAvailable");
     var MorPoint1 = document.getElementById("newMorPoint1");
     var MorPoint2 = document.getElementById("newMorPoint2");
@@ -736,73 +773,81 @@ function addBus() {
     var EveTime2 = document.getElementById("newEveTime2");
     var EveTime3 = document.getElementById("newEveTime3");
     var EveTime4 = document.getElementById("newEveTime4");
-    var alphanumericOnly=/^[a-zA-Z0-9]{4,10}$/;
-    var onlyNumber=/^[0-9]+$/;
+    var alphanumericOnly = /^[a-zA-Z0-9]{4,10}$/;
+    var onlyNumber = /^[0-9]+$/;
 
 
-if (busName.value!=='' && regNo.value!=='' && seatsAvailable.value!=='' && MorPoint1.value!=='' && MorPoint2.value!=='' && MorPoint3.value!=='' && MorPoint4.value!=='' && EvePoint1.value!=='' && EvePoint2.value!=='' && EvePoint3.value!=='' && EvePoint4.value!=='' && MorTime1.value!=='' && MorTime2.value!=='' && MorTime3.value!=='' && MorTime4.value!=='' && EveTime1.value!=='' && EveTime2.value!=='' && EveTime3.value!=='' && EveTime4.value!=='') {
-    if (busName.value.match(alphanumericOnly) && regNo.value.match(alphanumericOnly) && MorPoint1.value.match(alphanumericOnly) && MorPoint2.value.match(alphanumericOnly) && MorPoint3.value.match(alphanumericOnly) && MorPoint4.value.match(alphanumericOnly) && EvePoint1.value.match(alphanumericOnly) && EvePoint2.value.match(alphanumericOnly) && EvePoint3.value.match(alphanumericOnly) && EvePoint4.value.match(alphanumericOnly) ) {
-        if (seatsAvailable.value.match(onlyNumber)) {
-            var busID = firebase.database().ref(`/busses`).push().key;
-            var busData = {
-                busName: busName.value,
-                regNo: regNo.value,
-                seatsAvailable: seatsAvailable.value,
-                MorPoint1: MorPoint1.value,
-                MorPoint2: MorPoint2.value,
-                MorPoint3: MorPoint3.value,
-                MorPoint4: MorPoint4.value,
-                EvePoint1: EvePoint1.value,
-                EvePoint2: EvePoint2.value,
-                EvePoint3: EvePoint3.value,
-                EvePoint4: EvePoint4.value,
-                MorTime1: MorTime1.value,
-                MorTime2: MorTime2.value,
-                MorTime3: MorTime3.value,
-                MorTime4: MorTime4.value,
-                EveTime1: EveTime1.value,
-                EveTime2: EveTime2.value,
-                EveTime3: EveTime3.value,
-                EveTime4: EveTime4.value,
-                key: busID
-            };
-            
-            console.log(busData);
-            
-            firebase.database().ref(`/busses/${busID}`).set(busData);
-            
-            getBuses();
-            
-            busName.value = '';
-            regNo.value = '';
-            seatsAvailable.value = '';
-            MorPoint1.value = '';
-            MorPoint2.value = '';
-            MorPoint3.value = '';
-            MorPoint4.value = '';
-            EvePoint1.value = '';
-            EvePoint2.value = '';
-            EvePoint3.value = '';
-            EvePoint4.value = '';
-            MorTime1.value = '';
-            MorTime2.value = '';
-            MorTime3.value = '';
-            MorTime4.value = '';
-            EveTime1.value = '';
-            EveTime2.value = '';
-            EveTime3.value = '';
-            EveTime4.value = '';
-            Swal.fire({
-                icon: 'success',
-                text: 'Bus has been added successfully',
-                customClass: 'swal-wide',
-            });
-            
+    if (busName.value !== '' && regNo.value !== '' && seatsAvailable.value !== '' && MorPoint1.value !== '' && MorPoint2.value !== '' && MorPoint3.value !== '' && MorPoint4.value !== '' && EvePoint1.value !== '' && EvePoint2.value !== '' && EvePoint3.value !== '' && EvePoint4.value !== '' && MorTime1.value !== '' && MorTime2.value !== '' && MorTime3.value !== '' && MorTime4.value !== '' && EveTime1.value !== '' && EveTime2.value !== '' && EveTime3.value !== '' && EveTime4.value !== '') {
+        if (busName.value.match(alphanumericOnly) && regNo.value.match(alphanumericOnly) && MorPoint1.value.match(alphanumericOnly) && MorPoint2.value.match(alphanumericOnly) && MorPoint3.value.match(alphanumericOnly) && MorPoint4.value.match(alphanumericOnly) && EvePoint1.value.match(alphanumericOnly) && EvePoint2.value.match(alphanumericOnly) && EvePoint3.value.match(alphanumericOnly) && EvePoint4.value.match(alphanumericOnly)) {
+            if (seatsAvailable.value.match(onlyNumber)) {
+                var busID = firebase.database().ref(`/busses`).push().key;
+                var busData = {
+                    busName: busName.value,
+                    regNo: regNo.value,
+                    seatsAvailable: seatsAvailable.value,
+                    MorPoint1: MorPoint1.value,
+                    MorPoint2: MorPoint2.value,
+                    MorPoint3: MorPoint3.value,
+                    MorPoint4: MorPoint4.value,
+                    EvePoint1: EvePoint1.value,
+                    EvePoint2: EvePoint2.value,
+                    EvePoint3: EvePoint3.value,
+                    EvePoint4: EvePoint4.value,
+                    MorTime1: MorTime1.value,
+                    MorTime2: MorTime2.value,
+                    MorTime3: MorTime3.value,
+                    MorTime4: MorTime4.value,
+                    EveTime1: EveTime1.value,
+                    EveTime2: EveTime2.value,
+                    EveTime3: EveTime3.value,
+                    EveTime4: EveTime4.value,
+                    key: busID
+                };
+
+                console.log(busData);
+
+                firebase.database().ref(`/busses/${busID}`).set(busData);
+
+                getBuses();
+
+                busName.value = '';
+                regNo.value = '';
+                seatsAvailable.value = '';
+                MorPoint1.value = '';
+                MorPoint2.value = '';
+                MorPoint3.value = '';
+                MorPoint4.value = '';
+                EvePoint1.value = '';
+                EvePoint2.value = '';
+                EvePoint3.value = '';
+                EvePoint4.value = '';
+                MorTime1.value = '';
+                MorTime2.value = '';
+                MorTime3.value = '';
+                MorTime4.value = '';
+                EveTime1.value = '';
+                EveTime2.value = '';
+                EveTime3.value = '';
+                EveTime4.value = '';
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Bus has been added successfully',
+                    customClass: 'swal-wide',
+                });
+
+            }
+            else {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'only number allowed for available seats',
+                    customClass: 'swal-wide',
+                });
+            }
         }
-        else{
+        else {
             Swal.fire({
                 icon: 'warning',
-                text: 'only number allowed for available seats',
+                text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
                 customClass: 'swal-wide',
             });
         }
@@ -810,23 +855,10 @@ if (busName.value!=='' && regNo.value!=='' && seatsAvailable.value!=='' && MorPo
     else {
         Swal.fire({
             icon: 'warning',
-            text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
+            text: 'fields cannot be empty',
             customClass: 'swal-wide',
         });
     }
-}
-else{
-    Swal.fire({
-        icon: 'warning',
-        text: 'fields cannot be empty',
-        customClass: 'swal-wide',
-    });
-}
-    // console.log(MorTime1.value)
-    // console.log(onTimeChange(MorTime1.value))
-    // console.log(EveTime1.value)
-    // console.log(onTimeChange(EveTime1.value))
-
 }
 
 // this function uesr when data show to the user
@@ -868,18 +900,10 @@ var getBuses = async () => {
         });
 
     busesArr = Object.keys(busesObj);
-    // console.log(busesArr)
-
+    
     var buses = busesArr.map(key => {
         var busKey = `${key.slice(0, 8)}`;
-        // console.log(key)
-        // console.log(busesObj[key]);
-        // console.log(key);
-
-
-        // <button class="btn" type="button"><i class="fas fa-save"></i> Save</button>
-        // var btn = document.createElement('button')
-
+    
         return (
             `
                     <div class="accordion" id="Buses${busKey}">
@@ -1018,7 +1042,7 @@ function searchBus(event) {
     var EveningTime4 = document.getElementById("editEveTime4");
 
     if (searchRegNo.value !== '') {
-        
+
         let bus;
         // alert('valid email')
         firebase.database().ref(`/busses`).orderByChild('regNo').equalTo(searchRegNo.value).on('value', res => {
@@ -1031,70 +1055,70 @@ function searchBus(event) {
                     // console.log(key);
                     bus = { ...busData[key] };
                 });
-                
-                // if (searchRegNo.value == bus.regNo) {
-                    let {
-                        busName,
-                        regNo,
-                        seatsAvailable,
-                        MorPoint1,
-                        MorPoint2,
-                        MorPoint3,
-                        MorPoint4,
-                        EvePoint1,
-                        EvePoint2,
-                        EvePoint3,
-                        EvePoint4,
-                        MorTime1,
-                        MorTime2,
-                        MorTime3,
-                        MorTime4,
-                        EveTime1,
-                        EveTime2,
-                        EveTime3,
-                        EveTime4,
-                        key
-                    } = bus;
-                    
-                    //enable button here
-                    document.getElementById('updateDeleteButton').disabled = false;
-                    document.getElementById('updateEditButton').disabled = false;
 
-                    searchRegNo.value = '';
-                    
-                    busKey.value = key;
-                    name.value = busName;
-                    registration.value = regNo;
-                    seats.value = seatsAvailable;
-                    MorningPoint1.value = MorPoint1;
-                    MorningPoint2.value = MorPoint2;
-                    MorningPoint3.value = MorPoint3;
-                    MorningPoint4.value = MorPoint4;
-                    EveningPoint1.value = EvePoint1;
-                    EveningPoint2.value = EvePoint2;
-                    EveningPoint3.value = EvePoint3;
-                    EveningPoint4.value = EvePoint4;
-                    MorningTime1.value = MorTime1;
-                    MorningTime2.value = MorTime2;
-                    MorningTime3.value = MorTime3;
-                    MorningTime4.value = MorTime4;
-                    EveningTime1.value = EveTime1;
-                    EveningTime2.value = EveTime2;
-                    EveningTime3.value = EveTime3;
-                    EveningTime4.value = EveTime4;
-                }    
-                else {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'There is no bus registered against this registration number',
-                        customClass: 'swal-wide',
-                    });
-                } 
+                // if (searchRegNo.value == bus.regNo) {
+                let {
+                    busName,
+                    regNo,
+                    seatsAvailable,
+                    MorPoint1,
+                    MorPoint2,
+                    MorPoint3,
+                    MorPoint4,
+                    EvePoint1,
+                    EvePoint2,
+                    EvePoint3,
+                    EvePoint4,
+                    MorTime1,
+                    MorTime2,
+                    MorTime3,
+                    MorTime4,
+                    EveTime1,
+                    EveTime2,
+                    EveTime3,
+                    EveTime4,
+                    key
+                } = bus;
+
+                //enable button here
+                document.getElementById('updateDeleteButton').disabled = false;
+                document.getElementById('updateEditButton').disabled = false;
+
+                searchRegNo.value = '';
+
+                busKey.value = key;
+                name.value = busName;
+                registration.value = regNo;
+                seats.value = seatsAvailable;
+                MorningPoint1.value = MorPoint1;
+                MorningPoint2.value = MorPoint2;
+                MorningPoint3.value = MorPoint3;
+                MorningPoint4.value = MorPoint4;
+                EveningPoint1.value = EvePoint1;
+                EveningPoint2.value = EvePoint2;
+                EveningPoint3.value = EvePoint3;
+                EveningPoint4.value = EvePoint4;
+                MorningTime1.value = MorTime1;
+                MorningTime2.value = MorTime2;
+                MorningTime3.value = MorTime3;
+                MorningTime4.value = MorTime4;
+                EveningTime1.value = EveTime1;
+                EveningTime2.value = EveTime2;
+                EveningTime3.value = EveTime3;
+                EveningTime4.value = EveTime4;
+            }
+            else {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'There is no bus registered against this registration number',
+                    customClass: 'swal-wide',
+                });
+            }
             // }
         });
-        
+
     }
-    else{
+    else {
         Swal.fire({
             icon: 'warning',
             text: 'Please enter bus registration number',
@@ -1107,7 +1131,7 @@ function searchBus(event) {
 function deleteBus() {
     var busKey = document.getElementById("fullKey");
     // console.log(`${ busKey.value }`)
-    
+
     firebase.database().ref(`/busses/${busKey.value}`).remove()
         .then(res => {
             Swal.fire({
@@ -1124,9 +1148,9 @@ function deleteBus() {
                 text: 'Something went wrong.Please check your connection and try again.',
                 customClass: 'swal-wide',
             });
-        })
+        });
 
-    getBuses();  
+    getBuses();
 
     document.getElementById('search-bus-admin').value = '';
     document.getElementById("fullKey").value = '';
@@ -1156,7 +1180,7 @@ function deleteBus() {
 
 
 var editBus = () => {
-    
+
     var busKey = document.getElementById("fullKey");
     var name = document.getElementById("editBusName");
     var registration = document.getElementById('editBusRegNumber');
@@ -1177,11 +1201,11 @@ var editBus = () => {
     var EveningTime2 = document.getElementById("editEveTime2");
     var EveningTime3 = document.getElementById("editEveTime3");
     var EveningTime4 = document.getElementById("editEveTime4");
-    var alphanumericOnly=/^[a-zA-Z0-9]{4,10}$/;
-    var onlyNumber=/^[0-9]+$/;
+    var alphanumericOnly = /^[a-zA-Z0-9]{4,10}$/;
+    var onlyNumber = /^[0-9]+$/;
 
-    if (name.value!=='' && registration.value!=='' && seats.value!=='' && MorningPoint1.value!=='' && MorningPoint2.value!=='' && MorningPoint3.value!=='' && MorningPoint4.value!=='' && EveningPoint1.value!=='' && EveningPoint2.value!=='' && EveningPoint3.value!=='' && EveningPoint4.value!=='' && MorningTime1.value!=='' && MorningTime2.value!=='' && MorningTime3.value!=='' && MorningTime4.value!=='' && EveningTime1.value!=='' && EveningTime2.value!=='' && EveningTime3.value!=='' && EveningTime4.value!=='') {
-        if (name.value.match(alphanumericOnly) && registration.value.match(alphanumericOnly) && MorningPoint1.value.match(alphanumericOnly) && MorningPoint2.value.match(alphanumericOnly) && MorningPoint3.value.match(alphanumericOnly) && MorningPoint4.value.match(alphanumericOnly) && EveningPoint1.value.match(alphanumericOnly) && EveningPoint2.value.match(alphanumericOnly) && EveningPoint3.value.match(alphanumericOnly) && EveningPoint4.value.match(alphanumericOnly) ) {
+    if (name.value !== '' && registration.value !== '' && seats.value !== '' && MorningPoint1.value !== '' && MorningPoint2.value !== '' && MorningPoint3.value !== '' && MorningPoint4.value !== '' && EveningPoint1.value !== '' && EveningPoint2.value !== '' && EveningPoint3.value !== '' && EveningPoint4.value !== '' && MorningTime1.value !== '' && MorningTime2.value !== '' && MorningTime3.value !== '' && MorningTime4.value !== '' && EveningTime1.value !== '' && EveningTime2.value !== '' && EveningTime3.value !== '' && EveningTime4.value !== '') {
+        if (name.value.match(alphanumericOnly) && registration.value.match(alphanumericOnly) && MorningPoint1.value.match(alphanumericOnly) && MorningPoint2.value.match(alphanumericOnly) && MorningPoint3.value.match(alphanumericOnly) && MorningPoint4.value.match(alphanumericOnly) && EveningPoint1.value.match(alphanumericOnly) && EveningPoint2.value.match(alphanumericOnly) && EveningPoint3.value.match(alphanumericOnly) && EveningPoint4.value.match(alphanumericOnly)) {
             if (seats.value.match(onlyNumber)) {
                 var editBusData = {
                     busName: name.value,
@@ -1205,11 +1229,11 @@ var editBus = () => {
                     EveTime4: EveningTime4.value,
                     key: busKey.value
                 };
-            
-                firebase.database().ref(`/busses/${busKey.value}`).set({...editBusData});
-            
-                getBuses();  
-            
+
+                firebase.database().ref(`/busses/${busKey.value}`).set({ ...editBusData });
+
+                getBuses();
+
                 document.getElementById('search-bus-admin').value = '';
                 document.getElementById("fullKey").value = '';
                 document.getElementById("editBusName").value = '';
@@ -1241,43 +1265,45 @@ var editBus = () => {
                     customClass: 'swal-wide',
                 });
             }
-                else{
-                    Swal.fire({
-                        icon: 'warning',
-                        text: 'only number allowed for available seats',
-                        customClass: 'swal-wide',
-                    });
-                }
-            }
             else {
                 Swal.fire({
                     icon: 'warning',
-                    text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
+                    text: 'only number allowed for available seats',
                     customClass: 'swal-wide',
                 });
             }
         }
-        else{
+        else {
             Swal.fire({
                 icon: 'warning',
-                text: 'fields cannot be empty',
+                text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
                 customClass: 'swal-wide',
             });
-    
-}};
-
-function updateCredit(){
-    let credit = document.getElementById('subscriptionFeeVal').value;
-    var creditFormat=/^[0-9\.]+$/;
-    if(credit.match(creditFormat)){
-    firebase.database().ref(`/subscriptionFee`).set(credit).then(()=>{
+        }
+    }
+    else {
         Swal.fire({
-            icon: 'success',
-            text: 'STS credit has been added',
+            icon: 'warning',
+            text: 'fields cannot be empty',
             customClass: 'swal-wide',
         });
-    }).catch(err=>console.log(err))
-    } else{
+
+    }
+};
+
+function updateCredit() {
+    let credit = document.getElementById('subscriptionFeeVal').value;
+    var creditFormat = /^[0-9\.]+$/;
+    if (credit.match(creditFormat)) {
+        firebase.database().ref(`/subscriptionFee`).set(credit)
+            .then(() => {
+            Swal.fire({
+                icon: 'success',
+                text: 'STS credit has been added',
+                customClass: 'swal-wide',
+            });
+            }).catch(err => console.log(err));
+    } else {
         Swal.fire({
             icon: 'error',
             text: 'Something went wrong.Please check your connection and try again.',
@@ -1286,55 +1312,74 @@ function updateCredit(){
     }
 }
 
-async function getCreditData(){
-    let inputfield = document.getElementById('subscriptionFeeVal')
-    await firebase.database().ref(`/subscriptionFee`).on('value', res=>{
-        if(res.val()){
+async function getCreditData() {
+    let inputfield = document.getElementById('subscriptionFeeVal');
+    await firebase.database().ref(`/subscriptionFee`).on('value', res => {
+        if (res.val()) {
             inputfield.value = res.val();
-        } else{
-            inputfield.value=0;
+        } else {
+            inputfield.value = 0;
         }
-    })
+    });
 }
 
-function cancelAllSubscriptions(){
-    firebase.database().ref(`/subscriptions`).remove().then(()=>{
+function cancelAllSubscriptions() {
+    firebase.database().ref(`/subscriptions`).remove().then(() => {
         Swal.fire({
             icon: 'success',
             text: 'All susbcriptions are removed successfully',
             customClass: 'swal-wide',
         });
         // alert('subscriptions removed')
-    }).catch(err=>console.log(err))
-    // firebase.database().ref(`/registered-users`).orderByChild(`subscribeBus`).equalTo('suscribeBus`)
+    }).catch(err => console.log(err));
 }
-var getUserBuses = async () => {
-    var busesObj, busesArr;
-    await firebase.database().ref(`/busses`).once('value')
-    .then(res => {
-        busesObj = { ...res.val() };
-    })
-    .catch(err => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Sorry',
-            text: 'Something went wrong.Please check your connection and try again.',
-            customClass: 'swal-wide',
-        });
-    });
-    
-    busesArr = Object.keys(busesObj);
-    var uid = document.getElementById('userID');
-    // console.log(busesArr)
 
-    var buses = []
-    busesArr.map(async (key) => {
+var getUserBuses = async () => {
+    var uid = document.getElementById('userID');
+    var busesObj, busesArr, subscribeBus, buses, checkSubscriptions;
+
+    await firebase.database().ref(`/busses`).once('value')
+        .then(res => {
+            busesObj = { ...res.val() };
+        })
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry',
+                text: 'Something went wrong.Please check your connection and try again.',
+                customClass: 'swal-wide',
+            });
+        });
+
+    await firebase.database().ref(`/registered-users/${uid.value}/subscribeBus/key`).once('value')
+        .then(res => {
+            // console.log(res.val());
+            subscribeBus = res.val();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    await firebase.database().ref(`/subscriptions`).once('value')
+        .then(res => {
+            // console.log(res.val());
+            checkSubscriptions = Object.keys({...res.val()});
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    
+    if (checkSubscriptions.find(key => key === subscribeBus)) {
+        busesArr = Object.keys({[subscribeBus]: busesObj[subscribeBus]})
+    } else {
+        busesArr = Object.keys(busesObj);
+    }
+    
+    buses = busesArr.map((key) => {
         var busKey = `${key.slice(0, 8)}`;
-        console.log(uid.value);
-        var subscribedBus = await firebase.database().ref(`/subscriptions/${key}`).orderByChild('userId').equalTo(uid.value).once('value')
-            .then(res => {
-                return (
-                    `
+
+        return (
+            `
                     <div class="accordion" id="Buses${busKey}">
                         <div class="card card-custom">
                             <div class="card-header" id="Bus${busKey}">
@@ -1343,9 +1388,9 @@ var getUserBuses = async () => {
                                     ${busesObj[key].busName}
                                 </button>
                             </h2>
-                            Registration Number (<span id="busRegNo${busKey}">${busesObj[key].regNo}</span>)
+                            Registration Number (<span class="boldRed" id="busRegNo${busKey}">${busesObj[key].regNo}</span>)
                             <br>
-                            Available Seats (<span id="seats-av${busKey}">${busesObj[key].seatsAvailable}</span>)
+                            Available Seats (<span class="boldRed" id="seats-av${busKey}">${busesObj[key].seatsAvailable}</span>)
                             </div>
                         
                             <div id="collapseBus${busKey}" class="collapse show" aria-labelledby="Bus${busKey}" data-parent="#Buses${busKey}">
@@ -1430,72 +1475,68 @@ var getUserBuses = async () => {
                                     </div>
                                 </div>
                                 </div>
-                                    <button type="button" name="subscribe" id="subscribe" value="${key}" class="btn-subs" onclick="subscribe(this.value);">
-                                        ${res.val() ? 'Subscribed' : 'Subscribe'}
+                                    <button type="button" name="subscribe" ${busesObj[key].seatsAvailable > 0 ? '' : 'disabled=true'} ${checkSubscriptions.find(key => key === subscribeBus) ? `style="display: none"`: `null`} id="subscribe" value="${key}" class="btn-subs" onclick="subscribe(this.value);">
+                                        Subscribe
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `
-                )
-            })
-            .catch(err => {
-                console.log(err)
-            });
-
-        console.log(subscribedBus)
-        buses = buses.push(subscribedBus)
-        // console.log(buses)
-        // document.getElementById('scrolldiv').innerHTML = subscribedBus;
-    
-    
-        return subscribedBus;
+        );
     });
-    
-    console.log(buses)    
-    // buses = buses.join(' ');
-    // document.getElementById('scrolldiv').innerHTML = buses;
-    
-    
-    // return buses
+
+    buses = buses.join(' ');
+    document.getElementById('scrolldiv').innerHTML = buses;
 
 };
-
-// async function test (){
-//     document.getElementById('scrolldiv').innerHTML = await getUserBuses();
-
-// }
 
 async function subscribe(busKey) {
     var stsamount = parseInt(document.getElementById("stscrdtamnt").innerHTML);
     var userId = document.getElementById('userID').value;
-    var credit = document.getElementById('stscrdtamnt');
+    var StsCredit = document.getElementById('stscrdtamnt');
     var userName = document.getElementById('userpgName');
     var email = document.getElementById('userpgEmail');
 
-    var subscribeUsers;
-    console.log(stsamount, userId);
+    var subscribeUsers, userData, busData;
+    // console.log(stsamount, userId);
+
+    await firebase.database().ref(`/registered-users/${userId}`).once('value')
+        .then(res => {
+            userData = { ...res.val() };
+            // console.log(userData);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    await firebase.database().ref(`/busses/${busKey}`).once('value')
+        .then(res => {
+            busData = { ...res.val() };
+            // console.log(busData);
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
     await firebase.database().ref(`/subscriptions/${busKey}`).once('value')
         .then(res => {
-            subscribeUsers = { ...res.val() }
+            subscribeUsers = { ...res.val() };
             // console.log(subscribeUsers);
         })
         .catch(err => {
             console.log(err);
-        })
+        });
     
     subscribeUsers = {
         ...subscribeUsers,
         [userId]: {
             userId: userId,
-            credit: credit.innerHTML,
+            credit: StsCredit.innerHTML,
             Name: userName.innerHTML,
             email: email.innerHTML,
         }
-    }
-
+    };
 
     firebase.database().ref('/subscriptionFee/').once('value')
         .then(res => {
@@ -1511,14 +1552,32 @@ async function subscribe(busKey) {
                 }).then((result) => {
                     if (result.isConfirmed) {
 
+                        var remainCredit = stsamount - res.val();
+
+                        userData = {
+                            ...userData,
+                            credit: remainCredit,
+                            subscribeBus: {
+                                key: busData.key,
+                                bus: busData.busName,
+                            }
+                        }
+
+                        busData = {
+                            ...busData,
+                            seatsAvailable: busData.seatsAvailable - 1
+                        }
+
                         firebase.database().ref(`/subscriptions/${busKey}`).set(subscribeUsers)
                             .then(res => {
-                                console.log('data set ');
+                                firebase.database().ref(`/registered-users/${userId}`).set(userData)
+                                firebase.database().ref(`/busses/${busData.key}`).set({...busData})
                                 Swal.fire('You have subscribed this Bus', '', 'success');
+                                getUserBuses();
                             }).catch(err => {
                                 console.log(err);
                                 Swal.fire(err.message, '', 'error');
-                            })
+                            });
                     }
                 });
             } else {
@@ -1532,7 +1591,8 @@ async function subscribe(busKey) {
             }
         })
         .catch(err => {
-            console.log(ree)
-        })
+            console.log(ree);
+        });
+
 }
 

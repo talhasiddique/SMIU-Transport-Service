@@ -199,6 +199,12 @@ body {
     bottom: 0;
     width: 100%;
 }
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999 !important;
+  background: #cccccc !important;
+  color: #666666 !important;
+}
 /* loader styles */
 #se-pre-con {
     position: fixed;
