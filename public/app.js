@@ -410,7 +410,7 @@ function searchUser(event) {
                     userRole.value = role;
                     category.value = category;
                     busName.value = subscribeBusName;
-                    unsubscribeButton.disabled = user.subscribeBus ? false: true;
+                    unsubscribeButton.disabled = user.subscribeBus ? false : true;
 
                 }
                 else {
@@ -438,74 +438,74 @@ function searchUser(event) {
     }
 }
 
-function unsubscribeUser(){
+function unsubscribeUser() {
     let userKey = document.getElementById('userKey').value;
-    let busKey =null;
+    let busKey = null;
     firebase.database().ref(`/registered-users/${userKey}`).once('value')
-    .then(res=>{
-        data  = res.val();
-        firebase.database().ref(`/registered-users/${userKey}/subscribeBus`).remove()
-        .then(()=>{
-            let busKey = data.subscribeBus.key
-            firebase.database().ref(`/subscriptions/${busKey}/${userKey}`).remove()
-            .then(() => {
-                firebase.database().ref(`/registered-users/${userKey}`).once('value')
-                .then(res => {
-                    updatedData = { ...res.val() }
-                    
-                    firebase.database().ref(`/subscriptionFee`).once('value')
-                        .then(res => {
-                            fee = parseInt(res.val());
-                            updatedData = {
-                                ...updatedData,
-                                credit: updatedData.credit + fee,
-                            }
+        .then(res => {
+            data = res.val();
+            firebase.database().ref(`/registered-users/${userKey}/subscribeBus`).remove()
+                .then(() => {
+                    let busKey = data.subscribeBus.key;
+                    firebase.database().ref(`/subscriptions/${busKey}/${userKey}`).remove()
+                        .then(() => {
+                            firebase.database().ref(`/registered-users/${userKey}`).once('value')
+                                .then(res => {
+                                    updatedData = { ...res.val() };
 
-                            firebase.database().ref(`/registered-users/${userKey}`).set({...updatedData})
-                        }) 
-                        .catch(err => {
-                            console.log(err)
-                        })
-                    
-                    firebase.database().ref(`/busses/${busKey}`).once('value')
-                        .then(res => {
-                            bus = {...res.val()};
-                            bus = {
-                                ...bus,
-                                seatsAvailable: bus.seatsAvailable + 1    
-                            };
-                            // console.log(bus);
+                                    firebase.database().ref(`/subscriptionFee`).once('value')
+                                        .then(res => {
+                                            fee = parseInt(res.val());
+                                            updatedData = {
+                                                ...updatedData,
+                                                credit: updatedData.credit + fee,
+                                            };
 
-                            firebase.database().ref(`/busses/${busKey}`).set({ ...bus });
+                                            firebase.database().ref(`/registered-users/${userKey}`).set({ ...updatedData });
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
 
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        })
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-                Swal.fire({
-                    icon: 'success',
-                    text: 'unnscribed successfully',
-                    customClass: 'swal-wide',
+                                    firebase.database().ref(`/busses/${busKey}`).once('value')
+                                        .then(res => {
+                                            bus = { ...res.val() };
+                                            bus = {
+                                                ...bus,
+                                                seatsAvailable: bus.seatsAvailable + 1
+                                            };
+                                            // console.log(bus);
+
+                                            firebase.database().ref(`/busses/${busKey}`).set({ ...bus });
+
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
+                                    closeUser();
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                });
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'unnscribed successfully',
+                                customClass: 'swal-wide',
+                            });
+                        }).catch(err => console.log(err));
+                }).catch(err => {
+                    console.log(err);
                 });
-                closeUser()
-            }).catch(err=>console.log(err))
-        }).catch(err=>{
-            console.log(err)
-        })
-    }).catch(
-        error=>{
-            console.log(error)
-        }
-    )
+        }).catch(
+            error => {
+                console.log(error);
+            }
+        );
 
 
 }
 //edit user
-function editUser() {
+async function editUser() {
     let userID = document.getElementById('userID');
     let name = document.getElementById('userName');
     let userFName = document.getElementById('userFName');
@@ -521,7 +521,19 @@ function editUser() {
     let searchEmail = document.getElementById('search-user-admin');
     let validCredit = /^[0-9/.]*$/;
 
+    let userData;
+
+    await firebase.database().ref(`/registered-users/${userKey.value}`).once('value')
+        .then(res => {
+            userData = { ...res.val() };
+        }).catch(err => {
+            console.log(err);
+        });
+
+    // console.log(userData)
+
     let user = {
+        ...userData,
         userId: userID.value,
         userName: name.value,
         role: userRole.value,
@@ -534,6 +546,7 @@ function editUser() {
         category: category.value,
         address: userAddress.value
     };
+
     if (name.value !== '' && userFName.value !== '' && userCredit.value !== '') {
         if (userAddress.value.length >= 20) {
             if (userCredit.value.match(validCredit)) {
@@ -757,6 +770,7 @@ function addBus() {
     var busName = document.getElementById("newBusName");
     var regNo = document.getElementById('newBusRegNumber');
     var seatsAvailable = document.getElementById("newSeatsAvailable");
+    var seatsTotal = document.getElementById("newSeatsAvailable");
     var MorPoint1 = document.getElementById("newMorPoint1");
     var MorPoint2 = document.getElementById("newMorPoint2");
     var MorPoint3 = document.getElementById("newMorPoint3");
@@ -784,6 +798,7 @@ function addBus() {
                 var busData = {
                     busName: busName.value,
                     regNo: regNo.value,
+                    seatsTotal: seatsTotal.value,
                     seatsAvailable: seatsAvailable.value,
                     MorPoint1: MorPoint1.value,
                     MorPoint2: MorPoint2.value,
@@ -803,8 +818,6 @@ function addBus() {
                     EveTime4: EveTime4.value,
                     key: busID
                 };
-
-                console.log(busData);
 
                 firebase.database().ref(`/busses/${busID}`).set(busData);
 
@@ -900,10 +913,10 @@ var getBuses = async () => {
         });
 
     busesArr = Object.keys(busesObj);
-    
+
     var buses = busesArr.map(key => {
         var busKey = `${key.slice(0, 8)}`;
-    
+
         return (
             `
                     <div class="accordion" id="Buses${busKey}">
@@ -1047,7 +1060,7 @@ function searchBus(event) {
         // alert('valid email')
         firebase.database().ref(`/busses`).orderByChild('regNo').equalTo(searchRegNo.value).on('value', res => {
             busData = res.val();
-            console.log(busData);
+            // console.log(busData);
 
             if (busData) {
                 // dataContainer.style.display = 'grid';
@@ -1060,7 +1073,7 @@ function searchBus(event) {
                 let {
                     busName,
                     regNo,
-                    seatsAvailable,
+                    seatsTotal,
                     MorPoint1,
                     MorPoint2,
                     MorPoint3,
@@ -1089,7 +1102,7 @@ function searchBus(event) {
                 busKey.value = key;
                 name.value = busName;
                 registration.value = regNo;
-                seats.value = seatsAvailable;
+                seats.value = seatsTotal;
                 MorningPoint1.value = MorPoint1;
                 MorningPoint2.value = MorPoint2;
                 MorningPoint3.value = MorPoint3;
@@ -1179,7 +1192,7 @@ function deleteBus() {
 }
 
 
-var editBus = () => {
+var editBus = async () => {
 
     var busKey = document.getElementById("fullKey");
     var name = document.getElementById("editBusName");
@@ -1207,30 +1220,38 @@ var editBus = () => {
     if (name.value !== '' && registration.value !== '' && seats.value !== '' && MorningPoint1.value !== '' && MorningPoint2.value !== '' && MorningPoint3.value !== '' && MorningPoint4.value !== '' && EveningPoint1.value !== '' && EveningPoint2.value !== '' && EveningPoint3.value !== '' && EveningPoint4.value !== '' && MorningTime1.value !== '' && MorningTime2.value !== '' && MorningTime3.value !== '' && MorningTime4.value !== '' && EveningTime1.value !== '' && EveningTime2.value !== '' && EveningTime3.value !== '' && EveningTime4.value !== '') {
         if (name.value.match(alphanumericOnly) && registration.value.match(alphanumericOnly) && MorningPoint1.value.match(alphanumericOnly) && MorningPoint2.value.match(alphanumericOnly) && MorningPoint3.value.match(alphanumericOnly) && MorningPoint4.value.match(alphanumericOnly) && EveningPoint1.value.match(alphanumericOnly) && EveningPoint2.value.match(alphanumericOnly) && EveningPoint3.value.match(alphanumericOnly) && EveningPoint4.value.match(alphanumericOnly)) {
             if (seats.value.match(onlyNumber)) {
-                var editBusData = {
-                    busName: name.value,
-                    regNo: registration.value,
-                    seatsAvailable: seats.value,
-                    MorPoint1: MorningPoint1.value,
-                    MorPoint2: MorningPoint2.value,
-                    MorPoint3: MorningPoint3.value,
-                    MorPoint4: MorningPoint4.value,
-                    EvePoint1: EveningPoint1.value,
-                    EvePoint2: EveningPoint2.value,
-                    EvePoint3: EveningPoint3.value,
-                    EvePoint4: EveningPoint4.value,
-                    MorTime1: MorningTime1.value,
-                    MorTime2: MorningTime2.value,
-                    MorTime3: MorningTime3.value,
-                    MorTime4: MorningTime4.value,
-                    EveTime1: EveningTime1.value,
-                    EveTime2: EveningTime2.value,
-                    EveTime3: EveningTime3.value,
-                    EveTime4: EveningTime4.value,
-                    key: busKey.value
-                };
+                await firebase.database().ref(`/busses/${busKey.value}`).once('value')
+                    .then(res => {
+                        busData = { ...res.val() };
+                        var editBusData = {
+                            ...busData,
+                            busName: name.value,
+                            regNo: registration.value,
+                            seatsTotal: seats.value,
+                            MorPoint1: MorningPoint1.value,
+                            MorPoint2: MorningPoint2.value,
+                            MorPoint3: MorningPoint3.value,
+                            MorPoint4: MorningPoint4.value,
+                            EvePoint1: EveningPoint1.value,
+                            EvePoint2: EveningPoint2.value,
+                            EvePoint3: EveningPoint3.value,
+                            EvePoint4: EveningPoint4.value,
+                            MorTime1: MorningTime1.value,
+                            MorTime2: MorningTime2.value,
+                            MorTime3: MorningTime3.value,
+                            MorTime4: MorningTime4.value,
+                            EveTime1: EveningTime1.value,
+                            EveTime2: EveningTime2.value,
+                            EveTime3: EveningTime3.value,
+                            EveTime4: EveningTime4.value,
+                            key: busKey.value
+                        };
 
-                firebase.database().ref(`/busses/${busKey.value}`).set({ ...editBusData });
+                        firebase.database().ref(`/busses/${busKey.value}`).set({ ...editBusData });
+
+                    }).catch(err => {
+                        console.log(err);
+                    });
 
                 getBuses();
 
@@ -1297,11 +1318,11 @@ function updateCredit() {
     if (credit.match(creditFormat)) {
         firebase.database().ref(`/subscriptionFee`).set(credit)
             .then(() => {
-            Swal.fire({
-                icon: 'success',
-                text: 'STS credit has been added',
-                customClass: 'swal-wide',
-            });
+                Swal.fire({
+                    icon: 'success',
+                    text: 'STS credit has been added',
+                    customClass: 'swal-wide',
+                });
             }).catch(err => console.log(err));
     } else {
         Swal.fire({
@@ -1324,14 +1345,49 @@ async function getCreditData() {
 }
 
 function cancelAllSubscriptions() {
-    firebase.database().ref(`/subscriptions`).remove().then(() => {
-        Swal.fire({
-            icon: 'success',
-            text: 'All susbcriptions are removed successfully',
-            customClass: 'swal-wide',
+    firebase.database().ref(`/registered-users`).once('value')
+        .then(res => {
+            users = { ...res.val() };
+            userKey = Object.keys(users)
+
+            userKey.map(key => {
+                if (users[key].role !== 'admin') {
+                    firebase.database().ref(`/registered-users/${key}/subscribeBus`).remove()
+                }
+            })
+
+        }).catch(err => {
+            console.log(err);
         });
-        // alert('subscriptions removed')
-    }).catch(err => console.log(err));
+
+    firebase.database().ref(`/busses`).once('value')
+        .then(res => {
+            buses = { ...res.val() };
+            busKey = Object.keys(buses);
+
+            busKey.map(key => {
+                bus = {...buses[key]};
+                bus = {
+                    ...bus,
+                    seatsAvailable: bus.seatsTotal 
+                }
+
+                firebase.database().ref(`/busses/${key}`).set({...bus})
+            });
+
+        }).catch(err => {
+            console.log(err);
+        });
+    
+    firebase.database().ref(`/subscriptions`).remove()
+        .then(() => {
+            Swal.fire({
+                icon: 'success',
+                text: 'All susbcriptions are removed successfully',
+                customClass: 'swal-wide',
+            });
+        })
+        .catch(err => console.log(err));
 }
 
 var getUserBuses = async () => {
@@ -1363,18 +1419,18 @@ var getUserBuses = async () => {
     await firebase.database().ref(`/subscriptions`).once('value')
         .then(res => {
             // console.log(res.val());
-            checkSubscriptions = Object.keys({...res.val()});
+            checkSubscriptions = Object.keys({ ...res.val() });
         })
         .catch(err => {
             console.log(err);
         });
-    
+
     if (checkSubscriptions.find(key => key === subscribeBus)) {
-        busesArr = Object.keys({[subscribeBus]: busesObj[subscribeBus]})
+        busesArr = Object.keys({ [subscribeBus]: busesObj[subscribeBus] });
     } else {
         busesArr = Object.keys(busesObj);
     }
-    
+
     buses = busesArr.map((key) => {
         var busKey = `${key.slice(0, 8)}`;
 
@@ -1475,7 +1531,7 @@ var getUserBuses = async () => {
                                     </div>
                                 </div>
                                 </div>
-                                    <button type="button" name="subscribe" ${busesObj[key].seatsAvailable > 0 ? '' : 'disabled=true'} ${checkSubscriptions.find(key => key === subscribeBus) ? `style="display: none"`: `null`} id="subscribe" value="${key}" class="btn-subs" onclick="subscribe(this.value);">
+                                    <button type="button" name="subscribe" ${busesObj[key].seatsAvailable > 0 ? '' : 'disabled=true'} ${checkSubscriptions.find(key => key === subscribeBus) ? `style="display: none"` : `null`} id="subscribe" value="${key}" class="btn-subs" onclick="subscribe(this.value);">
                                         Subscribe
                                     </button>
                                 </div>
@@ -1527,7 +1583,7 @@ async function subscribe(busKey) {
         .catch(err => {
             console.log(err);
         });
-    
+
     subscribeUsers = {
         ...subscribeUsers,
         [userId]: {
@@ -1561,17 +1617,17 @@ async function subscribe(busKey) {
                                 key: busData.key,
                                 bus: busData.busName,
                             }
-                        }
+                        };
 
                         busData = {
                             ...busData,
                             seatsAvailable: busData.seatsAvailable - 1
-                        }
+                        };
 
                         firebase.database().ref(`/subscriptions/${busKey}`).set(subscribeUsers)
                             .then(res => {
-                                firebase.database().ref(`/registered-users/${userId}`).set(userData)
-                                firebase.database().ref(`/busses/${busData.key}`).set({...busData})
+                                firebase.database().ref(`/registered-users/${userId}`).set(userData);
+                                firebase.database().ref(`/busses/${busData.key}`).set({ ...busData });
                                 Swal.fire('You have subscribed this Bus', '', 'success');
                                 getUserBuses();
                             }).catch(err => {
