@@ -852,7 +852,7 @@ function addBus() {
             else {
                 Swal.fire({
                     icon: 'warning',
-                    text: 'only number allowed for available seats',
+                    text: 'only number allowed for total seats',
                     customClass: 'swal-wide',
                 });
             }
@@ -1289,7 +1289,7 @@ var editBus = async () => {
             else {
                 Swal.fire({
                     icon: 'warning',
-                    text: 'only number allowed for available seats',
+                    text: 'only number allowed for total seats',
                     customClass: 'swal-wide',
                 });
             }
