@@ -21,7 +21,7 @@ function loader() {
 async function userAuth() {
     // const directory = `${location.origin}/public`;
     //          FOR FIREBASE
-    const directory = `${location.origin}/`
+    const directory = `${location.origin}`
 
     // console.log(directory)
     await firebase.auth().onAuthStateChanged(function (user) {
