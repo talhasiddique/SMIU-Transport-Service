@@ -16,7 +16,7 @@ function loader() {
 }
 
 
-const directory = `${location.origin}/public`;
+// const directory = `${location.origin}/public`;
 
 async function userAuth() {
     const directory = `${location.origin}/public`;
