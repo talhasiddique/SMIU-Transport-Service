@@ -16,12 +16,12 @@ function loader() {
 }
 
 
-// const directory = `${location.origin}/public`;
+const directory = `${location.origin}/SMIU-Transport-Service`;
 
 async function userAuth() {
     // const directory = `${location.origin}/public`;
     //          FOR FIREBASE
-    const directory = `${location.origin}/SMIU-Transport-Service/`
+//     const directory = `${location.origin}/SMIU-Transport-Service`
 //     const directory = `https://talhasiddique.github.io/SMIU-Transport-Service/`
 
     // console.log(directory)
