@@ -788,7 +788,7 @@ function addBus() {
     var EveTime2 = document.getElementById("newEveTime2");
     var EveTime3 = document.getElementById("newEveTime3");
     var EveTime4 = document.getElementById("newEveTime4");
-    var alphanumericOnly = /^[a-zA-Z0-9]{4,10}$/;
+    var alphanumericOnly = /^[a-zA-Z0-9]{4,15}$/;
     var onlyNumber = /^[0-9]+$/;
 
 
@@ -861,7 +861,7 @@ function addBus() {
         else {
             Swal.fire({
                 icon: 'warning',
-                text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
+                text: 'Only Alphanumeric charracters having length between 4-15 charracters allowed',
                 customClass: 'swal-wide',
             });
         }
@@ -1215,7 +1215,7 @@ var editBus = async () => {
     var EveningTime2 = document.getElementById("editEveTime2");
     var EveningTime3 = document.getElementById("editEveTime3");
     var EveningTime4 = document.getElementById("editEveTime4");
-    var alphanumericOnly = /^[a-zA-Z0-9]{4,10}$/;
+    var alphanumericOnly = /^[a-zA-Z0-9]{4,15}$/;
     var onlyNumber = /^[0-9]+$/;
 
     if (name.value !== '' && registration.value !== '' && seats.value !== '' && MorningPoint1.value !== '' && MorningPoint2.value !== '' && MorningPoint3.value !== '' && MorningPoint4.value !== '' && EveningPoint1.value !== '' && EveningPoint2.value !== '' && EveningPoint3.value !== '' && EveningPoint4.value !== '' && MorningTime1.value !== '' && MorningTime2.value !== '' && MorningTime3.value !== '' && MorningTime4.value !== '' && EveningTime1.value !== '' && EveningTime2.value !== '' && EveningTime3.value !== '' && EveningTime4.value !== '') {
@@ -1298,7 +1298,7 @@ var editBus = async () => {
         else {
             Swal.fire({
                 icon: 'warning',
-                text: 'Only Alphanumeric charracters having length between 4-10 charracters allowed',
+                text: 'Only Alphanumeric charracters having length between 4-15 charracters allowed',
                 customClass: 'swal-wide',
             });
         }
