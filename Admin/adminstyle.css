@@ -318,6 +318,10 @@ label{
 
   /* box-shadow: 1px 2px 4px grey!important; */
 }
+div#buses-admin {
+  padding-right: 12px;
+  padding-left: 10px;
+}
 /* .margin{
   margin-right: 0;
 } */
@@ -453,6 +457,8 @@ input#userSubBusVal {
   }
 
 }
+
+
 /* @media (max-width: 768px) {
   .open{
    visibility: hidden;
